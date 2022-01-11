@@ -2,9 +2,10 @@ require("dotenv").config();
 const axios = require("axios");
 
 const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
+const googleVolumesUri = "https://www.googleapis.com/books/v1/volumes";
 
 const searchBooks = (query, maxResults, startIndex) => {
-  const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=${maxResults}&startIndex=${startIndex}&key=${apiKey}`;
+  const url = `${googleVolumesUri}?q=${query}&maxResults=${maxResults}&startIndex=${startIndex}&key=${apiKey}`;
   axios
     .get(url)
     .then(res => {

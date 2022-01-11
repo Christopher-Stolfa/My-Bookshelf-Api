@@ -1,4 +1,4 @@
-const googleBooksApi = require("../Services/googlebooks.services");
+const googleBooks = require("../Services/googleBooks.services");
 
 /**
  * func tests
@@ -8,7 +8,7 @@ const googleBooksApi = require("../Services/googlebooks.services");
  */
 
 const tests = () => {
-  googleBooksApi.searchBooks("The witcher", 5, 1);
+  googleBooks.searchBooks("The witcher", 5, 1);
 };
 
 module.exports = tests;
