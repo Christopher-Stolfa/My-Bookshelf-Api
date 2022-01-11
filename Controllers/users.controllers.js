@@ -40,7 +40,7 @@ const userSignUp = (req, res, next) => {
           .catch(err => {
             res.status(400).json({
               message: err.toString(),
-              errors: getErrors(err)
+              messages: getErrors(err)
             });
           });
       }
