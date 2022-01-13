@@ -1,11 +1,11 @@
 const googleBooks = require("../Services/googleBooks.services");
 
 const bookSearch = (req, res) => {
-  const { searchQuery, maxResults, startIndex } = req.query;
+  const { searchQuery, maxResults, startIndex, orderBy } = req.query;
   console.log(searchQuery);
 
   googleBooks
-    .searchBooks(searchQuery, maxResults, startIndex)
+    .searchBooks(searchQuery, maxResults, startIndex, orderBy)
     .then(response => {
       res.status(200).json({
         message: "Successfully searched books.",
