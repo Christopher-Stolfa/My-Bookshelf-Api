@@ -4,6 +4,9 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 
+const usersRouter = require("./Routes/users.routes");
+const booksRouter = require("./Routes/books.routes");
+
 const sequelize = require("./Config/databaseConfig");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
@@ -16,8 +19,6 @@ const myStore = new SequelizeStore({
   checkExpirationInterval: 15 * 60 * 1000,
   expiration: SessionExpiration
 });
-
-const usersRouter = require("./Routes/users.routes");
 
 const app = express();
 const PORT = 3001;
@@ -45,8 +46,12 @@ app.use(
 );
 
 // Uses routes defined in usersRouter alongside /users
-// Example: /users/signup, /users/signin
+// Example: /users/sign-up, /users/sign-in
 app.use("/users", usersRouter);
+
+// Uses routes defined in booksRouter alongside /books
+// Example: /books/, /books/book-search
+app.use("/books", booksRouter);
 
 // Checks the database for the Model Schemas and creates tables for them if they don't exist.
 sequelize

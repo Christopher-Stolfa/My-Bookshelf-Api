@@ -54,7 +54,6 @@ const userSignUp = (req, res, next) => {
 
 const userCheckSession = (req, res) => {
   if (req.session.user) {
-    console.log(req.session.user);
     const { id, email, displayName, firstName, lastName } = req.session.user;
     const userData = { id, email, displayName, firstName, lastName };
     res.status(200).json({
