@@ -6,16 +6,16 @@ const bookSearch = (req, res) => {
 
   googleBooks
     .searchBooks(searchQuery, maxResults, startIndex, orderBy)
-    .then(response => {
+    .then((response) => {
       res.status(200).json({
-        message: "Successfully searched books.",
-        bookSearchData: response.data.items.map(item => item)
+        message: "Search successful.",
+        bookSearchData: response.data.items.map((item) => item),
       });
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
       res.status(500).json({
-        message: err.toString()
+        message: err.toString(),
       });
     });
 
