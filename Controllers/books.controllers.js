@@ -1,7 +1,9 @@
 const googleBooks = require("../Services/googleBooks.services");
 
 const bookSearch = (req, res) => {
-  const { searchQuery, maxResults, startIndex, orderBy } = req.query;
+  const { searchQuery, maxResults, startIndex, orderBy } = JSON.parse(
+    req.query.data
+  );
   console.log(searchQuery);
 
   googleBooks
