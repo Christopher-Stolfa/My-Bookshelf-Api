@@ -20,19 +20,6 @@ const bookSearch = (req, res) => {
         message: err.toString(),
       });
     });
-
-  // if (req.session.user) {
-  //   console.log(req.session.user);
-  //   const { id, email, displayName, firstName, lastName } = req.session.user;
-  //   const userData = { id, email, displayName, firstName, lastName };
-  //   res.status(200).json({
-  //     message: "Login session exists.",
-  //     loggedIn: true,
-  //     userData: userData
-  //   });
-  // } else {
-  //   res.status(200).json({ message: "No session exists.", loggedIn: false });
-  // }
 };
 
 module.exports = { bookSearch };
