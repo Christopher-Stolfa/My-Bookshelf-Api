@@ -9,40 +9,44 @@ const searchBooks = (query, maxResults, startIndex, orderBy) => {
   return new Promise((resolve, reject) => {
     axios
       .get(url)
-      .then(res => {
-        resolve(
-          res.data.items.map(
-            ({
-              id,
-              volumeInfo: {
-                title = "",
-                description = "",
-                authors = [""],
-                publisher = "",
-                publishedDate = "",
-                pageCount = -1,
-                averageRating = -1,
-                ratingsCount = -1,
-                imageLinks = [""],
-                language = "",
-                categories = ["No information on this listing."]
-              }
-            }) => ({
-              id,
-              title,
-              description,
-              authors,
-              publisher,
-              publishedDate,
-              pageCount,
-              averageRating,
-              ratingsCount,
-              imageLinks,
-              language,
-              categories
-            })
-          )
-        );
+      .then(({ data }) => {
+        if (data.totalItems < 1) {
+          resolve([]);
+        } else {
+          resolve(
+            data.items.map(
+              ({
+                id,
+                volumeInfo: {
+                  title = "",
+                  description = "",
+                  authors = [],
+                  publisher = "",
+                  publishedDate = "",
+                  pageCount = -1,
+                  averageRating = -1,
+                  ratingsCount = -1,
+                  imageLinks = {},
+                  language = "",
+                  categories = []
+                }
+              }) => ({
+                id,
+                title,
+                description,
+                authors,
+                publisher,
+                publishedDate,
+                pageCount,
+                averageRating,
+                ratingsCount,
+                imageLinks,
+                language,
+                categories
+              })
+            )
+          );
+        }
       })
       .catch(err => reject(err));
   });

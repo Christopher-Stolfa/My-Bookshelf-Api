@@ -16,6 +16,7 @@ const bookSearch = async (req, res) => {
       bookSearchData
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json({
       message: err.toString()
     });
