@@ -4,15 +4,15 @@ const bcrypt = require("bcrypt");
 
 // Creates a User Schema and exports it as a User Model.
 const User = sequelize.define(
-  "user",
+  "User",
   {
-    id: {
+    UserId: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
       allowNull: false,
       primaryKey: true,
     },
-    firstName: {
+    FirstName: {
       type: Sequelize.STRING,
       allowNull: false,
       validate: {
@@ -26,7 +26,7 @@ const User = sequelize.define(
         },
       },
     },
-    lastName: {
+    LastName: {
       type: Sequelize.STRING,
       allowNull: false,
       validate: {
@@ -40,7 +40,7 @@ const User = sequelize.define(
         },
       },
     },
-    displayName: {
+    DisplayName: {
       type: Sequelize.STRING,
       allowNull: false,
       validate: {
@@ -54,7 +54,7 @@ const User = sequelize.define(
         },
       },
     },
-    email: {
+    Email: {
       type: Sequelize.STRING,
       allowNull: {
         args: false,
@@ -75,7 +75,7 @@ const User = sequelize.define(
         },
       },
     },
-    password: {
+    Password: {
       type: Sequelize.STRING,
       allowNull: false,
       validate: {
@@ -93,21 +93,21 @@ const User = sequelize.define(
   {
     hooks: {
       beforeCreate: (user) => {
-        if (user.password) {
+        if (user.Password) {
           const salt = bcrypt.genSaltSync(10);
-          user.password = bcrypt.hashSync(user.password, salt);
+          user.Password = bcrypt.hashSync(user.Password, salt);
         }
       },
       beforeUpdate: (user) => {
-        if (user.password) {
+        if (user.Password) {
           const salt = bcrypt.genSaltSync(10);
-          user.password = bcrypt.hashSync(user.password, salt);
+          user.Password = bcrypt.hashSync(user.Password, salt);
         }
       },
     },
     instanceMethods: {
       validPassword: (password) => {
-        return bcrypt.compareSync(password, this.password);
+        return bcrypt.compareSync(password, this.Password);
       },
     },
   }

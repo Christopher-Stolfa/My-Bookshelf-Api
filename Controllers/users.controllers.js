@@ -9,8 +9,8 @@ const userSignUp = (req, res, next) => {
   User.findAll({
     where: {
       [Op.or]: [
-        { email: { [Op.like]: email } },
-        { displayName: { [Op.like]: displayName } },
+        { Email: { [Op.like]: email } },
+        { DisplayName: { [Op.like]: displayName } },
       ],
     },
   })
@@ -18,19 +18,28 @@ const userSignUp = (req, res, next) => {
       if (users.length >= 1) {
         res.status(409).json({
           message: "Email or Display name already exists.",
+          loggedIn: false,
         });
       } else {
         User.create({
-          displayName,
-          firstName,
-          lastName,
-          email,
-          password,
+          DisplayName: displayName,
+          FirstName: firstName,
+          LastName: lastName,
+          Email: email,
+          Password: password,
         })
           .then((resultData = resultData.toJSON()) => {
-            const { id, email, displayName, firstName, lastName } = resultData;
-            const userData = { id, email, displayName, firstName, lastName };
-            req.session.user = userData;
+            const { UserId, DisplayName, FirstName, LastName, Email } =
+              resultData;
+            const sessionData = { UserId, Email };
+            const userData = {
+              userId: UserId,
+              email: Email,
+              displayName: DisplayName,
+              firstName: FirstName,
+              lastName: LastName,
+            };
+            req.session.user = sessionData;
             res.status(201).json({
               message: "Account successfully created!",
               loggedIn: true,
@@ -54,12 +63,10 @@ const userSignUp = (req, res, next) => {
 
 const userCheckSession = (req, res) => {
   if (req.session.user) {
-    const { id, email, displayName, firstName, lastName } = req.session.user;
-    const userData = { id, email, displayName, firstName, lastName };
+    const { UserId, Email } = req.session.user;
     res.status(200).json({
       message: "Login session exists.",
       loggedIn: true,
-      userData: userData,
     });
   } else {
     res.status(200).json({ message: "No session exists.", loggedIn: false });
@@ -68,7 +75,7 @@ const userCheckSession = (req, res) => {
 
 const userSignIn = (req, res) => {
   const { email, password } = JSON.parse(req.body.data);
-  User.findOne({ where: { email: email } })
+  User.findOne({ where: { Email: email } })
     .then((user = user.toJSON()) => {
       if (!user) {
         res.status(401).json({
@@ -77,12 +84,19 @@ const userSignIn = (req, res) => {
       } else {
         const passwordValid = User.prototype.validPassword(
           password,
-          user.password
+          user.Password
         );
         if (passwordValid) {
-          const { id, email, displayName, firstName, lastName } = user;
-          const userData = { id, email, displayName, firstName, lastName };
-          req.session.user = userData;
+          const { UserId, Email, DisplayName, FirstName, LastName } = user;
+          const sessionData = { UserId, Email };
+          const userData = {
+            id: UserId,
+            email: Email,
+            displayName: DisplayName,
+            firstName: FirstName,
+            lastName: LastName,
+          };
+          req.session.user = sessionData;
           res.status(200).json({
             message: "Login successful!",
             loggedIn: true,
