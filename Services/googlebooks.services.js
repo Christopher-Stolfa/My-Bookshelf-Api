@@ -10,48 +10,46 @@ const searchBooks = (query, maxResults, startIndex, orderBy) => {
     axios
       .get(url)
       .then(({ data }) => {
-        if (data.totalItems < 1) {
-          resolve([]);
-        } else {
-          resolve(
-            data.items.map(
-              ({
-                id,
-                volumeInfo: {
-                  title = "",
-                  description = "",
-                  authors = [],
-                  publisher = "",
-                  publishedDate = "",
-                  pageCount = -1,
-                  averageRating = -1,
-                  ratingsCount = -1,
-                  imageLinks = {},
-                  language = "",
-                  categories = []
-                }
-              }) => ({
-                id,
-                title,
-                description,
-                authors,
-                publisher,
-                publishedDate,
-                pageCount,
-                averageRating,
-                ratingsCount,
-                imageLinks,
-                language,
-                categories
-              })
-            )
-          );
-        }
+        resolve(
+          data.items
+            ? data.items.map(
+                ({
+                  id,
+                  volumeInfo: {
+                    title = "",
+                    description = "",
+                    authors = [],
+                    publisher = "",
+                    publishedDate = "",
+                    pageCount = -1,
+                    averageRating = -1,
+                    ratingsCount = -1,
+                    imageLinks: { thumbnail = "" },
+                    language = "",
+                    categories = [],
+                  },
+                }) => ({
+                  id,
+                  title,
+                  description,
+                  authors,
+                  publisher,
+                  publishedDate,
+                  pageCount,
+                  averageRating,
+                  ratingsCount,
+                  imageLink: thumbnail,
+                  language,
+                  categories,
+                })
+              )
+            : []
+        );
       })
-      .catch(err => reject(err));
+      .catch((err) => reject(err));
   });
 };
 
 module.exports = {
-  searchBooks
+  searchBooks,
 };

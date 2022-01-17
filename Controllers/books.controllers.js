@@ -13,12 +13,12 @@ const bookSearch = async (req, res) => {
     );
     res.status(200).json({
       message: "Search successful.",
-      bookSearchData
+      bookSearchData,
     });
   } catch (err) {
-    console.log(err);
     res.status(500).json({
-      message: err.toString()
+      message: err.toString(),
+      bookSearchData: [],
     });
   }
 };
