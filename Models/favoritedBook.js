@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../Config/databaseConfig");
 const User = require("./user");
+const Book = require("./book");
 // Creates a User Schema and exports it as a User Model.
 const FavoritedBook = sequelize.define(
   "FavoritedBook",
@@ -14,6 +15,7 @@ const FavoritedBook = sequelize.define(
     GoogleBooksId: {
       type: Sequelize.STRING,
       allowNull: false,
+      unique: true,
       validate: {
         notEmpty: {
           args: true,
@@ -21,76 +23,17 @@ const FavoritedBook = sequelize.define(
         },
       },
     },
-    Title: {
-      type: Sequelize.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg: "Title field cannot be empty.",
-        },
-      },
-    },
-    Description: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    Authors: {
-      type: Sequelize.STRING,
-      allowNull: false,
-      get() {
-        return this.getDataValue("Authors").split(";");
-      },
-      set(authors) {
-        this.setDataValue("Authors", authors.join(";"));
-      },
-    },
-    Publisher: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    PublishedDate: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    PageCount: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-    },
-    AverageRating: {
-      type: Sequelize.FLOAT,
-      allowNull: false,
-    },
-    RatingsCount: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-    },
-    ImageLinks: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    Language: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    ImageLink: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    Categories: {
-      type: Sequelize.STRING,
-      allowNull: false,
-      get() {
-        return this.getDataValue("Categories").split(";");
-      },
-      set(categories) {
-        this.setDataValue("Categories", categories.join(";"));
-      },
-    },
   },
   {
     hooks: {},
   }
 );
+
+FavoritedBook.belongsTo(Book, {
+  as: "FavoritedBooks",
+  foreignKey: "BookId",
+  onDelete: "cascade",
+  allowNull: false,
+});
 
 module.exports = FavoritedBook;

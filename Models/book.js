@@ -1,11 +1,12 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../Config/databaseConfig");
 const User = require("./user");
+const FavoritedBook = require("./favoritedBook");
 // Creates a User Schema and exports it as a User Model.
 const Book = sequelize.define(
   "Book",
   {
-    FavoritedBookId: {
+    BookId: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
       allowNull: false,
@@ -14,6 +15,7 @@ const Book = sequelize.define(
     GoogleBooksId: {
       type: Sequelize.STRING,
       allowNull: false,
+      unique: true,
       validate: {
         notEmpty: {
           args: true,
@@ -54,15 +56,15 @@ const Book = sequelize.define(
       allowNull: false,
     },
     PageCount: {
-      type: Sequelize.NUMBER,
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     AverageRating: {
-      type: Sequelize.NUMBER,
+      type: Sequelize.FLOAT,
       allowNull: false,
     },
     RatingsCount: {
-      type: Sequelize.NUMBER,
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     ImageLinks: {
