@@ -15,7 +15,6 @@ const userSignUp = (req, res, next) => {
   })
     .then((resultData = resultData.toJSON()) => {
       const { UserId, DisplayName, FirstName, LastName, Email } = resultData;
-      const sessionData = { UserId, Email };
       const userData = {
         userId: UserId,
         email: Email,
@@ -23,7 +22,7 @@ const userSignUp = (req, res, next) => {
         firstName: FirstName,
         lastName: LastName,
       };
-      req.session.user = sessionData;
+      req.session.user = userData;
       res.status(201).json({
         message: "Account successfully created!",
         loggedIn: true,
@@ -38,15 +37,11 @@ const userSignUp = (req, res, next) => {
 };
 
 const userCheckSession = (req, res) => {
-  if (req.session.user) {
-    const { UserId, Email } = req.session.user;
-    res.status(200).json({
-      message: "Login session exists.",
-      loggedIn: true,
-    });
-  } else {
-    res.status(200).json({ message: "No session exists.", loggedIn: false });
-  }
+  res.status(200).json({
+    message: req.session.user ? "Login session exists." : "No session exists.",
+    loggedIn: req.session.user ? true : false,
+    userData: req.session.user ? req.session.user : {},
+  });
 };
 
 const userSignIn = (req, res) => {
@@ -55,7 +50,7 @@ const userSignIn = (req, res) => {
     .then((user = user.toJSON()) => {
       if (!user) {
         res.status(401).json({
-          message: "The email you have entered does not exist.",
+          message: "Invalid email or password",
         });
       } else {
         const passwordValid = User.prototype.validPassword(
@@ -64,7 +59,6 @@ const userSignIn = (req, res) => {
         );
         if (passwordValid) {
           const { UserId, Email, DisplayName, FirstName, LastName } = user;
-          const sessionData = { UserId, Email };
           const userData = {
             id: UserId,
             email: Email,
@@ -72,7 +66,7 @@ const userSignIn = (req, res) => {
             firstName: FirstName,
             lastName: LastName,
           };
-          req.session.user = sessionData;
+          req.session.user = userData;
           res.status(200).json({
             message: "Login successful!",
             loggedIn: true,
@@ -80,7 +74,7 @@ const userSignIn = (req, res) => {
           });
         } else {
           res.status(401).json({
-            message: "Invalid Email or Password.",
+            message: "Invalid email or password",
           });
         }
       }
@@ -105,6 +99,7 @@ const userSignOut = (req, res) => {
         res.clearCookie("user-session").status(200).json({
           message: "Signed out user successfully.",
           loggedIn: false,
+          userData: {}
         });
       }
     });

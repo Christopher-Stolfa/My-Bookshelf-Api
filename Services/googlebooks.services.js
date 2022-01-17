@@ -24,7 +24,7 @@ const searchBooks = (query, maxResults, startIndex, orderBy) => {
                     pageCount = -1,
                     averageRating = -1,
                     ratingsCount = -1,
-                    imageLinks: { thumbnail = "" },
+                    imageLinks,
                     language = "",
                     categories = [],
                   },
@@ -38,7 +38,7 @@ const searchBooks = (query, maxResults, startIndex, orderBy) => {
                   pageCount,
                   averageRating,
                   ratingsCount,
-                  imageLink: thumbnail,
+                  imageLink: imageLinks?.thumbnail ?? "",
                   language,
                   categories,
                 })
