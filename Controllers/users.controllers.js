@@ -6,57 +6,33 @@ const userSignUp = (req, res, next) => {
   const { displayName, firstName, lastName, email, password } = JSON.parse(
     req.body.data
   );
-  User.findAll({
-    where: {
-      [Op.or]: [
-        { Email: { [Op.like]: email } },
-        { DisplayName: { [Op.like]: displayName } },
-      ],
-    },
+  User.create({
+    DisplayName: displayName,
+    FirstName: firstName,
+    LastName: lastName,
+    Email: email,
+    Password: password,
   })
-    .then((users) => {
-      if (users.length >= 1) {
-        res.status(409).json({
-          message: "Email or Display name already exists.",
-          loggedIn: false,
-        });
-      } else {
-        User.create({
-          DisplayName: displayName,
-          FirstName: firstName,
-          LastName: lastName,
-          Email: email,
-          Password: password,
-        })
-          .then((resultData = resultData.toJSON()) => {
-            const { UserId, DisplayName, FirstName, LastName, Email } =
-              resultData;
-            const sessionData = { UserId, Email };
-            const userData = {
-              userId: UserId,
-              email: Email,
-              displayName: DisplayName,
-              firstName: FirstName,
-              lastName: LastName,
-            };
-            req.session.user = sessionData;
-            res.status(201).json({
-              message: "Account successfully created!",
-              loggedIn: true,
-              userData: userData,
-            });
-          })
-          .catch((err) => {
-            res.status(400).json({
-              message: getErrors(err),
-            });
-          });
-      }
+    .then((resultData = resultData.toJSON()) => {
+      const { UserId, DisplayName, FirstName, LastName, Email } = resultData;
+      const sessionData = { UserId, Email };
+      const userData = {
+        userId: UserId,
+        email: Email,
+        displayName: DisplayName,
+        firstName: FirstName,
+        lastName: LastName,
+      };
+      req.session.user = sessionData;
+      res.status(201).json({
+        message: "Account successfully created!",
+        loggedIn: true,
+        userData: userData,
+      });
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).json({
-        message: err.toString(),
+      res.status(err.code || 500).json({
+        message: err.message.toString(),
       });
     });
 };
