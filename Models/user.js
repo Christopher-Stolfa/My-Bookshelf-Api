@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../Config/databaseConfig");
+const FavoritedBook = require("./favoritedBook");
 const bcrypt = require("bcrypt");
 
 // Creates a User Schema and exports it as a User Model.
@@ -62,10 +63,7 @@ const User = sequelize.define(
     },
     Email: {
       type: Sequelize.STRING,
-      allowNull: {
-        args: false,
-        msg: "Email field cannot be null",
-      },
+      allowNull: false,
       validate: {
         notEmpty: {
           args: true,
@@ -127,8 +125,16 @@ const User = sequelize.define(
     },
   }
 );
+
 User.prototype.validPassword = (password, hash) => {
   return bcrypt.compareSync(password, hash);
 };
+
+User.hasMany(FavoritedBook, {
+  as: "FavoritedBooks",
+  foreignKey: "UserId",
+  onDelete: "cascade",
+  allowNull: false,
+});
 
 module.exports = User;

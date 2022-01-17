@@ -2,8 +2,8 @@ const Sequelize = require("sequelize");
 const sequelize = require("../Config/databaseConfig");
 const User = require("./user");
 // Creates a User Schema and exports it as a User Model.
-const FavoritedBook = sequelize.define(
-  "FavoritedBook",
+const Book = sequelize.define(
+  "Book",
   {
     FavoritedBookId: {
       type: Sequelize.INTEGER,
@@ -17,7 +17,7 @@ const FavoritedBook = sequelize.define(
       validate: {
         notEmpty: {
           args: true,
-          msg: "GoogleBookId field cannot be empty.",
+          msg: "BookId field cannot be empty.",
         },
       },
     },
@@ -54,15 +54,15 @@ const FavoritedBook = sequelize.define(
       allowNull: false,
     },
     PageCount: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.NUMBER,
       allowNull: false,
     },
     AverageRating: {
-      type: Sequelize.FLOAT,
+      type: Sequelize.NUMBER,
       allowNull: false,
     },
     RatingsCount: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.NUMBER,
       allowNull: false,
     },
     ImageLinks: {
@@ -93,4 +93,4 @@ const FavoritedBook = sequelize.define(
   }
 );
 
-module.exports = FavoritedBook;
+module.exports = Book;
