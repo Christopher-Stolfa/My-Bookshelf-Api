@@ -11,7 +11,7 @@ const userSaveFavoritedBook = async (req, res, next) => {
     try {
       const bookData = JSON.parse(req.body.data);
       const userId = req.session.user.userId;
-      const favoritedBook = await saveFavoritedBook(userId, bookData);
+      const favoritedBook = await saveFavoritedBook(userId, bookData)
       res.status(201).json({
         message: "Added to favorites",
         favoritedBook

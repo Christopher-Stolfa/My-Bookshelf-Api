@@ -27,50 +27,62 @@ const findUserByEmail = email =>
 const userPasswordValid = (passwordToCheck, correctPassword) =>
   User.prototype.validPassword(passwordToCheck, correctPassword);
 
-const saveFavoritedBook = async (
-  userId,
-  {
-    googleBooksId,
-    title,
-    description,
-    authors,
-    publisher,
-    publishedDate,
-    pageCount,
-    averageRating,
-    ratingsCount,
-    imageLink,
-    language,
-    categories
-  }
-) => {
-  const user = await User.findOne({ where: { UserId: userId } });
-  if (user) {
-    const favoritedBook = await user.createFavoritedBook({
-      GoogleBooksId: googleBooksId,
-      Title: title,
-      Description: description,
-      Authors: authors,
-      Publisher: publisher,
-      PublishedDate: publishedDate,
-      PageCount: pageCount,
-      AverageRating: averageRating,
-      RatingsCount: ratingsCount,
-      ImageLink: imageLink,
-      Language: language,
-      Categories: categories
-    });
-    return favoritedBook;
-  }
-};
+const saveFavoritedBook = (userId, book) =>
+  User.findOne({ where: { UserId: userId } }).then(
+    user =>
+      user &&
+      user
+        .createFavoritedBook({
+          GoogleBooksId: book.googleBooksId,
+          Title: book.title,
+          Description: book.description,
+          Authors: book.authors,
+          Publisher: book.publisher,
+          PublishedDate: book.publishedDate,
+          PageCount: book.pageCount,
+          AverageRating: book.averageRating,
+          RatingsCount: book.ratingsCount,
+          ImageLink: book.imageLink,
+          Language: book.language,
+          Categories: book.categories
+        })
+        .then(book => ({
+          googleBooksId: book.GoogleBooksId,
+          title: book.Title,
+          description: book.Description,
+          authors: book.Authors,
+          publisher: book.Publisher,
+          publishedDate: book.PublishedDate,
+          pageCount: book.PageCount,
+          averageRating: book.AverageRating,
+          ratingsCount: book.RatingsCount,
+          imageLink: book.ImageLink,
+          language: book.Language,
+          categories: book.Categories
+        }))
+  );
 
-const getFavoritedBooks = async userId => {
-  const user = await User.findOne({ where: { UserId: userId } });
-  if (user) {
-    const favoritedBooks = await user.getFavoritedBooks();
-    return favoritedBooks;
-  }
-};
+const getFavoritedBooks = userId =>
+  User.findOne({ where: { UserId: userId } }).then(
+    user =>
+      user &&
+      user.getFavoritedBooks().then(books =>
+        books.map(book => ({
+          googleBooksId: book.GoogleBooksId,
+          title: book.Title,
+          description: book.Description,
+          authors: book.Authors,
+          publisher: book.Publisher,
+          publishedDate: book.PublishedDate,
+          pageCount: book.PageCount,
+          averageRating: book.AverageRating,
+          ratingsCount: book.RatingsCount,
+          imageLink: book.ImageLink,
+          language: book.Language,
+          categories: book.Categories
+        }))
+      )
+  );
 
 module.exports = {
   createUser,
