@@ -2,7 +2,8 @@ const {
   createUser,
   findUserByEmail,
   userPasswordValid,
-  saveFavoritedBook
+  saveFavoritedBook,
+  getFavoritedBooks
 } = require("../Services/user.services");
 
 const userSaveFavoritedBook = async (req, res, next) => {
@@ -35,7 +36,8 @@ const userSignUp = async (req, res, next) => {
     res.status(201).json({
       message: "Account successfully created!",
       loggedIn: true,
-      userData: userData
+      userData: userData,
+      favorites: []
     });
   } catch (err) {
     res.status(err.code || 500).json({
@@ -44,12 +46,21 @@ const userSignUp = async (req, res, next) => {
   }
 };
 
-const userCheckSession = (req, res) => {
-  res.status(200).json({
-    message: req.session.user ? "Login session exists" : "No session exists",
-    loggedIn: req.session.user ? true : false,
-    userData: req.session.user ? req.session.user : {}
-  });
+const userCheckSession = async (req, res) => {
+  if (req.session.user) {
+    const favorites = await getFavoritedBooks(req.session.user.userId);
+    res.status(200).json({
+      message: "Login session exists",
+      loggedIn: true,
+      userData: req.session.user,
+      favorites
+    });
+  } else {
+    res.status(200).json({
+      message: "No session exists",
+      loggedIn: false
+    });
+  }
 };
 
 const userSignIn = async (req, res) => {
@@ -72,6 +83,7 @@ const userSignIn = async (req, res) => {
       if (!passwordValid) {
         throw { message: "Invalid email or password", code: 401 };
       } else {
+        const favorites = await getFavoritedBooks(UserId);
         const userData = {
           userId: UserId,
           email: Email,
@@ -83,7 +95,8 @@ const userSignIn = async (req, res) => {
         res.status(200).json({
           message: "Sign in successful",
           loggedIn: true,
-          userData: userData
+          userData: userData,
+          favorites
         });
       }
     }
@@ -107,8 +120,7 @@ const userSignOut = (req, res) => {
           .status(200)
           .json({
             message: "Sign out successful",
-            loggedIn: false,
-            userData: {}
+            loggedIn: false
           });
       }
     });

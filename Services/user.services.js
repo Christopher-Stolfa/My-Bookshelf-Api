@@ -8,21 +8,21 @@ const createUser = ({ displayName, firstName, lastName, email, password }) =>
     FirstName: firstName,
     LastName: lastName,
     Email: email,
-    Password: password,
-  }).then((resultData) => {
+    Password: password
+  }).then(resultData => {
     const { UserId, DisplayName, FirstName, LastName, Email } = resultData;
     const userData = {
       userId: UserId,
       email: Email,
       displayName: DisplayName,
       firstName: FirstName,
-      lastName: LastName,
+      lastName: LastName
     };
     return userData;
   });
 
-const findUserByEmail = (email) =>
-  User.findOne({ where: { Email: email } }).then((user) => user);
+const findUserByEmail = email =>
+  User.findOne({ where: { Email: email } }).then(user => user);
 
 const userPasswordValid = (passwordToCheck, correctPassword) =>
   User.prototype.validPassword(passwordToCheck, correctPassword);
@@ -41,7 +41,7 @@ const saveFavoritedBook = async (
     ratingsCount,
     imageLink,
     language,
-    categories,
+    categories
   }
 ) => {
   const user = await User.findOne({ where: { UserId: userId } });
@@ -58,9 +58,17 @@ const saveFavoritedBook = async (
       RatingsCount: ratingsCount,
       ImageLink: imageLink,
       Language: language,
-      Categories: categories,
+      Categories: categories
     });
     return favoritedBook;
+  }
+};
+
+const getFavoritedBooks = async userId => {
+  const user = await User.findOne({ where: { UserId: userId } });
+  if (user) {
+    const favoritedBooks = await user.getFavoritedBooks();
+    return favoritedBooks;
   }
 };
 
@@ -69,4 +77,5 @@ module.exports = {
   findUserByEmail,
   userPasswordValid,
   saveFavoritedBook,
+  getFavoritedBooks
 };
