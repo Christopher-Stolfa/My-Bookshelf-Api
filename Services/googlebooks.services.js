@@ -29,7 +29,7 @@ const searchBooks = (query, maxResults, startIndex, orderBy) => {
                     categories = [],
                   },
                 }) => ({
-                  id,
+                  googleBooksId: id,
                   title,
                   description,
                   authors,

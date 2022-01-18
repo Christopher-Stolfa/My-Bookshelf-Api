@@ -1,11 +1,31 @@
-const { Op } = require("sequelize");
-const User = require("../Models/user");
 const {
   createUser,
-  findUser,
+  findUserByEmail,
   userPasswordValid,
+  saveFavoritedBook,
 } = require("../Services/user.services");
-const { getErrors } = require("../Helpers/errorHandler");
+
+const userSaveFavoritedBook = async (req, res, next) => {
+  if (req.session.user) {
+    try {
+      const bookData = JSON.parse(req.body.data);
+      const userId = req.session.user.userId;
+      const favoritedBook = await saveFavoritedBook(userId, bookData);
+      res.status(201).json({
+        message: "Added to favorites",
+        favoritedBook,
+      });
+    } catch (err) {
+      res.status(err.code || 500).json({
+        message: err.message.toString(),
+      });
+    }
+  } else {
+    res.redirect("/");
+  }
+};
+
+const userGetFavoritedBooks = () => {};
 
 const userSignUp = async (req, res, next) => {
   const bodyData = JSON.parse(req.body.data);
@@ -36,19 +56,18 @@ const userSignIn = async (req, res) => {
   const bodyData = JSON.parse(req.body.data);
   const { email, password } = bodyData;
   try {
-    const user = await findUser(email);
+    const user = await findUserByEmail(email);
     if (!user) {
       throw { message: "Invalid email or password", code: 401 };
     } else {
       const { UserId, Email, DisplayName, FirstName, LastName, Password } =
-        user;
-
+        user.toJSON();
       const passwordValid = userPasswordValid(password, Password);
       if (!passwordValid) {
         throw { message: "Invalid email or password", code: 401 };
       } else {
         const userData = {
-          id: UserId,
+          userId: UserId,
           email: Email,
           displayName: DisplayName,
           firstName: FirstName,
@@ -94,4 +113,5 @@ module.exports = {
   userSignIn,
   userSignOut,
   userCheckSession,
+  userSaveFavoritedBook,
 };

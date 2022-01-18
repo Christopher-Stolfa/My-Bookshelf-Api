@@ -1,6 +1,6 @@
 // TODO: Move congested business logic from users controllers into here.
-const { reject } = require("bcrypt/promises");
 const User = require("../Models/user");
+const FavoritedBook = require("../Models/favoritedBook");
 
 const createUser = ({ displayName, firstName, lastName, email, password }) =>
   User.create({
@@ -10,8 +10,7 @@ const createUser = ({ displayName, firstName, lastName, email, password }) =>
     Email: email,
     Password: password,
   }).then((resultData) => {
-    const { UserId, DisplayName, FirstName, LastName, Email } =
-      resultData.toJSON();
+    const { UserId, DisplayName, FirstName, LastName, Email } = resultData;
     const userData = {
       userId: UserId,
       email: Email,
@@ -22,16 +21,52 @@ const createUser = ({ displayName, firstName, lastName, email, password }) =>
     return userData;
   });
 
-const findUser = (email) =>
-  User.findOne({ where: { Email: email } }).then(
-    (user = user.toJSON()) => user
-  );
+const findUserByEmail = (email) =>
+  User.findOne({ where: { Email: email } }).then((user) => user);
 
 const userPasswordValid = (passwordToCheck, correctPassword) =>
   User.prototype.validPassword(passwordToCheck, correctPassword);
 
+const saveFavoritedBook = async (
+  userId,
+  {
+    googleBooksId,
+    title,
+    description,
+    authors,
+    publisher,
+    publishedDate,
+    pageCount,
+    averageRating,
+    ratingsCount,
+    imageLink,
+    language,
+    categories,
+  }
+) => {
+  const user = await User.findOne({ where: { UserId: userId } });
+  if (user) {
+    const favoritedBook = await user.createFavoritedBook({
+      GoogleBooksId: googleBooksId,
+      Title: title,
+      Description: description,
+      Authors: authors,
+      Publisher: publisher,
+      PublishedDate: publishedDate,
+      PageCount: pageCount,
+      AverageRating: averageRating,
+      RatingsCount: ratingsCount,
+      ImageLink: imageLink,
+      Language: language,
+      Categories: categories,
+    });
+    return favoritedBook;
+  }
+};
+
 module.exports = {
   createUser,
-  findUser,
+  findUserByEmail,
   userPasswordValid,
+  saveFavoritedBook,
 };
