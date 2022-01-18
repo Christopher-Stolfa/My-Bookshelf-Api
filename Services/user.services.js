@@ -1,6 +1,5 @@
 // TODO: Move congested business logic from users controllers into here.
 const User = require("../Models/user");
-const FavoritedBook = require("../Models/favoritedBook");
 
 const createUser = ({ displayName, firstName, lastName, email, password }) =>
   User.create({
