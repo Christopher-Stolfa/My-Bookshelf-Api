@@ -1,5 +1,6 @@
 // TODO: Move congested business logic from users controllers into here.
 const User = require("../Models/user");
+const FavoritedBook = require("../Models/favoritedBook");
 
 const createUser = ({ displayName, firstName, lastName, email, password }) =>
   User.create({
@@ -61,6 +62,15 @@ const saveFavoritedBook = (userId, book) =>
         }))
   );
 
+const removeFavoritedBook = (userId, book) =>
+  User.findOne({ where: { UserId: userId } }).then(
+    user =>
+      user &&
+      FavoritedBook.destroy({
+        where: { GoogleBooksId: book.googleBooksId, UserId: user.UserId }
+      }).then(() => book)
+  );
+
 const getFavoritedBooks = userId =>
   User.findOne({ where: { UserId: userId } }).then(
     user =>
@@ -88,5 +98,6 @@ module.exports = {
   findUserByEmail,
   userPasswordValid,
   saveFavoritedBook,
-  getFavoritedBooks
+  getFavoritedBooks,
+  removeFavoritedBook
 };

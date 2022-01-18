@@ -10,5 +10,9 @@ router.get("/check-session", userControllers.userCheckSession);
 
 // User book routes
 router.post("/save-favorited-book", userControllers.userSaveFavoritedBook);
+router.delete(
+  "/remove-favorited-book",
+  userControllers.userRemoveFavoritedBook
+);
 
 module.exports = router;

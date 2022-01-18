@@ -3,7 +3,8 @@ const {
   findUserByEmail,
   userPasswordValid,
   saveFavoritedBook,
-  getFavoritedBooks
+  getFavoritedBooks,
+  removeFavoritedBook
 } = require("../Services/user.services");
 
 const userSaveFavoritedBook = async (req, res, next) => {
@@ -11,7 +12,7 @@ const userSaveFavoritedBook = async (req, res, next) => {
     try {
       const bookData = JSON.parse(req.body.data);
       const userId = req.session.user.userId;
-      const favoritedBook = await saveFavoritedBook(userId, bookData)
+      const favoritedBook = await saveFavoritedBook(userId, bookData);
       res.status(201).json({
         message: "Added to favorites",
         favoritedBook
@@ -26,7 +27,23 @@ const userSaveFavoritedBook = async (req, res, next) => {
   }
 };
 
-const userGetFavoritedBooks = () => {};
+const userRemoveFavoritedBook = async (req, res, next) => {
+  if (req.session.user) {
+    try {
+      const bookData = JSON.parse(req.body.bookData);
+      const userId = req.session.user.userId;
+      const favoritedBook = await removeFavoritedBook(userId, bookData);
+      res.status(201).json({
+        message: "Removed from favorites",
+        favoritedBook
+      });
+    } catch (err) {
+      res.status(err.code || 500).json({
+        message: err.message.toString()
+      });
+    }
+  }
+};
 
 const userSignUp = async (req, res, next) => {
   const bodyData = JSON.parse(req.body.data);
@@ -134,5 +151,6 @@ module.exports = {
   userSignIn,
   userSignOut,
   userCheckSession,
-  userSaveFavoritedBook
+  userSaveFavoritedBook,
+  userRemoveFavoritedBook
 };
