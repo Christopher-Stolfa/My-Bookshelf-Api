@@ -4,7 +4,7 @@ const {
   userPasswordValid,
   saveFavoritedBook,
   getFavoritedBooks,
-  removeFavoritedBook
+  removeFavoritedBook,
 } = require("../Services/user.services");
 
 const userSaveFavoritedBook = async (req, res, next) => {
@@ -15,11 +15,11 @@ const userSaveFavoritedBook = async (req, res, next) => {
       const favoritedBook = await saveFavoritedBook(userId, bookData);
       res.status(201).json({
         message: "Added to favorites",
-        favoritedBook
+        favoritedBook,
       });
     } catch (err) {
       res.status(err.code || 500).json({
-        message: err.message.toString()
+        message: err.message.toString(),
       });
     }
   } else {
@@ -35,11 +35,11 @@ const userRemoveFavoritedBook = async (req, res, next) => {
       const favoritedBook = await removeFavoritedBook(userId, bookData);
       res.status(201).json({
         message: "Removed from favorites",
-        favoritedBook
+        favoritedBook,
       });
     } catch (err) {
       res.status(err.code || 500).json({
-        message: err.message.toString()
+        message: err.message.toString(),
       });
     }
   }
@@ -54,11 +54,11 @@ const userSignUp = async (req, res, next) => {
       message: "Account successfully created!",
       loggedIn: true,
       userData: userData,
-      favorites: []
+      favorites: [],
     });
   } catch (err) {
     res.status(err.code || 500).json({
-      message: err.message.toString()
+      message: err.message.toString(),
     });
   }
 };
@@ -70,12 +70,12 @@ const userCheckSession = async (req, res) => {
       message: "Login session exists",
       loggedIn: true,
       userData: req.session.user,
-      favorites
+      favorites,
     });
   } else {
     res.status(200).json({
       message: "No session exists",
-      loggedIn: false
+      loggedIn: false,
     });
   }
 };
@@ -88,14 +88,8 @@ const userSignIn = async (req, res) => {
     if (!user) {
       throw { message: "Invalid email or password", code: 401 };
     } else {
-      const {
-        UserId,
-        Email,
-        DisplayName,
-        FirstName,
-        LastName,
-        Password
-      } = user.toJSON();
+      const { UserId, Email, DisplayName, FirstName, LastName, Password } =
+        user.toJSON();
       const passwordValid = userPasswordValid(password, Password);
       if (!passwordValid) {
         throw { message: "Invalid email or password", code: 401 };
@@ -106,39 +100,36 @@ const userSignIn = async (req, res) => {
           email: Email,
           displayName: DisplayName,
           firstName: FirstName,
-          lastName: LastName
+          lastName: LastName,
         };
         req.session.user = userData;
         res.status(200).json({
           message: "Sign in successful",
           loggedIn: true,
           userData: userData,
-          favorites
+          favorites,
         });
       }
     }
   } catch (err) {
     res.status(err.code || 500).json({
-      message: err.message.toString()
+      message: err.message.toString(),
     });
   }
 };
 
 const userSignOut = (req, res) => {
   if (req.session.user) {
-    req.session.destroy(err => {
+    req.session.destroy((err) => {
       if (err) {
         res.status(400).json({
-          message: "Failed to sign out."
+          message: "Failed to sign out.",
         });
       } else {
-        res
-          .clearCookie("user-session")
-          .status(200)
-          .json({
-            message: "Sign out successful",
-            loggedIn: false
-          });
+        res.clearCookie("user-session").status(200).json({
+          message: "Sign out successful",
+          loggedIn: false,
+        });
       }
     });
   } else {
@@ -152,5 +143,5 @@ module.exports = {
   userSignOut,
   userCheckSession,
   userSaveFavoritedBook,
-  userRemoveFavoritedBook
+  userRemoveFavoritedBook,
 };
