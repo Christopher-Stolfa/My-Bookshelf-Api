@@ -7,6 +7,8 @@ const {
   removeFavoritedBook,
 } = require("../Services/user.services");
 
+const { checkSessionQueue } = require("../Jobs/usersQueues");
+
 const userSaveFavoritedBook = async (req, res, next) => {
   if (req.session.user) {
     try {

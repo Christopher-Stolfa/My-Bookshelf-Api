@@ -1,18 +1,22 @@
 const express = require("express");
 const router = express.Router();
 const userControllers = require("../Controllers/users.controllers");
+const {
+  SIGN_OUT,
+  SIGN_UP,
+  SIGN_IN,
+  CHECK_SESSION,
+  SAVE_FAVORITED_BOOK,
+  REMOVED_FAVORITED_BOOK,
+} = require("../Constants/usersRoutes");
 
-// Auth routes
-router.post("/sign-out", userControllers.userSignOut);
-router.post("/sign-up", userControllers.userSignUp);
-router.post("/sign-in", userControllers.userSignIn);
-router.get("/check-session", userControllers.userCheckSession);
+router.post(SIGN_OUT, userControllers.userSignOut);
+router.post(SIGN_UP, userControllers.userSignUp);
+router.post(SIGN_IN, userControllers.userSignIn);
+router.get(CHECK_SESSION, userControllers.userCheckSession);
 
 // User book routes
-router.post("/save-favorited-book", userControllers.userSaveFavoritedBook);
-router.delete(
-  "/remove-favorited-book",
-  userControllers.userRemoveFavoritedBook
-);
+router.post(SAVE_FAVORITED_BOOK, userControllers.userSaveFavoritedBook);
+router.delete(REMOVED_FAVORITED_BOOK, userControllers.userRemoveFavoritedBook);
 
 module.exports = router;
