@@ -2,34 +2,26 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const redis = require("redis");
 const session = require("express-session");
-let RedisStore = require("connect-redis")(session);
+const RedisStore = require("connect-redis")(session);
+
 const usersRouter = require("./Routes/users.routes");
 const booksRouter = require("./Routes/books.routes");
 const sequelize = require("./Config/databaseConfig");
 
-const app = express();
-const PORT = 3001;
+const { redisClient } = require("./Config/redisConfig");
 
 const SessionExpiration = 24 * 60 * 60 * 1000;
 
-let redisClient = redis.createClient({
-  host: process.env.SERVER_IP,
-  port: process.env.REDIS_PORT,
-  password: process.env.REDIS_PASSWORD,
-});
-
-redisClient.on("error", (err) => {
-  console.log("Error " + err);
-});
+const app = express();
+const PORT = 3001;
 
 app.use(express.json());
 app.use(
   cors({
     origin: [process.env.LOCALHOST_CLIENT_ORIGIN],
     methods: ["GET", "POST", "DELETE"],
-    credentials: true,
+    credentials: true
   })
 );
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -41,8 +33,8 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     cookie: {
-      expires: SessionExpiration,
-    },
+      expires: SessionExpiration
+    }
   })
 );
 
@@ -57,10 +49,10 @@ app.use("/books", booksRouter);
 // Checks the database for the Model Schemas and creates tables for them if they don't exist.
 sequelize
   .sync()
-  .then((result) => {
+  .then(result => {
     console.log("Synced Schemas");
   })
-  .catch((err) => {
+  .catch(err => {
     console.log(err);
   });
 
