@@ -42,7 +42,7 @@ const rateLimiter = (req, res, next) => {
       // if maximum number of requests is exceeded then an error is returned
       if (totalWindowRequestsCount >= MAX_WINDOW_REQUEST_COUNT) {
         res.status(429).json({
-          message: `You have exceeded the ${MAX_WINDOW_REQUEST_COUNT} requests in ${WINDOW_DURATION_IN_SECONDS} seconds limit!`
+          message: "Too many requests"
         });
       } else {
         // When the number of requests made are less than the maximum the a new entry is logged
