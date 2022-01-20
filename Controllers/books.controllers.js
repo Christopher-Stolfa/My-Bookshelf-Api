@@ -12,7 +12,7 @@ const bookSearch = async (req, res) => {
       orderBy
     );
     res.status(200).json({
-      message: "Search successful.",
+      message: "Search successful",
       bookSearchData,
     });
   } catch (err) {

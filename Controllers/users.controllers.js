@@ -51,7 +51,7 @@ const userSignUp = async (req, res, next) => {
     const userData = await createUser(bodyData);
     req.session.user = userData;
     res.status(201).json({
-      message: "Account successfully created!",
+      message: "Account successfully created",
       loggedIn: true,
       userData: userData,
       favorites: [],
@@ -123,7 +123,7 @@ const userSignOut = (req, res) => {
     req.session.destroy((err) => {
       if (err) {
         res.status(400).json({
-          message: "Failed to sign out.",
+          message: "Failed to sign out",
         });
       } else {
         res.clearCookie("user-session").status(200).json({
