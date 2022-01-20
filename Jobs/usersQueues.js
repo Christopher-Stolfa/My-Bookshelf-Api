@@ -10,9 +10,16 @@ const {
 
 const { SERVER_IP, REDIS_PORT, REDIS_PASSWORD } = process.env;
 const redisConfig = {
-  redis: { port: REDIS_PORT, host: SERVER_IP, password: REDIS_PASSWORD },
+  redis: {
+    port: REDIS_PORT,
+    host: SERVER_IP,
+    password: REDIS_PASSWORD,
+    defaultJobOptions: {
+      removeOnComplete: true,
+      removeOnFail: 1000,
+    },
+  },
 };
-
 const signOutQueue = new Queue(SIGN_OUT, redisConfig);
 const signUpQueue = new Queue(SIGN_UP, redisConfig);
 const signInQueue = new Queue(SIGN_IN, redisConfig);
