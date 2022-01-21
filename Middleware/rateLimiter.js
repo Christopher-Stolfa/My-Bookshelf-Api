@@ -10,6 +10,7 @@ const rateLimiter = (req, res, next) => {
   try {
     // Checks if the Redis client is present
     if (!redisClient) {
+      console.log(redisClient);
       process.exit(1);
     }
     // Gets the records of the current user base on the IP address, returns a null if no user found
@@ -41,9 +42,9 @@ const rateLimiter = (req, res, next) => {
       );
       // if maximum number of requests is exceeded then an error is returned
       if (totalWindowRequestsCount >= MAX_WINDOW_REQUEST_COUNT) {
-        res.status(429).json({
-          message: "Too many requests"
-        });
+        error = new Error("Too many requests");
+        error.code = 429;
+        next(error);
       } else {
         // When the number of requests made are less than the maximum the a new entry is logged
         let lastRequestLog = data[data.length - 1];

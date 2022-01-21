@@ -1,6 +1,6 @@
 const googleBooks = require("../Services/googleBooks.services");
 
-const bookSearch = async (req, res) => {
+const bookSearch = async (req, res, next) => {
   const { searchQuery, maxResults, startIndex, orderBy } = JSON.parse(
     req.query.data
   );
@@ -13,13 +13,11 @@ const bookSearch = async (req, res) => {
     );
     res.status(200).json({
       message: "Search successful",
-      bookSearchData,
+      bookSearchData
     });
-  } catch (err) {
-    res.status(500).json({
-      message: err.toString(),
-      bookSearchData: [],
-    });
+  } catch (error) {
+    error.code = 400;
+    next(error);
   }
 };
 

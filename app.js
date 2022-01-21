@@ -5,6 +5,15 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const RedisStore = require("connect-redis")(session);
 
+// Error Handlers
+const {
+  errorLogger,
+  errorResponder,
+  failSafeHandler
+} = require("./Middleware/errorHandler");
+const rateLimiter = require("./Middleware/rateLimiter");
+
+// Routers
 const usersRouter = require("./Routes/users.routes");
 const booksRouter = require("./Routes/books.routes");
 const sequelize = require("./Config/databaseConfig");
@@ -38,6 +47,8 @@ app.use(
   })
 );
 
+// Limits the amount of requests within a specified amount of time
+app.use(rateLimiter);
 // Uses routes defined in usersRouter alongside /users
 // Example: /users/sign-up, /users/sign-in
 app.use("/users", usersRouter);
@@ -45,6 +56,11 @@ app.use("/users", usersRouter);
 // Uses routes defined in booksRouter alongside /books
 // Example: /books/, /books/book-search
 app.use("/books", booksRouter);
+
+// Uses Error handlers
+app.use(errorLogger);
+app.use(errorResponder);
+app.use(failSafeHandler);
 
 // Checks the database for the Model Schemas and creates tables for them if they don't exist.
 sequelize

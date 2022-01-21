@@ -26,8 +26,8 @@ const searchBooks = (query, maxResults, startIndex, orderBy) => {
                     ratingsCount = -1,
                     imageLinks,
                     language = "",
-                    categories = [],
-                  },
+                    categories = []
+                  }
                 }) => ({
                   googleBooksId: id,
                   title,
@@ -40,16 +40,16 @@ const searchBooks = (query, maxResults, startIndex, orderBy) => {
                   ratingsCount,
                   imageLink: imageLinks?.thumbnail ?? "",
                   language,
-                  categories,
+                  categories
                 })
               )
             : []
         );
       })
-      .catch((err) => reject(err));
+      .catch(err => reject(err));
   });
 };
 
 module.exports = {
-  searchBooks,
+  searchBooks
 };

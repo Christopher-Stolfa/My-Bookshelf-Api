@@ -93,7 +93,6 @@ const FavoritedBook = sequelize.define(
   {
     hooks: {
       validationFailed: (instance, options, { errors }) => {
-        console.log(errors);
         throw { message: "Error favoriting book", code: 500 };
       }
     }

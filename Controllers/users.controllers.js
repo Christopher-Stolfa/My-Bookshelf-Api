@@ -4,7 +4,7 @@ const {
   userPasswordValid,
   saveFavoritedBook,
   getFavoritedBooks,
-  removeFavoritedBook,
+  removeFavoritedBook
 } = require("../Services/user.services");
 
 const userSaveFavoritedBook = async (req, res, next) => {
@@ -15,12 +15,10 @@ const userSaveFavoritedBook = async (req, res, next) => {
       const favoritedBook = await saveFavoritedBook(userId, bookData);
       res.status(201).json({
         message: "Added to favorites",
-        favoritedBook,
+        favoritedBook
       });
-    } catch (err) {
-      res.status(err.code || 500).json({
-        message: err.message.toString(),
-      });
+    } catch (error) {
+      next(error);
     }
   } else {
     res.redirect("/");
@@ -35,12 +33,10 @@ const userRemoveFavoritedBook = async (req, res, next) => {
       const favoritedBook = await removeFavoritedBook(userId, bookData);
       res.status(201).json({
         message: "Removed from favorites",
-        favoritedBook,
+        favoritedBook
       });
-    } catch (err) {
-      res.status(err.code || 500).json({
-        message: err.message.toString(),
-      });
+    } catch (error) {
+      next(error);
     }
   }
 };
@@ -54,12 +50,10 @@ const userSignUp = async (req, res, next) => {
       message: "Account successfully created",
       loggedIn: true,
       userData: userData,
-      favorites: [],
+      favorites: []
     });
   } catch (err) {
-    res.status(err.code || 500).json({
-      message: err.message.toString(),
-    });
+    next(error);
   }
 };
 
@@ -70,17 +64,17 @@ const userCheckSession = async (req, res) => {
       message: "Login session exists",
       loggedIn: true,
       userData: req.session.user,
-      favorites,
+      favorites
     });
   } else {
     res.status(200).json({
       message: "No session exists",
-      loggedIn: false,
+      loggedIn: false
     });
   }
 };
 
-const userSignIn = async (req, res) => {
+const userSignIn = async (req, res, next) => {
   const bodyData = JSON.parse(req.body.data);
   const { email, password } = bodyData;
   try {
@@ -88,8 +82,14 @@ const userSignIn = async (req, res) => {
     if (!user) {
       throw { message: "Invalid email or password", code: 401 };
     } else {
-      const { UserId, Email, DisplayName, FirstName, LastName, Password } =
-        user.toJSON();
+      const {
+        UserId,
+        Email,
+        DisplayName,
+        FirstName,
+        LastName,
+        Password
+      } = user.toJSON();
       const passwordValid = userPasswordValid(password, Password);
       if (!passwordValid) {
         throw { message: "Invalid email or password", code: 401 };
@@ -100,36 +100,35 @@ const userSignIn = async (req, res) => {
           email: Email,
           displayName: DisplayName,
           firstName: FirstName,
-          lastName: LastName,
+          lastName: LastName
         };
         req.session.user = userData;
         res.status(200).json({
           message: "Sign in successful",
           loggedIn: true,
           userData: userData,
-          favorites,
+          favorites
         });
       }
     }
-  } catch (err) {
-    res.status(err.code || 500).json({
-      message: err.message.toString(),
-    });
+  } catch (error) {
+    next(error);
   }
 };
 
-const userSignOut = (req, res) => {
+const userSignOut = (req, res, next) => {
   if (req.session.user) {
-    req.session.destroy((err) => {
-      if (err) {
-        res.status(400).json({
-          message: "Failed to sign out",
-        });
+    req.session.destroy(error => {
+      if (error) {
+        throw { message: "Failed to sign out", code: 400 };
       } else {
-        res.clearCookie("user-session").status(200).json({
-          message: "Sign out successful",
-          loggedIn: false,
-        });
+        res
+          .clearCookie("user-session")
+          .status(200)
+          .json({
+            message: "Sign out successful",
+            loggedIn: false
+          });
       }
     });
   } else {
@@ -143,5 +142,5 @@ module.exports = {
   userSignOut,
   userCheckSession,
   userSaveFavoritedBook,
-  userRemoveFavoritedBook,
+  userRemoveFavoritedBook
 };
