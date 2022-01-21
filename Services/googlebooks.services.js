@@ -10,8 +10,8 @@ const searchBooks = (query, maxResults, startIndex, orderBy) => {
     axios
       .get(url)
       .then(({ data }) => {
-        resolve(
-          data.items
+        resolve({
+          items: data.items
             ? data.items.map(
                 ({
                   id,
@@ -43,8 +43,9 @@ const searchBooks = (query, maxResults, startIndex, orderBy) => {
                   categories
                 })
               )
-            : []
-        );
+            : [],
+          totalItems: data.totalItems
+        });
       })
       .catch(err => reject(err));
   });
