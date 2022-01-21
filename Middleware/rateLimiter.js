@@ -10,12 +10,11 @@ const rateLimiter = (req, res, next) => {
   try {
     // Checks if the Redis client is present
     if (!redisClient) {
-      console.log(redisClient);
       process.exit(1);
     }
     // Gets the records of the current user base on the IP address, returns a null if no user found
     redisClient.get(req.ip, (error, record) => {
-      if (error) throw error;
+      if (error) next(error);
       const currentTime = moment();
       // When there is no user record then a new record is created for the user and stored in the Redis storage
       if (record === null) {
