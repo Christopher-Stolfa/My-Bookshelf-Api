@@ -2,14 +2,12 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const session = require("express-session");
-const RedisStore = require("connect-redis")(session);
-
+const { redisMiddleware } = require("./Config/redisConfig");
 // Error Handlers
 const {
   errorLogger,
   errorResponder,
-  failSafeHandler
+  failSafeHandler,
 } = require("./Middleware/errorHandler");
 const rateLimiter = require("./Middleware/rateLimiter");
 
@@ -17,10 +15,6 @@ const rateLimiter = require("./Middleware/rateLimiter");
 const usersRouter = require("./Routes/users.routes");
 const booksRouter = require("./Routes/books.routes");
 const sequelize = require("./Config/databaseConfig");
-
-const { redisClient } = require("./Config/redisConfig");
-
-const SessionExpiration = 24 * 60 * 60 * 1000;
 
 const app = express();
 const PORT = 3001;
@@ -30,22 +24,11 @@ app.use(
   cors({
     origin: [process.env.LOCALHOST_CLIENT_ORIGIN],
     methods: ["GET", "POST", "DELETE"],
-    credentials: true
+    credentials: true,
   })
 );
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
-  session({
-    key: "user-session",
-    store: new RedisStore({ client: redisClient }),
-    saveUninitialized: false,
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    cookie: {
-      expires: SessionExpiration
-    }
-  })
-);
+app.use(redisMiddleware);
 
 // Limits the amount of requests within a specified amount of time
 app.use(rateLimiter);
@@ -65,10 +48,10 @@ app.use(failSafeHandler);
 // Checks the database for the Model Schemas and creates tables for them if they don't exist.
 sequelize
   .sync()
-  .then(result => {
+  .then((result) => {
     console.log("Synced Schemas");
   })
-  .catch(err => {
+  .catch((err) => {
     console.log(err);
   });
 
