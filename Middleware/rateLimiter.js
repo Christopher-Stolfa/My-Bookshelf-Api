@@ -18,13 +18,15 @@ const rateLimiter = (req, res, next) => {
       const currentTime = moment();
       // When there is no user record then a new record is created for the user and stored in the Redis storage
       if (record === null) {
-        const newRecord = [
-          {
-            requestTimeStamp: currentTime.unix(),
-            requestCount: 1
-          }
-        ];
+        let newRecord = [];
+        let requestLog = {
+          requestTimeStamp: currentTime.unix(),
+          requestCount: 1,
+        };
+        newRecord.push(requestLog);
         redisClient.set(req.ip, JSON.stringify(newRecord));
+        res.set("x-remain-request", MAX_WINDOW_REQUEST_COUNT - 1);
+        res.set("x-limit", MAX_WINDOW_REQUEST_COUNT);
         next();
       }
       // When the record is found then its value is parsed and the number of requests the user has made within the last window is calculated
@@ -33,7 +35,7 @@ const rateLimiter = (req, res, next) => {
         .subtract(WINDOW_DURATION_IN_SECONDS, "seconds")
         .unix();
       const requestsinWindow = data.filter(
-        entry => entry.requestTimeStamp > windowBeginTimestamp
+        (entry) => entry.requestTimeStamp > windowBeginTimestamp
       );
       const totalWindowRequestsCount = requestsinWindow.reduce(
         (accumulator, entry) => accumulator + entry.requestCount,
@@ -59,13 +61,8 @@ const rateLimiter = (req, res, next) => {
           data[data.length - 1] = lastRequestLog;
         } else {
           // When the interval has passed, a new entry for current user and timestamp is logged
-          data = [
-            ...data,
-            {
-              requestTimeStamp: currentTime.unix(),
-              requestCount: 1
-            }
-          ];
+          data.push({ requestTimeStamp: currentTime.unix(), requestCount: 1 });
+          if (data.length > 2) data.shift();
         }
         redisClient.set(req.ip, JSON.stringify(data));
         next();
