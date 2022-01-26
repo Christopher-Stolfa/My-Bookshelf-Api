@@ -1,10 +1,13 @@
-const googleBooks = require("../Services/googleBooks.services");
+const {
+  searchBooks,
+  searchBookById,
+} = require("../Services/googleBooks.services");
 
 const bookSearch = async (req, res, next) => {
   const { searchQuery, maxResults, startIndex, orderBy, currentPage } =
     JSON.parse(req.query.data);
   try {
-    const { items, totalItems } = await googleBooks.searchBooks(
+    const { items, totalItems } = await searchBooks(
       searchQuery,
       maxResults,
       startIndex,
@@ -23,4 +26,18 @@ const bookSearch = async (req, res, next) => {
   }
 };
 
-module.exports = { bookSearch };
+const bookSearchById = async (req, res, next) => {
+  const { googleBooksId } = JSON.parse(req.query.data);
+  try {
+    const { item } = await searchBookById(googleBooksId);
+    res.status(200).json({
+      message: "Search successful",
+      bookSearchData: item,
+    });
+  } catch (error) {
+    error.code = 400;
+    next(error);
+  }
+};
+
+module.exports = { bookSearch, bookSearchById };

@@ -26,8 +26,8 @@ const searchBooks = (query, maxResults, startIndex, orderBy) => {
                     ratingsCount = -1,
                     imageLinks,
                     language = "",
-                    categories = []
-                  }
+                    categories = [],
+                  },
                 }) => ({
                   googleBooksId: id,
                   title,
@@ -40,17 +40,30 @@ const searchBooks = (query, maxResults, startIndex, orderBy) => {
                   ratingsCount,
                   imageLink: imageLinks?.thumbnail ?? "",
                   language,
-                  categories
+                  categories,
                 })
               )
             : [],
-          totalItems: data.totalItems
+          totalItems: data.totalItems,
         });
       })
-      .catch(err => reject(err));
+      .catch((error) => reject(error));
+  });
+};
+
+const searchBookById = (googleBooksId) => {
+  const url = `${googleVolumesUri}/zyTCAlFPjgYC?key=${apiKey}`;
+  return new Promise((resolve, reject) => {
+    axios
+      .get(url)
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch((error) => reject(error));
   });
 };
 
 module.exports = {
-  searchBooks
+  searchBooks,
+  searchBookById,
 };
