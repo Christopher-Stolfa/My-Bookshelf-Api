@@ -1,6 +1,6 @@
 const errorLogger = (error, req, res, next) => {
-  console.error(error); // or using any fancy logging library
-  next(error); // forward to next middleware
+  console.error(error);
+  next(error);
 };
 
 const errorResponder = (error, req, res, next) => {
