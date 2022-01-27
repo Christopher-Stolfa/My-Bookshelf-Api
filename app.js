@@ -31,7 +31,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(redisMiddleware);
 
 // Limits the amount of requests within a specified amount of time
-app.use(rateLimiter);
+// TODO: Fix errors with rateLimiter, it randomly breaks.
+// app.use(rateLimiter);
 // Uses routes defined in usersRouter alongside /users
 // Example: /users/sign-up, /users/sign-in
 app.use("/users", usersRouter);
