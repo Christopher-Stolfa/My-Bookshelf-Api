@@ -52,13 +52,47 @@ const searchBooks = (query, maxResults, startIndex, orderBy) => {
 };
 
 const searchBookById = (googleBooksId) => {
-  const url = `${googleVolumesUri}/zyTCAlFPjgYC?key=${apiKey}`;
+  const url = `${googleVolumesUri}/${googleBooksId}?key=${apiKey}`;
   return new Promise((resolve, reject) => {
     axios
       .get(url)
-      .then(({ data }) => {
-        console.log(data);
-      })
+      .then(
+        ({
+          data: {
+            id,
+            volumeInfo: {
+              title = "",
+              description = "",
+              authors = [],
+              publisher = "",
+              publishedDate = "",
+              pageCount = -1,
+              averageRating = -1,
+              ratingsCount = -1,
+              imageLinks,
+              language = "",
+              categories = [],
+            },
+          },
+        }) => {
+          resolve({
+            item: {
+              googleBooksId: id,
+              title,
+              description,
+              authors,
+              publisher,
+              publishedDate,
+              pageCount,
+              averageRating,
+              ratingsCount,
+              imageLink: imageLinks?.thumbnail ?? "",
+              language,
+              categories,
+            },
+          });
+        }
+      )
       .catch((error) => reject(error));
   });
 };
