@@ -79,7 +79,7 @@ const searchBookById = (googleBooksId) => {
             item: {
               googleBooksId: id,
               title,
-              description: description.replace( /(<([^>]+)>)/ig, ''),
+              description: description.replace(/(<([^>]+)>)/gi, " "),
               authors,
               publisher,
               publishedDate,
