@@ -30,7 +30,6 @@ const bookSearchById = async (req, res, next) => {
   const { googleBooksId } = JSON.parse(req.query.data);
   try {
     const { item } = await searchBookById(googleBooksId);
-    console.log(item);
     res.status(200).json({
       message: "Search successful",
       selectedBookData: item,
