@@ -1,24 +1,16 @@
 const {
   searchBooks,
-  searchBookById,
+  searchBookById
 } = require("../Services/googleBooks.services");
 
 const bookSearch = async (req, res, next) => {
-  const { searchQuery, maxResults, startIndex, orderBy, currentPage } =
-    JSON.parse(req.query.data);
+  const { searchQuery, orderBy } = JSON.parse(req.query.data);
   try {
-    const { items, totalItems } = await searchBooks(
-      searchQuery,
-      maxResults,
-      startIndex,
-      orderBy
-    );
+    const { items, totalItems } = await searchBooks(searchQuery, orderBy);
     res.status(200).json({
       message: "Search successful",
       bookSearchData: items,
-      totalItems,
-      searchQuery,
-      currentPage,
+      searchQuery
     });
   } catch (error) {
     error.code = 400;
@@ -32,7 +24,7 @@ const bookSearchById = async (req, res, next) => {
     const { item } = await searchBookById(googleBooksId);
     res.status(200).json({
       message: "Search successful",
-      selectedBookData: item,
+      selectedBookData: item
     });
   } catch (error) {
     error.message = "Item does not exist";
