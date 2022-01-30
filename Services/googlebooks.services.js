@@ -4,54 +4,51 @@ const axios = require("axios");
 const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
 const googleVolumesUri = "https://www.googleapis.com/books/v1/volumes";
 
-const searchBooks = (query, maxResults, startIndex, orderBy) => {
-  const url = `${googleVolumesUri}?q=${query}&maxResults=${maxResults}&orderBy=${orderBy}&startIndex=${startIndex}&key=${apiKey}`;
+const searchBooks = (query, orderBy) => {
+  const url = `${googleVolumesUri}?q=${query}&maxResults=40&orderBy=${orderBy}&key=${apiKey}`;
   return new Promise((resolve, reject) => {
     axios
       .get(url)
-      .then(({ data }) => {
+      .then(({ data: { items = [] } }) => {
+        const itemsMap = items
+          .filter(
+            ({ volumeInfo }) =>
+              (volumeInfo.title ||
+                volumeInfo.categories.some(category =>
+                  category.includes(query)
+                )) &&
+              volumeInfo.description &&
+              volumeInfo.authors &&
+              volumeInfo.publisher &&
+              volumeInfo.publishedDate &&
+              volumeInfo.pageCount &&
+              volumeInfo.imageLinks &&
+              volumeInfo.categories
+          )
+          .map(item => ({
+            googleBooksId: item.id,
+            title: item.volumeInfo.title,
+            description: item.volumeInfo.description,
+            authors: item.volumeInfo.authors,
+            publisher: item.volumeInfo.publisher,
+            publishedDate: item.volumeInfo.publishedDate,
+            pageCount: item.volumeInfo.pageCount,
+            averageRating: item.volumeInfo.averageRating,
+            ratingsCount: item.volumeInfo.ratingsCount,
+            imageLink: item.volumeInfo.imageLinks.thumbnail,
+            language: item.volumeInfo.language,
+            categories: item.volumeInfo.categories
+          }));
+        console.log(itemsMap.length);
         resolve({
-          items: data.items
-            ? data.items.map(
-                ({
-                  id,
-                  volumeInfo: {
-                    title = "",
-                    description = "",
-                    authors = [],
-                    publisher = "",
-                    publishedDate = "",
-                    pageCount = -1,
-                    averageRating = -1,
-                    ratingsCount = -1,
-                    imageLinks,
-                    language = "",
-                    categories = [],
-                  },
-                }) => ({
-                  googleBooksId: id,
-                  title,
-                  description,
-                  authors,
-                  publisher,
-                  publishedDate,
-                  pageCount,
-                  averageRating,
-                  ratingsCount,
-                  imageLink: imageLinks?.thumbnail ?? "",
-                  language,
-                  categories,
-                })
-              )
-            : [],
-          totalItems: data.totalItems,
+          items: itemsMap
         });
       })
-      .catch((error) => reject(error));
+      .catch(error => reject(error));
   });
 };
 
-const searchBookById = (googleBooksId) => {
+const searchBookById = googleBooksId => {
   const url = `${googleVolumesUri}/${googleBooksId}?key=${apiKey}`;
   return new Promise((resolve, reject) => {
     axios
@@ -71,9 +68,9 @@ const searchBookById = (googleBooksId) => {
               ratingsCount = -1,
               imageLinks,
               language = "",
-              categories = [],
-            },
-          },
+              categories = []
+            }
+          }
         }) => {
           resolve({
             item: {
@@ -88,16 +85,16 @@ const searchBookById = (googleBooksId) => {
               ratingsCount,
               imageLink: imageLinks?.thumbnail ?? "",
               language,
-              categories,
-            },
+              categories
+            }
           });
         }
       )
-      .catch((error) => reject(error));
+      .catch(error => reject(error));
   });
 };
 
 module.exports = {
   searchBooks,
-  searchBookById,
+  searchBookById
 };
