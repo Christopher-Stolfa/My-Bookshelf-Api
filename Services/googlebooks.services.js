@@ -39,7 +39,6 @@ const searchBooks = (query, orderBy) => {
             language: item.volumeInfo.language,
             categories: item.volumeInfo.categories
           }));
-        console.log(itemsMap.length);
         resolve({
           items: itemsMap
         });
