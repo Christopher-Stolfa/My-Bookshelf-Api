@@ -33,10 +33,10 @@ const searchBooks = (query, orderBy) => {
             publisher: item.volumeInfo.publisher,
             publishedDate: item.volumeInfo.publishedDate,
             pageCount: item.volumeInfo.pageCount,
-            averageRating: item.volumeInfo.averageRating,
-            ratingsCount: item.volumeInfo.ratingsCount,
+            averageRating: item.volumeInfo.averageRating || -1,
+            ratingsCount: item.volumeInfo.ratingsCount || -1,
             imageLink: item.volumeInfo.imageLinks.thumbnail,
-            language: item.volumeInfo.language,
+            language: item.volumeInfo.language || "",
             categories: item.volumeInfo.categories
           }));
         resolve({
