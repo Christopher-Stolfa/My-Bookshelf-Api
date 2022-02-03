@@ -49,8 +49,7 @@ const userSignUp = async (req, res, next) => {
     res.status(201).json({
       message: "Account successfully created",
       loggedIn: true,
-      userData: userData,
-      favorites: []
+      userData: userData
     });
   } catch (err) {
     next(error);
@@ -59,12 +58,10 @@ const userSignUp = async (req, res, next) => {
 
 const userCheckSession = async (req, res) => {
   if (req.session.user) {
-    const favorites = await getFavoritedBooks(req.session.user.userId);
     res.status(200).json({
       message: "Login session exists",
       loggedIn: true,
-      userData: req.session.user,
-      favorites
+      userData: req.session.user
     });
   } else {
     res.status(200).json({
@@ -94,7 +91,6 @@ const userSignIn = async (req, res, next) => {
       if (!passwordValid) {
         throw { message: "Invalid email or password", code: 401 };
       } else {
-        const favorites = await getFavoritedBooks(UserId);
         const userData = {
           userId: UserId,
           email: Email,
@@ -106,8 +102,7 @@ const userSignIn = async (req, res, next) => {
         res.status(200).json({
           message: "Sign in successful",
           loggedIn: true,
-          userData: userData,
-          favorites
+          userData: userData
         });
       }
     }
