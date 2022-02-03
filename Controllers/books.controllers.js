@@ -24,7 +24,7 @@ const bookSearchById = async (req, res, next) => {
     const { item } = await searchBookById(googleBooksId);
     res.status(200).json({
       message: "Search successful",
-      selectedBookData: item
+      selectedBook: item
     });
   } catch (error) {
     error.message = "Item does not exist";
