@@ -7,7 +7,8 @@ const {
   SIGN_IN,
   CHECK_SESSION,
   SAVE_FAVORITED_BOOK,
-  REMOVED_FAVORITED_BOOK
+  REMOVED_FAVORITED_BOOK,
+  GET_FAVORITED_BOOKS
 } = require("../Constants/usersRoutes");
 
 router.post(SIGN_OUT, userControllers.userSignOut);
@@ -18,5 +19,6 @@ router.get(CHECK_SESSION, userControllers.userCheckSession);
 // User book routes
 router.post(SAVE_FAVORITED_BOOK, userControllers.userSaveFavoritedBook);
 router.delete(REMOVED_FAVORITED_BOOK, userControllers.userRemoveFavoritedBook);
+router.get(GET_FAVORITED_BOOKS, userControllers.userGetFavorites);
 
 module.exports = router;
