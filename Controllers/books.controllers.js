@@ -1,6 +1,6 @@
 const {
   searchBooks,
-  searchBookById
+  searchBookById,
 } = require("../Services/googleBooks.services");
 
 const bookSearch = async (req, res, next) => {
@@ -10,7 +10,7 @@ const bookSearch = async (req, res, next) => {
     res.status(200).json({
       message: "Search successful",
       bookSearchData: items,
-      searchQuery
+      searchQuery,
     });
   } catch (error) {
     error.code = 400;
@@ -24,12 +24,13 @@ const bookSearchById = async (req, res, next) => {
     const { item } = await searchBookById(googleBooksId);
     res.status(200).json({
       message: "Search successful",
-      selectedBook: item
+      selectedBook: item,
     });
   } catch (error) {
-    error.message = "Item does not exist";
-    error.code = 404;
-    next(error);
+    res.status(200).json({
+      message: "Book does not exist",
+      selectedBook: {},
+    });
   }
 };
 
