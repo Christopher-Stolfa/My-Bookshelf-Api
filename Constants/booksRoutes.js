@@ -1,4 +1,3 @@
-// User auth routes
 const SEARCH_BOOK = "/search-book";
 const SEARCH_BOOK_BY_ID = "/search-book-by-id";
 
