@@ -4,9 +4,9 @@ const {
 } = require("../Services/googleBooks.services");
 
 const bookSearch = async (req, res, next) => {
-  const { searchQuery, orderBy } = JSON.parse(req.query.data);
+  const { searchQuery, filters } = JSON.parse(req.query.data);
   try {
-    const { items, totalItems } = await searchBooks(searchQuery, orderBy);
+    const { items } = await searchBooks(searchQuery, filters);
     res.status(200).json({
       message: "Search successful",
       bookSearchData: items,
