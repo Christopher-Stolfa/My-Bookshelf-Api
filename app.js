@@ -14,6 +14,7 @@ const rateLimiter = require("./Middleware/rateLimiter");
 // Routers
 const usersRouter = require("./Routes/users.routes");
 const booksRouter = require("./Routes/books.routes");
+const quotesRouter = require("./Routes/quotes.routes");
 const sequelize = require("./Config/databaseConfig");
 
 const app = express();
@@ -40,6 +41,10 @@ app.use("/users", usersRouter);
 // Uses routes defined in booksRouter alongside /books
 // Example: /books/, /books/book-search
 app.use("/books", booksRouter);
+
+// Uses routes defined in quotesRouter alongside /quotes
+// Example: /quotes/, /quotes/get-random-qoute
+app.use("/quotes", quotesRouter);
 
 // Uses Error handlers
 app.use(errorLogger);
