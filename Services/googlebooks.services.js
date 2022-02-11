@@ -13,10 +13,7 @@ const searchBooks = (query, { searchBy, orderBy }) => {
         const itemsMap = items
           .filter(
             ({ volumeInfo }) =>
-              (volumeInfo.title ||
-                volumeInfo.description.some((category) =>
-                  category.includes(query)
-                )) &&
+              volumeInfo.title &&
               volumeInfo.description &&
               volumeInfo.authors &&
               volumeInfo.publisher &&
@@ -39,7 +36,7 @@ const searchBooks = (query, { searchBy, orderBy }) => {
             language: item.volumeInfo.language,
             categories: item.volumeInfo.categories,
           }))
-          .sort((a, b) => b.averageRating - a.averageRating);
+          .sort((a, b) => b.ratingsCount - a.ratingsCount);
         resolve({
           items: itemsMap,
         });
