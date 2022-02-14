@@ -8,12 +8,14 @@ const {
   CHECK_SESSION,
   SAVE_FAVORITED_BOOK,
   REMOVED_FAVORITED_BOOK,
-  GET_FAVORITED_BOOKS
+  GET_FAVORITED_BOOKS,
+  FORGOT_PASSWORD,
 } = require("../Constants/usersRoutes");
 
 router.post(SIGN_OUT, userControllers.userSignOut);
 router.post(SIGN_UP, userControllers.userSignUp);
 router.post(SIGN_IN, userControllers.userSignIn);
+router.post(FORGOT_PASSWORD, userControllers.userForgotPassword);
 router.get(CHECK_SESSION, userControllers.userCheckSession);
 
 // User book routes
