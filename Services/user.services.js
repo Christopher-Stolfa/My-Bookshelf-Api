@@ -1,4 +1,6 @@
 // TODO: Move congested business logic from users controllers into here.
+const nodemailer = require("nodemailer");
+const crypto = require("crypto");
 const User = require("../Models/user");
 const FavoritedBook = require("../Models/favoritedBook");
 
@@ -8,28 +10,28 @@ const createUser = ({ displayName, firstName, lastName, email, password }) =>
     FirstName: firstName,
     LastName: lastName,
     Email: email,
-    Password: password
-  }).then(resultData => {
+    Password: password,
+  }).then((resultData) => {
     const { UserId, DisplayName, FirstName, LastName, Email } = resultData;
     const userData = {
       userId: UserId,
       email: Email,
       displayName: DisplayName,
       firstName: FirstName,
-      lastName: LastName
+      lastName: LastName,
     };
     return userData;
   });
 
-const findUserByEmail = email =>
-  User.findOne({ where: { Email: email } }).then(user => user);
+const findUserByEmail = (email) =>
+  User.findOne({ where: { Email: email } }).then((user) => user);
 
 const userPasswordValid = (passwordToCheck, correctPassword) =>
   User.prototype.validPassword(passwordToCheck, correctPassword);
 
 const saveFavoritedBook = (userId, book) =>
   User.findOne({ where: { UserId: userId } }).then(
-    user =>
+    (user) =>
       user &&
       user
         .createFavoritedBook({
@@ -44,9 +46,9 @@ const saveFavoritedBook = (userId, book) =>
           RatingsCount: book.ratingsCount,
           ImageLink: book.imageLink,
           Language: book.language,
-          Categories: book.categories
+          Categories: book.categories,
         })
-        .then(book => ({
+        .then((book) => ({
           googleBooksId: book.GoogleBooksId,
           title: book.Title,
           description: book.Description,
@@ -58,25 +60,25 @@ const saveFavoritedBook = (userId, book) =>
           ratingsCount: book.RatingsCount,
           imageLink: book.ImageLink,
           language: book.Language,
-          categories: book.Categories
+          categories: book.Categories,
         }))
   );
 
 const removeFavoritedBook = (userId, book) =>
   User.findOne({ where: { UserId: userId } }).then(
-    user =>
+    (user) =>
       user &&
       FavoritedBook.destroy({
-        where: { GoogleBooksId: book.googleBooksId, UserId: user.UserId }
+        where: { GoogleBooksId: book.googleBooksId, UserId: user.UserId },
       }).then(() => book)
   );
 
-const getFavoritedBooks = userId =>
+const getFavoritedBooks = (userId) =>
   User.findOne({ where: { UserId: userId } }).then(
-    user =>
+    (user) =>
       user &&
-      user.getFavoritedBooks().then(books =>
-        books.map(book => ({
+      user.getFavoritedBooks().then((books) =>
+        books.map((book) => ({
           googleBooksId: book.GoogleBooksId,
           title: book.Title,
           description: book.Description,
@@ -88,10 +90,12 @@ const getFavoritedBooks = userId =>
           ratingsCount: book.RatingsCount,
           imageLink: book.ImageLink,
           language: book.Language,
-          categories: book.Categories
+          categories: book.Categories,
         }))
       )
   );
+
+const sendPasswordReset = () => {};
 
 module.exports = {
   createUser,
@@ -99,5 +103,5 @@ module.exports = {
   userPasswordValid,
   saveFavoritedBook,
   getFavoritedBooks,
-  removeFavoritedBook
+  removeFavoritedBook,
 };
