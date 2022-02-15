@@ -93,14 +93,14 @@ const User = sequelize.define(
           args: true,
           msg: "Password field cannot be empty",
         },
-        len: {
-          args: [8, 12],
-          msg: "Password must be between 8 - 12 characters",
-        },
       },
     },
-    ResetPasswordToken: Sequelize.STRING,
-    ResetPasswordExpires: Sequelize.DATE,
+    ResetPasswordToken: {
+      type: Sequelize.STRING,
+    },
+    ResetPasswordExpires: {
+      type: Sequelize.DATE,
+    },
   },
   {
     hooks: {
@@ -113,7 +113,7 @@ const User = sequelize.define(
           user.Password = bcrypt.hashSync(user.Password, salt);
         }
       },
-      beforeUpdate: (user) => {
+      beforeUpdate: (user, options, errors) => {
         if (user.Password) {
           const salt = bcrypt.genSaltSync(10);
           user.Password = bcrypt.hashSync(user.Password, salt);
