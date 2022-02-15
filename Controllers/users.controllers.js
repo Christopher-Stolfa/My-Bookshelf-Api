@@ -52,7 +52,7 @@ const userSignUp = async (req, res, next) => {
       loggedIn: true,
       userData: userData,
     });
-  } catch (err) {
+  } catch (error) {
     next(error);
   }
 };
@@ -151,7 +151,7 @@ const userForgotPassword = async (req, res, next) => {
     if (!user) {
       throw { message: "Invalid email", code: 401 };
     } else {
-      await sendPasswordReset(email);
+      await sendPasswordReset(user);
       res.status(200).json({
         message:
           "Successfully requested a password reset, please check your email for a reset link",
