@@ -1,7 +1,9 @@
 // TODO: Move congested business logic from users controllers into here.
 const nodemailer = require("nodemailer");
+const Sequelize = require("sequelize");
 const crypto = require("crypto");
 const User = require("../Models/user");
+const moment = require("moment");
 const FavoritedBook = require("../Models/favoritedBook");
 
 const createUser = ({ displayName, firstName, lastName, email, password }) => {
@@ -34,6 +36,25 @@ const createUser = ({ displayName, firstName, lastName, email, password }) => {
     return userData;
   });
 };
+
+const findUserByResetToken = (token) =>
+  User.findOne({
+    where: {
+      ResetPasswordToken: token,
+      ResetPasswordExpires: {
+        [Sequelize.Op.gt]: Date.now(),
+      },
+    },
+  }).then((user) => {
+    if (user === null) {
+      throw {
+        message: "Password reset link is invalid or has expired",
+        code: 403,
+      };
+    } else {
+      return user.Email;
+    }
+  });
 
 const findUserByEmail = (email) =>
   User.findOne({ where: { Email: email } }).then((user) => user);
@@ -109,9 +130,10 @@ const getFavoritedBooks = (userId) =>
 
 const sendPasswordReset = (user) => {
   const token = crypto.randomBytes(20).toString("hex");
+  // Token expires in 10 minutes
   user.update({
     ResetPasswordToken: token,
-    ResetPasswordExpires: Date.now() + 3600000,
+    ResetPasswordExpires: Date.now() + 600000,
   });
 
   const transporter = nodemailer.createTransport({
@@ -152,4 +174,5 @@ module.exports = {
   getFavoritedBooks,
   removeFavoritedBook,
   sendPasswordReset,
+  findUserByResetToken,
 };
