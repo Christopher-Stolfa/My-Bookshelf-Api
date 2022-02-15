@@ -6,6 +6,7 @@ const {
   getFavoritedBooks,
   removeFavoritedBook,
   sendPasswordReset,
+  findUserByResetToken,
 } = require("../Services/user.services");
 
 const userSaveFavoritedBook = async (req, res, next) => {
@@ -162,6 +163,19 @@ const userForgotPassword = async (req, res, next) => {
   }
 };
 
+const userCheckResetToken = async (req, res, next) => {
+  try {
+    const token = req.query.resetPasswordToken;
+    const userEmail = await findUserByResetToken(token);
+    res.status(200).json({
+      message: "Reset token is valid",
+      email: userEmail,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   userSignUp,
   userSignIn,
@@ -171,4 +185,5 @@ module.exports = {
   userRemoveFavoritedBook,
   userGetFavorites,
   userForgotPassword,
+  userCheckResetToken,
 };
