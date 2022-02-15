@@ -6,6 +6,7 @@ const {
   SIGN_UP,
   SIGN_IN,
   CHECK_SESSION,
+  CHECK_RESET_TOKEN,
   SAVE_FAVORITED_BOOK,
   REMOVED_FAVORITED_BOOK,
   GET_FAVORITED_BOOKS,
@@ -17,6 +18,7 @@ router.post(SIGN_UP, userControllers.userSignUp);
 router.post(SIGN_IN, userControllers.userSignIn);
 router.post(FORGOT_PASSWORD, userControllers.userForgotPassword);
 router.get(CHECK_SESSION, userControllers.userCheckSession);
+router.get(CHECK_RESET_TOKEN, userControllers.userCheckResetToken)
 
 // User book routes
 router.post(SAVE_FAVORITED_BOOK, userControllers.userSaveFavoritedBook);
