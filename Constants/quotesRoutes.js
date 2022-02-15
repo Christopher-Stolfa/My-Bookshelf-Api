@@ -1,5 +1,5 @@
-const GET_RANDOM_QOUTE = "/get-random-qoute";
+const GET_RANDOM_QUOTE = "/get-random-quote";
 
 module.exports = {
-  GET_RANDOM_QOUTE,
+  GET_RANDOM_QUOTE,
 };
