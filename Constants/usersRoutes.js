@@ -5,6 +5,7 @@ const SIGN_IN = "/sign-in";
 const CHECK_SESSION = "/check-session";
 const FORGOT_PASSWORD = "/forgot-password";
 const CHECK_RESET_TOKEN = "/check-reset-token";
+const UPDATE_PASSWORD_WITH_TOKEN = "/update-password-with-token";
 
 // User book routes
 const SAVE_FAVORITED_BOOK = "/save-favorited-book";
@@ -21,4 +22,5 @@ module.exports = {
   SAVE_FAVORITED_BOOK,
   REMOVED_FAVORITED_BOOK,
   GET_FAVORITED_BOOKS,
+  UPDATE_PASSWORD_WITH_TOKEN,
 };
