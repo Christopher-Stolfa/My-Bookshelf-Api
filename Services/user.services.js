@@ -3,15 +3,15 @@ const nodemailer = require("nodemailer");
 const Sequelize = require("sequelize");
 const crypto = require("crypto");
 const User = require("../Models/user");
-const moment = require("moment");
 const FavoritedBook = require("../Models/favoritedBook");
 
+const validatePassword = (password) =>
+  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/.test(
+    password
+  );
+
 const createUser = ({ displayName, firstName, lastName, email, password }) => {
-  if (
-    !/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/.test(
-      password
-    )
-  ) {
+  if (!validatePassword(password)) {
     throw {
       message:
         "Password must have between 8 and 16 characters with at least one uppercase letter, one lowercase letter, one number and one special character",
@@ -128,6 +128,33 @@ const getFavoritedBooks = (userId) =>
       )
   );
 
+const updatePasswordViaToken = (token, email, password) =>
+  User.findOne({
+    where: {
+      Email: email,
+      ResetPasswordToken: token,
+      ResetPasswordExpires: {
+        [Sequelize.Op.gt]: Date.now(),
+      },
+    },
+  }).then((user) => {
+    if (user === null) {
+      throw {
+        message: "Password reset link is invalid or has expired",
+        code: 403,
+      };
+    } else if (user !== null) {
+      console.log("user exists in db");
+      user.update({
+        Password: password,
+        ResetPasswordToken: null,
+        ResetPasswordExpires: null,
+      });
+    } else {
+      throw { message: "User does not exist", code: 401 };
+    }
+  });
+
 const sendPasswordReset = (user) => {
   const token = crypto.randomBytes(20).toString("hex");
   // Token expires in 10 minutes
@@ -175,4 +202,5 @@ module.exports = {
   removeFavoritedBook,
   sendPasswordReset,
   findUserByResetToken,
+  updatePasswordViaToken,
 };
