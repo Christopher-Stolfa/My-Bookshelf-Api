@@ -7,6 +7,7 @@ const {
   removeFavoritedBook,
   sendPasswordReset,
   findUserByResetToken,
+  updatePasswordViaToken,
 } = require("../Services/user.services");
 
 const userSaveFavoritedBook = async (req, res, next) => {
@@ -164,12 +165,25 @@ const userForgotPassword = async (req, res, next) => {
 };
 
 const userCheckResetToken = async (req, res, next) => {
+  const token = req.query.resetPasswordToken;
   try {
-    const token = req.query.resetPasswordToken;
     const userEmail = await findUserByResetToken(token);
     res.status(200).json({
       message: "Reset token is valid",
       email: userEmail,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updatePasswordWithToken = async (req, res, next) => {
+  const bodyData = JSON.parse(req.body.data);
+  const { token, email, password } = bodyData;
+  try {
+    await updatePasswordViaToken(token, email, password);
+    res.status(200).json({
+      message: "Password updated successfully",
     });
   } catch (error) {
     next(error);
@@ -186,4 +200,5 @@ module.exports = {
   userGetFavorites,
   userForgotPassword,
   userCheckResetToken,
+  updatePasswordWithToken,
 };
