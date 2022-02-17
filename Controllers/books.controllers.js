@@ -9,8 +9,7 @@ const bookSearch = async (req, res, next) => {
     const { items } = await searchBooks(searchQuery, filters);
     res.status(200).json({
       message: "Search successful",
-      bookSearchData: items,
-      searchQuery,
+      searchResultBooks: items,
     });
   } catch (error) {
     error.code = 400;
