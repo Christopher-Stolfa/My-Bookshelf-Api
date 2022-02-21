@@ -3,7 +3,6 @@ const nodemailer = require("nodemailer");
 const Sequelize = require("sequelize");
 const crypto = require("crypto");
 const User = require("../Models/user");
-const FavoritedBook = require("../Models/favoritedBook");
 
 const validatePassword = (password) =>
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/.test(
@@ -61,72 +60,6 @@ const findUserByEmail = (email) =>
 
 const userPasswordValid = (passwordToCheck, correctPassword) =>
   User.prototype.validPassword(passwordToCheck, correctPassword);
-
-const saveFavoritedBook = (userId, book) =>
-  User.findOne({ where: { UserId: userId } }).then(
-    (user) =>
-      user &&
-      user
-        .createFavoritedBook({
-          GoogleBooksId: book.googleBooksId,
-          Title: book.title,
-          Description: book.description,
-          Authors: book.authors,
-          Publisher: book.publisher,
-          PublishedDate: book.publishedDate,
-          PageCount: book.pageCount,
-          AverageRating: book.averageRating,
-          RatingsCount: book.ratingsCount,
-          ImageLink: book.imageLink,
-          Language: book.language,
-          Categories: book.categories,
-        })
-        .then((book) => ({
-          googleBooksId: book.GoogleBooksId,
-          title: book.Title,
-          description: book.Description,
-          authors: book.Authors,
-          publisher: book.Publisher,
-          publishedDate: book.PublishedDate,
-          pageCount: book.PageCount,
-          averageRating: book.AverageRating,
-          ratingsCount: book.RatingsCount,
-          imageLink: book.ImageLink,
-          language: book.Language,
-          categories: book.Categories,
-        }))
-  );
-
-const removeFavoritedBook = (userId, book) =>
-  User.findOne({ where: { UserId: userId } }).then(
-    (user) =>
-      user &&
-      FavoritedBook.destroy({
-        where: { GoogleBooksId: book.googleBooksId, UserId: user.UserId },
-      }).then(() => book)
-  );
-
-const getFavoritedBooks = (userId) =>
-  User.findOne({ where: { UserId: userId } }).then(
-    (user) =>
-      user &&
-      user.getFavoritedBooks().then((books) =>
-        books.map((book) => ({
-          googleBooksId: book.GoogleBooksId,
-          title: book.Title,
-          description: book.Description,
-          authors: book.Authors,
-          publisher: book.Publisher,
-          publishedDate: book.PublishedDate,
-          pageCount: book.PageCount,
-          averageRating: book.AverageRating,
-          ratingsCount: book.RatingsCount,
-          imageLink: book.ImageLink,
-          language: book.Language,
-          categories: book.Categories,
-        }))
-      )
-  );
 
 const updatePasswordViaToken = (token, email, password) =>
   User.findOne({
@@ -197,9 +130,6 @@ module.exports = {
   createUser,
   findUserByEmail,
   userPasswordValid,
-  saveFavoritedBook,
-  getFavoritedBooks,
-  removeFavoritedBook,
   sendPasswordReset,
   findUserByResetToken,
   updatePasswordViaToken,

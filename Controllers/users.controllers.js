@@ -10,40 +10,6 @@ const {
   updatePasswordViaToken,
 } = require("../Services/user.services");
 
-const userSaveFavoritedBook = async (req, res, next) => {
-  if (req.session.user) {
-    try {
-      const bookData = JSON.parse(req.body.data);
-      const userId = req.session.user.userId;
-      const favoritedBook = await saveFavoritedBook(userId, bookData);
-      res.status(201).json({
-        message: "Added to favorites",
-        favoritedBook,
-      });
-    } catch (error) {
-      next(error);
-    }
-  } else {
-    res.redirect("/");
-  }
-};
-
-const userRemoveFavoritedBook = async (req, res, next) => {
-  if (req.session.user) {
-    try {
-      const bookData = JSON.parse(req.body.bookData);
-      const userId = req.session.user.userId;
-      const favoritedBook = await removeFavoritedBook(userId, bookData);
-      res.status(201).json({
-        message: "Removed from favorites",
-        favoritedBook,
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-};
-
 const userSignUp = async (req, res, next) => {
   const bodyData = JSON.parse(req.body.data);
   try {
@@ -105,26 +71,6 @@ const userSignIn = async (req, res, next) => {
     }
   } catch (error) {
     next(error);
-  }
-};
-
-const userGetFavorites = async (req, res, next) => {
-  if (req.session.user) {
-    try {
-      const favorites = await getFavoritedBooks(req.session.user.userId);
-      res.status(200).json({
-        message: "Favorites found",
-        favorites,
-      });
-    } catch (error) {
-      error.message = "Failed get user favorites";
-      next(error);
-    }
-  } else {
-    res.status(200).json({
-      message: "No favorites",
-      favorites: [],
-    });
   }
 };
 
@@ -195,9 +141,6 @@ module.exports = {
   userSignIn,
   userSignOut,
   userCheckSession,
-  userSaveFavoritedBook,
-  userRemoveFavoritedBook,
-  userGetFavorites,
   userForgotPassword,
   userCheckResetToken,
   updatePasswordWithToken,
