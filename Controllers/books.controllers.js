@@ -6,6 +6,10 @@ const {
   dbSaveFavoritedBook,
   dbRemoveFavoritedBook,
   dbGetFavoritedBooks,
+  dbSaveNote,
+  dbEditNote,
+  dbDeleteNote,
+  dbGetNotes,
 } = require("../Services/books.services");
 
 const bookSearch = async (req, res, next) => {
@@ -92,10 +96,34 @@ const removeFavoritedBook = async (req, res, next) => {
   }
 };
 
+const saveNote = async (req, res, next) => {
+  if (req.session.user) {
+    const data = JSON.parse(req.body.data);
+    console.log(data);
+    res.status(200).json({ message: "success" });
+  }
+};
+
+const editNote = async (req, res, next) => {
+  res.status(200).json({ message: "success" });
+};
+
+const deleteNote = async (req, res, next) => {
+  res.status(200).json({ message: "success" });
+};
+
+const getNotes = async (req, res, next) => {
+  res.status(200).json({ message: "success" });
+};
+
 module.exports = {
   bookSearch,
   bookSearchById,
   getUserFavorites,
   saveFavoritedBook,
   removeFavoritedBook,
+  saveNote,
+  editNote,
+  deleteNote,
+  getNotes,
 };

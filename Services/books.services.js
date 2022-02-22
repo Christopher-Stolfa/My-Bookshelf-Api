@@ -67,8 +67,20 @@ const dbGetFavoritedBooks = (userId) =>
       )
   );
 
+const dbSaveNote = () => {};
+
+const dbEditNote = () => {};
+
+const dbDeleteNote = () => {};
+
+const dbGetNotes = () => {};
+
 module.exports = {
   dbSaveFavoritedBook,
   dbRemoveFavoritedBook,
   dbGetFavoritedBooks,
+  dbSaveNote,
+  dbEditNote,
+  dbDeleteNote,
+  dbGetNotes,
 };
