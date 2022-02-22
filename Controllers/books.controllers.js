@@ -63,44 +63,44 @@ const getUserFavorites = async (req, res, next) => {
 };
 
 const saveFavoritedBook = async (req, res, next) => {
-  if (req.session.user) {
-    try {
-      const bookData = JSON.parse(req.body.data);
-      const userId = req.session.user.userId;
-      const favoritedBook = await dbSaveFavoritedBook(userId, bookData);
-      res.status(201).json({
-        message: "Added to favorites",
-        favoritedBook,
-      });
-    } catch (error) {
-      next(error);
-    }
-  } else {
-    res.redirect("/");
+  try {
+    if (!req.session.user) throw { message: "Invalid credentials", code: 401 };
+    const bookData = JSON.parse(req.body.data);
+    const userId = req.session.user.userId;
+    const favoritedBook = await dbSaveFavoritedBook(userId, bookData);
+    res.status(201).json({
+      message: "Added to favorites",
+      favoritedBook,
+    });
+  } catch (error) {
+    next(error);
   }
 };
 
 const removeFavoritedBook = async (req, res, next) => {
-  if (req.session.user) {
-    try {
-      const bookData = JSON.parse(req.body.bookData);
-      const userId = req.session.user.userId;
-      const favoritedBook = await dbRemoveFavoritedBook(userId, bookData);
-      res.status(201).json({
-        message: "Removed from favorites",
-        favoritedBook,
-      });
-    } catch (error) {
-      next(error);
-    }
+  try {
+    if (!req.session.user) throw { message: "Invalid credentials", code: 401 };
+    const bookData = JSON.parse(req.body.bookData);
+    const userId = req.session.user.userId;
+    const favoritedBook = await dbRemoveFavoritedBook(userId, bookData);
+    res.status(201).json({
+      message: "Removed from favorites",
+      favoritedBook,
+    });
+  } catch (error) {
+    next(error);
   }
 };
 
 const saveNote = async (req, res, next) => {
-  if (req.session.user) {
-    const data = JSON.parse(req.body.data);
-    console.log(data);
-    res.status(200).json({ message: "success" });
+  try {
+    if (!req.session.user) throw { message: "Invalid credentials", code: 401 };
+    const userId = req.session.user.userId;
+    const { googleBooksId, noteText } = JSON.parse(req.body.data);
+    const noteData = await dbSaveNote(userId, googleBooksId, noteText);
+    res.status(200).json({ message: "success", noteData });
+  } catch (error) {
+    next(error);
   }
 };
 
