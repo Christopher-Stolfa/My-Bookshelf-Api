@@ -67,7 +67,25 @@ const dbGetFavoritedBooks = (userId) =>
       )
   );
 
-const dbSaveNote = () => {};
+const dbSaveNote = async (userId, googleBooksId, noteText) =>
+  FavoritedBook.findOne({
+    where: { UserId: userId, GoogleBooksId: googleBooksId },
+  })
+    .then((favoritedBook) => {
+      if (favoritedBook) {
+        return favoritedBook
+          .createNote({
+            UserId: userId,
+            Text: noteText,
+          })
+          .then((note) => ({ noteId: note.NoteId, text: note.Text }));
+      } else {
+        throw new Error("Server error");
+      }
+    })
+    .catch((error) => {
+      throw error;
+    });
 
 const dbEditNote = () => {};
 
