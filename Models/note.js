@@ -25,7 +25,7 @@ const Note = sequelize.define(
     hooks: {
       validationFailed: (instance, options, { errors }) => {
         console.log(errors);
-        throw { message: "Error creating note", code: 500 };
+        throw { message: "Server error", code: 500 };
       },
     },
   }
