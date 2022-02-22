@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../Config/databaseConfig");
-// Creates a User Schema and exports it as a User Model.
+const Note = require("./note");
+
 const FavoritedBook = sequelize.define(
   "FavoritedBook",
   {
@@ -9,7 +10,7 @@ const FavoritedBook = sequelize.define(
       autoIncrement: true,
       allowNull: false,
       unique: true,
-      primaryKey: true
+      primaryKey: true,
     },
     GoogleBooksId: {
       type: Sequelize.STRING,
@@ -17,15 +18,15 @@ const FavoritedBook = sequelize.define(
       validate: {
         async exists(googleBooksId) {
           const book = await FavoritedBook.findOne({
-            where: { GoogleBooksId: googleBooksId, UserId: this.UserId }
+            where: { GoogleBooksId: googleBooksId, UserId: this.UserId },
           });
           if (book) throw new Error("Item already in favorites");
         },
         notEmpty: {
           args: true,
-          msg: "Id field cannot be empty."
-        }
-      }
+          msg: "Id field cannot be empty.",
+        },
+      },
     },
     Title: {
       type: Sequelize.STRING,
@@ -33,13 +34,13 @@ const FavoritedBook = sequelize.define(
       validate: {
         notEmpty: {
           args: true,
-          msg: "Title field cannot be empty."
-        }
-      }
+          msg: "Title field cannot be empty.",
+        },
+      },
     },
     Description: {
       type: Sequelize.TEXT,
-      allowNull: false
+      allowNull: false,
     },
     Authors: {
       type: Sequelize.STRING,
@@ -49,35 +50,35 @@ const FavoritedBook = sequelize.define(
       },
       set(authors) {
         this.setDataValue("Authors", authors.join(";"));
-      }
+      },
     },
     Publisher: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
     },
     PublishedDate: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
     },
     PageCount: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
     AverageRating: {
       type: Sequelize.FLOAT,
-      allowNull: false
+      allowNull: false,
     },
     RatingsCount: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
     Language: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
     },
     ImageLink: {
       type: Sequelize.TEXT,
-      allowNull: false
+      allowNull: false,
     },
     Categories: {
       type: Sequelize.TEXT,
@@ -87,17 +88,24 @@ const FavoritedBook = sequelize.define(
       },
       set(categories) {
         this.setDataValue("Categories", categories.join(";"));
-      }
-    }
+      },
+    },
   },
   {
     hooks: {
       validationFailed: (instance, options, { errors }) => {
         console.log(errors);
         throw { message: "Error favoriting book", code: 500 };
-      }
-    }
+      },
+    },
   }
 );
+
+FavoritedBook.hasMany(Note, {
+  as: "Notes",
+  foreignKey: "FavoritedBookId",
+  onDelete: "cascade",
+  allowNull: false,
+});
 
 module.exports = FavoritedBook;
