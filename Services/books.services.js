@@ -78,7 +78,12 @@ const dbSaveNote = async (userId, googleBooksId, noteText) =>
             UserId: userId,
             Text: noteText,
           })
-          .then((note) => ({ noteId: note.NoteId, text: note.Text }));
+          .then((note) => ({
+            noteId: note.NoteId,
+            text: note.Text,
+            createdAt: note.createdAt,
+            updatedAt: note.updatedAt,
+          }));
       } else {
         throw new Error("Server error");
       }
@@ -91,7 +96,27 @@ const dbEditNote = () => {};
 
 const dbDeleteNote = () => {};
 
-const dbGetNotes = () => {};
+const dbGetNotes = async (userId, googleBooksId) =>
+  FavoritedBook.findOne({
+    where: { UserId: userId, GoogleBooksId: googleBooksId },
+  })
+    .then((favoritedBook) => {
+      if (favoritedBook) {
+        return favoritedBook.getNotes().then((notes) =>
+          notes.map((note) => ({
+            noteId: note.NoteId,
+            text: note.Text,
+            createdAt: note.createdAt,
+            updatedAt: note.updatedAt,
+          }))
+        );
+      } else {
+        throw new Error("Server error");
+      }
+    })
+    .catch((error) => {
+      throw error;
+    });
 
 module.exports = {
   dbSaveFavoritedBook,
