@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../Config/databaseConfig");
 const FavoritedBook = require("./favoritedBook");
+const Note = require("./note");
 const bcrypt = require("bcrypt");
 
 // Creates a User Schema and exports it as a User Model.
@@ -134,6 +135,13 @@ User.prototype.validPassword = (password, hash) => {
 
 User.hasMany(FavoritedBook, {
   as: "FavoritedBooks",
+  foreignKey: "UserId",
+  onDelete: "cascade",
+  allowNull: false,
+});
+
+User.hasMany(Note, {
+  as: "Notes",
   foreignKey: "UserId",
   onDelete: "cascade",
   allowNull: false,
