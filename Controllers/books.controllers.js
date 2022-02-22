@@ -113,7 +113,15 @@ const deleteNote = async (req, res, next) => {
 };
 
 const getNotes = async (req, res, next) => {
-  res.status(200).json({ message: "success" });
+  try {
+    if (!req.session.user) throw { message: "Invalid credentials", code: 401 };
+    const userId = req.session.user.userId;
+    const { googleBooksId } = JSON.parse(req.query.data);
+    const notes = await dbGetNotes(userId, googleBooksId);
+    res.status(200).json({ message: "success", notes });
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = {
