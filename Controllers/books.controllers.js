@@ -3,6 +3,7 @@ const {
   searchBookById,
 } = require("../Services/googleBooks.services");
 const {
+  dbGetFavoritedBook,
   dbSaveFavoritedBook,
   dbRemoveFavoritedBook,
   dbGetFavoritedBooks,
@@ -92,13 +93,28 @@ const removeFavoritedBook = async (req, res, next) => {
   }
 };
 
+const getFavoritedBookById = async (req, res, next) => {
+  try {
+    if (!req.session.user) throw { message: "Invalid credentials", code: 401 };
+    const bookId = JSON.parse(req.body.bookId);
+    const userId = req.session.user.userId;
+    const book = dbGetFavoritedBook(userId, bookId);
+    res.status(201).json({
+      message: "Favorited book found",
+      book,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const saveNote = async (req, res, next) => {
   try {
     if (!req.session.user) throw { message: "Invalid credentials", code: 401 };
     const userId = req.session.user.userId;
     const { googleBooksId, noteText } = JSON.parse(req.body.data);
     const noteData = await dbSaveNote(userId, googleBooksId, noteText);
-    res.status(200).json({ message: "success", noteData });
+    res.status(200).json({ message: "Note added", noteData });
   } catch (error) {
     next(error);
   }
@@ -109,7 +125,15 @@ const editNote = async (req, res, next) => {
 };
 
 const deleteNote = async (req, res, next) => {
-  res.status(200).json({ message: "success" });
+  try {
+    if (!req.session.user) throw { message: "Invalid credentials", code: 401 };
+    const userId = req.session.user.userId;
+    const noteId = req.body.noteId;
+    await dbDeleteNote(userId, noteId);
+    res.status(200).json({ message: "Note removed", noteId });
+  } catch (error) {
+    next(error);
+  }
 };
 
 const getNotes = async (req, res, next) => {
@@ -134,4 +158,5 @@ module.exports = {
   editNote,
   deleteNote,
   getNotes,
+  getFavoritedBookById,
 };
