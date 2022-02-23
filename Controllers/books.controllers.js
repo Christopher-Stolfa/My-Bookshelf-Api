@@ -93,7 +93,7 @@ const removeFavoritedBook = async (req, res, next) => {
   }
 };
 
-const getFavoritedBookById = async (req, res, next) => {
+const getFavoritedBook = async (req, res, next) => {
   try {
     if (!req.session.user) throw { message: "Invalid credentials", code: 401 };
     const bookId = JSON.parse(req.body.bookId);
@@ -158,5 +158,5 @@ module.exports = {
   editNote,
   deleteNote,
   getNotes,
-  getFavoritedBookById,
+  getFavoritedBook,
 };
