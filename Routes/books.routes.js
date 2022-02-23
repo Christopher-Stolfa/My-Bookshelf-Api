@@ -4,6 +4,7 @@ const {
   bookSearch,
   bookSearchById,
   getUserFavorites,
+  getFavoritedBook,
   saveFavoritedBook,
   removeFavoritedBook,
   saveNote,
@@ -17,6 +18,7 @@ const {
   SAVE_FAVORITED_BOOK,
   REMOVED_FAVORITED_BOOK,
   GET_FAVORITED_BOOKS,
+  GET_FAVORITED_BOOK,
   SAVE_NOTE,
   EDIT_NOTE,
   DELETE_NOTE,
@@ -29,6 +31,7 @@ router.get(SEARCH_BOOK_BY_ID, bookSearchById);
 router.post(SAVE_FAVORITED_BOOK, saveFavoritedBook);
 router.delete(REMOVED_FAVORITED_BOOK, removeFavoritedBook);
 router.get(GET_FAVORITED_BOOKS, getUserFavorites);
+router.get(GET_FAVORITED_BOOK, getFavoritedBook);
 
 router.post(SAVE_NOTE, saveNote);
 router.put(EDIT_NOTE, editNote);
