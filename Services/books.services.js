@@ -1,4 +1,5 @@
 const User = require("../Models/user");
+const Note = require("../Models/note");
 const FavoritedBook = require("../Models/favoritedBook");
 
 const dbSaveFavoritedBook = (userId, book) =>
@@ -44,6 +45,28 @@ const dbRemoveFavoritedBook = (userId, book) =>
         where: { GoogleBooksId: book.googleBooksId, UserId: user.UserId },
       }).then(() => book)
   );
+
+const dbGetFavoritedBook = (userId, bookId) =>
+  FavoritedBook.findOne({ where: { UserId: userId, bookId } }).then((book) => {
+    if (!book) {
+      throw { message: "Book doesn't exist", code: 404 };
+    } else {
+      return {
+        googleBooksId: book.GoogleBooksId,
+        title: book.Title,
+        description: book.Description,
+        authors: book.Authors,
+        publisher: book.Publisher,
+        publishedDate: book.PublishedDate,
+        pageCount: book.PageCount,
+        averageRating: book.AverageRating,
+        ratingsCount: book.RatingsCount,
+        imageLink: book.ImageLink,
+        language: book.Language,
+        categories: book.Categories,
+      };
+    }
+  });
 
 const dbGetFavoritedBooks = (userId) =>
   User.findOne({ where: { UserId: userId } }).then(
@@ -94,7 +117,12 @@ const dbSaveNote = async (userId, googleBooksId, noteText) =>
 
 const dbEditNote = () => {};
 
-const dbDeleteNote = () => {};
+const dbDeleteNote = (userId, noteId) =>
+  Note.findOne({ where: { UserId: userId, NoteId: noteId } })
+    .then((note) => note.destroy())
+    .catch((error) => {
+      throw new Error("Server error");
+    });
 
 const dbGetNotes = async (userId, googleBooksId) =>
   FavoritedBook.findOne({
@@ -119,6 +147,7 @@ const dbGetNotes = async (userId, googleBooksId) =>
     });
 
 module.exports = {
+  dbGetFavoritedBook,
   dbSaveFavoritedBook,
   dbRemoveFavoritedBook,
   dbGetFavoritedBooks,
