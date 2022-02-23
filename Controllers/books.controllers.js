@@ -96,9 +96,9 @@ const removeFavoritedBook = async (req, res, next) => {
 const getFavoritedBook = async (req, res, next) => {
   try {
     if (!req.session.user) throw { message: "Invalid credentials", code: 401 };
-    const bookId = req.query.data.bookId;
+    const { bookId } = JSON.parse(req.query.data);
     const userId = req.session.user.userId;
-    const book = dbGetFavoritedBook(userId, bookId);
+    const book = await dbGetFavoritedBook(userId, bookId);
     res.status(201).json({
       message: "Favorited book found",
       book,
