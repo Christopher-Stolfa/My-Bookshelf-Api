@@ -47,7 +47,9 @@ const dbRemoveFavoritedBook = (userId, book) =>
   );
 
 const dbGetFavoritedBook = (userId, bookId) =>
-  FavoritedBook.findOne({ where: { UserId: userId, bookId } }).then((book) => {
+  FavoritedBook.findOne({
+    where: { UserId: userId, GoogleBooksId: bookId },
+  }).then((book) => {
     if (!book) {
       throw { message: "Book doesn't exist", code: 404 };
     } else {
