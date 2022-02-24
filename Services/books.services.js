@@ -20,6 +20,8 @@ const dbSaveFavoritedBook = (userId, book) =>
           ImageLink: book.imageLink,
           Language: book.language,
           Categories: book.categories,
+          isReading: false,
+          progress: 0,
         })
         .then((book) => ({
           googleBooksId: book.GoogleBooksId,
@@ -34,6 +36,8 @@ const dbSaveFavoritedBook = (userId, book) =>
           imageLink: book.ImageLink,
           language: book.Language,
           categories: book.Categories,
+          isReading: book.IsReading,
+          progress: book.Progress,
         }))
   );
 
@@ -66,6 +70,8 @@ const dbGetFavoritedBook = (userId, bookId) =>
         imageLink: book.ImageLink,
         language: book.Language,
         categories: book.Categories,
+        isReading: book.IsReading,
+        progress: book.Progress,
       };
     }
   });
@@ -88,11 +94,30 @@ const dbGetFavoritedBooks = (userId) =>
           imageLink: book.ImageLink,
           language: book.Language,
           categories: book.Categories,
+          isReading: book.IsReading,
+          progress: book.Progress,
         }))
       )
   );
 
-const dbSaveNote = async (userId, googleBooksId, noteText) =>
+const dbToggleReadingBook = (userId, googleBooksId, isReading) =>
+  FavoritedBook.findOne({
+    where: { UserId: userId, GoogleBooksId: googleBooksId },
+  })
+    .then((favoritedBook) => {
+      if (favoritedBook) {
+        return favoritedBook.update({ IsReading: isReading }).then((book) => ({
+          isReading: book.IsReading,
+        }));
+      } else {
+        throw new Error("Server error");
+      }
+    })
+    .catch((error) => {
+      throw error;
+    });
+
+const dbSaveNote = (userId, googleBooksId, noteText) =>
   FavoritedBook.findOne({
     where: { UserId: userId, GoogleBooksId: googleBooksId },
   })
@@ -173,4 +198,5 @@ module.exports = {
   dbEditNote,
   dbDeleteNote,
   dbGetNotes,
+  dbToggleReadingBook,
 };
