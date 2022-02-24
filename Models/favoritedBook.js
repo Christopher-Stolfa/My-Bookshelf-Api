@@ -99,13 +99,21 @@ const FavoritedBook = sequelize.define(
       type: Sequelize.INTEGER,
       allowNull: false,
       defaultValue: 0,
+      validate: {
+        notEmpty: {
+          args: true,
+          min: 0,
+          max: 100,
+          msg: "Value must be between 0 and 100",
+        },
+      },
     },
   },
   {
     hooks: {
       validationFailed: (instance, options, { errors }) => {
-        console.log(errors);
-        throw { message: "Server error", code: 500 };
+        // console.log(errors);
+        // throw { message: "Server error", code: 500 };
       },
     },
   }
