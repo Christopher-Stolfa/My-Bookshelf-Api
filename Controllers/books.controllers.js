@@ -11,6 +11,7 @@ const {
   dbEditNote,
   dbDeleteNote,
   dbGetNotes,
+  dbToggleReadingBook,
 } = require("../Services/books.services");
 
 const bookSearch = async (req, res, next) => {
@@ -151,7 +152,25 @@ const getNotes = async (req, res, next) => {
     const userId = req.session.user.userId;
     const { googleBooksId } = JSON.parse(req.query.data);
     const notes = await dbGetNotes(userId, googleBooksId);
-    res.status(200).json({ message: "success", notes });
+    res.status(200).json({ message: "Successfully received notes", notes });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const toggleReadingBook = async (req, res, next) => {
+  try {
+    if (!req.session.user) throw { message: "Invalid credentials", code: 401 };
+    const bodyData = JSON.parse(req.body.data);
+    console.log(bodyData);
+    const { googleBooksId, isReading } = bodyData;
+    const userId = req.session.user.userId;
+    const bookData = await dbToggleReadingBook(
+      userId,
+      googleBooksId,
+      isReading
+    );
+    res.status(200).json({ message: "Successful toggle", bookData });
   } catch (error) {
     next(error);
   }
@@ -168,4 +187,5 @@ module.exports = {
   deleteNote,
   getNotes,
   getFavoritedBook,
+  toggleReadingBook,
 };
