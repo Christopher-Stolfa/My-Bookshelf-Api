@@ -117,7 +117,23 @@ const dbSaveNote = async (userId, googleBooksId, noteText) =>
       throw error;
     });
 
-const dbEditNote = () => {};
+const dbEditNote = (userId, noteId, noteText) =>
+  Note.findOne({ where: { UserId: userId, NoteId: noteId } })
+    .then((note) => {
+      if (note) {
+        return note.update({ Text: noteText }).then((updatedNote) => ({
+          noteId: updatedNote.NoteId,
+          text: updatedNote.Text,
+          createdAt: updatedNote.createdAt,
+          updatedAt: updatedNote.updatedAt,
+        }));
+      } else {
+        throw new Error("Server error");
+      }
+    })
+    .catch((error) => {
+      throw new Error("Server error");
+    });
 
 const dbDeleteNote = (userId, noteId) =>
   Note.findOne({ where: { UserId: userId, NoteId: noteId } })

@@ -121,7 +121,16 @@ const saveNote = async (req, res, next) => {
 };
 
 const editNote = async (req, res, next) => {
-  res.status(200).json({ message: "success" });
+  try {
+    if (!req.session.user) throw { message: "Invalid credentials", code: 401 };
+    const bodyData = JSON.parse(req.body.data);
+    const { noteId, noteText } = bodyData;
+    const userId = req.session.user.userId;
+    const noteData = await dbEditNote(userId, noteId, noteText);
+    res.status(200).json({ message: "Note saved", noteData });
+  } catch (error) {
+    next(error);
+  }
 };
 
 const deleteNote = async (req, res, next) => {
