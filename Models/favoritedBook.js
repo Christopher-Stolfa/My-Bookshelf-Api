@@ -90,12 +90,22 @@ const FavoritedBook = sequelize.define(
         this.setDataValue("Categories", categories.join(";"));
       },
     },
+    IsReading: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    Progress: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
   },
   {
     hooks: {
       validationFailed: (instance, options, { errors }) => {
         console.log(errors);
-        throw { message: "Error favoriting book", code: 500 };
+        throw { message: "Server error", code: 500 };
       },
     },
   }
