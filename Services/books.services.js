@@ -110,7 +110,7 @@ const dbToggleReadingBook = (userId, googleBooksId, isReading) =>
           isReading: book.IsReading,
         }));
       } else {
-        throw new Error("Server error");
+        throw { message: "Book must be saved as a favorite", code: 400 };
       }
     })
     .catch((error) => {
