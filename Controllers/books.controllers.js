@@ -12,6 +12,7 @@ const {
   dbDeleteNote,
   dbGetNotes,
   dbToggleReadingBook,
+  dbSetBookProgress,
 } = require("../Services/books.services");
 
 const bookSearch = async (req, res, next) => {
@@ -162,15 +163,31 @@ const toggleReadingBook = async (req, res, next) => {
   try {
     if (!req.session.user) throw { message: "Invalid credentials", code: 401 };
     const bodyData = JSON.parse(req.body.data);
-    console.log(bodyData);
-    const { googleBooksId, isReading } = bodyData;
+    const { googleBooksId, isReading, progress } = bodyData;
     const userId = req.session.user.userId;
     const bookData = await dbToggleReadingBook(
       userId,
       googleBooksId,
-      isReading
+      isReading,
+      progress
     );
-    res.status(200).json({ message: "Successful toggle", bookData });
+    res.status(200).json({
+      message: isReading ? "Book set to reading" : "Book set to not reading",
+      bookData,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const setBookProgress = async (req, res, next) => {
+  try {
+    if (!req.session.user) throw { message: "Invalid credentials", code: 401 };
+    const bodyData = JSON.parse(req.body.data);
+    const { googleBooksId, progress } = bodyData;
+    const userId = req.session.user.userId;
+    const bookData = await dbSetBookProgress(userId, googleBooksId, progress);
+    res.status(200).json({ message: `Progress set to ${progress}%`, bookData });
   } catch (error) {
     next(error);
   }
@@ -188,4 +205,5 @@ module.exports = {
   getNotes,
   getFavoritedBook,
   toggleReadingBook,
+  setBookProgress,
 };
