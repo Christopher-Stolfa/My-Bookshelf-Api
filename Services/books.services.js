@@ -20,8 +20,8 @@ const dbSaveFavoritedBook = (userId, book) =>
           ImageLink: book.imageLink,
           Language: book.language,
           Categories: book.categories,
-          isReading: false,
-          progress: 0,
+          IsReading: false,
+          Progress: 0,
         })
         .then((book) => ({
           googleBooksId: book.GoogleBooksId,
@@ -100,14 +100,34 @@ const dbGetFavoritedBooks = (userId) =>
       )
   );
 
-const dbToggleReadingBook = (userId, googleBooksId, isReading) =>
+const dbToggleReadingBook = (userId, googleBooksId, isReading, progress) =>
   FavoritedBook.findOne({
     where: { UserId: userId, GoogleBooksId: googleBooksId },
   })
     .then((favoritedBook) => {
       if (favoritedBook) {
-        return favoritedBook.update({ IsReading: isReading }).then((book) => ({
-          isReading: book.IsReading,
+        return favoritedBook
+          .update({ IsReading: isReading, Progress: progress })
+          .then((book) => ({
+            isReading: book.IsReading,
+            progress: parseInt(book.Progress),
+          }));
+      } else {
+        throw { message: "Book must be saved as a favorite", code: 400 };
+      }
+    })
+    .catch((error) => {
+      throw error;
+    });
+
+const dbSetBookProgress = (userId, googleBooksId, progress) =>
+  FavoritedBook.findOne({
+    where: { UserId: userId, GoogleBooksId: googleBooksId },
+  })
+    .then((favoritedBook) => {
+      if (favoritedBook) {
+        return favoritedBook.update({ Progress: progress }).then((book) => ({
+          progress: parseInt(book.Progress),
         }));
       } else {
         throw { message: "Book must be saved as a favorite", code: 400 };
@@ -199,4 +219,5 @@ module.exports = {
   dbDeleteNote,
   dbGetNotes,
   dbToggleReadingBook,
+  dbSetBookProgress,
 };
