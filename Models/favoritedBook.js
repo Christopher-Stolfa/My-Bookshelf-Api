@@ -93,24 +93,33 @@ const FavoritedBook = sequelize.define(
     IsReading: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
-      defaultValue: false,
     },
     Progress: {
       type: Sequelize.INTEGER,
       allowNull: false,
-      defaultValue: 0,
       validate: {
+        min: 0,
+        max: 100,
+        isNumeric: {
+          args: true,
+          msg: "Progress must be a number",
+        },
         notEmpty: {
           args: true,
-          min: 0,
-          max: 100,
-          msg: "Value must be between 0 and 100",
         },
       },
     },
   },
   {
     hooks: {
+      beforeValidate: (book, options) => {
+        if (isNaN(book.Progress) || book.Progress < 0 || book.Progress > 100) {
+          throw {
+            message: "Progress must be a number from 0 to 100",
+            code: 400,
+          };
+        }
+      },
       validationFailed: (instance, options, { errors }) => {
         // console.log(errors);
         // throw { message: "Server error", code: 500 };
