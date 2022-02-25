@@ -12,6 +12,7 @@ const {
   deleteNote,
   getNotes,
   toggleReadingBook,
+  setBookProgress,
 } = require("../Controllers/books.controllers");
 const {
   SEARCH_BOOK,
@@ -21,6 +22,7 @@ const {
   GET_FAVORITED_BOOKS,
   GET_FAVORITED_BOOK,
   TOGGLE_READING_BOOK,
+  SET_BOOK_PROGRESS,
   SAVE_NOTE,
   EDIT_NOTE,
   DELETE_NOTE,
@@ -35,6 +37,7 @@ router.delete(REMOVED_FAVORITED_BOOK, removeFavoritedBook);
 router.get(GET_FAVORITED_BOOKS, getUserFavorites);
 router.get(GET_FAVORITED_BOOK, getFavoritedBook);
 router.put(TOGGLE_READING_BOOK, toggleReadingBook);
+router.put(SET_BOOK_PROGRESS, setBookProgress);
 
 router.post(SAVE_NOTE, saveNote);
 router.put(EDIT_NOTE, editNote);
