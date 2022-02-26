@@ -2,12 +2,10 @@ const {
   createUser,
   findUserByEmail,
   userPasswordValid,
-  saveFavoritedBook,
-  getFavoritedBooks,
-  removeFavoritedBook,
   sendPasswordReset,
   findUserByResetToken,
   updatePasswordViaToken,
+  dbUpdatePassword,
 } = require("../Services/user.services");
 
 const userSignUp = async (req, res, next) => {
@@ -74,8 +72,34 @@ const userSignIn = async (req, res, next) => {
   }
 };
 
+const updatePassword = async (req, res, next) => {
+  try {
+    if (!req.session.user) throw { message: "Invalid credentials", code: 401 };
+    const bodyData = JSON.parse(req.body.data);
+    const email = req.session.user.email;
+    const { currentPassword, newPassword } = bodyData;
+    const user = await findUserByEmail(email);
+    if (!user) {
+      throw { message: "User does not exist", code: 404 };
+    } else {
+      const passwordValid = userPasswordValid(currentPassword, user.Password);
+      if (!passwordValid) {
+        throw { message: "Invalid email or password", code: 401 };
+      } else {
+        await dbUpdatePassword(user, newPassword);
+        res.status(200).json({
+          message: "Password updated successfully",
+        });
+      }
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 const userSignOut = (req, res, next) => {
-  if (req.session.user) {
+  try {
+    if (!req.session.user) throw { message: "Invalid credentials", code: 401 };
     req.session.destroy((error) => {
       if (error) {
         throw { message: "Failed to sign out", code: 400 };
@@ -86,8 +110,8 @@ const userSignOut = (req, res, next) => {
         });
       }
     });
-  } else {
-    res.status(200).json({ message: "No session exists", loggedIn: false });
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -144,4 +168,5 @@ module.exports = {
   userForgotPassword,
   userCheckResetToken,
   updatePasswordWithToken,
+  updatePassword,
 };
