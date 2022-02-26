@@ -17,30 +17,10 @@ const User = sequelize.define(
     FirstName: {
       type: Sequelize.STRING,
       allowNull: false,
-      validate: {
-        len: {
-          args: [2, 50],
-          msg: "First name must be between 2 - 50 characters",
-        },
-        notEmpty: {
-          args: true,
-          msg: "First name field cannot be empty",
-        },
-      },
     },
     LastName: {
       type: Sequelize.STRING,
       allowNull: false,
-      validate: {
-        len: {
-          args: [2, 50],
-          msg: "Last name must be between 2 - 50 characters",
-        },
-        notEmpty: {
-          args: true,
-          msg: "Last name field cannot be empty",
-        },
-      },
     },
     DisplayName: {
       type: Sequelize.STRING,
