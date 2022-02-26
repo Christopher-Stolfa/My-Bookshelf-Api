@@ -88,6 +88,9 @@ const updatePasswordViaToken = (token, email, password) =>
     }
   });
 
+const dbUpdatePassword = (user, newPassword) =>
+  user.update({ Password: newPassword });
+
 const sendPasswordReset = (user) => {
   const token = crypto.randomBytes(20).toString("hex");
   // Token expires in 10 minutes
@@ -133,4 +136,5 @@ module.exports = {
   sendPasswordReset,
   findUserByResetToken,
   updatePasswordViaToken,
+  dbUpdatePassword,
 };
