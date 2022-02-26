@@ -6,6 +6,7 @@ const CHECK_SESSION = "/check-session";
 const FORGOT_PASSWORD = "/forgot-password";
 const CHECK_RESET_TOKEN = "/check-reset-token";
 const UPDATE_PASSWORD_WITH_TOKEN = "/update-password-with-token";
+const UPDATE_PASSWORD = "/update-password";
 
 module.exports = {
   SIGN_OUT,
@@ -15,4 +16,5 @@ module.exports = {
   CHECK_SESSION,
   CHECK_RESET_TOKEN,
   UPDATE_PASSWORD_WITH_TOKEN,
+  UPDATE_PASSWORD,
 };
