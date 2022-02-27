@@ -9,7 +9,6 @@ const {
   errorResponder,
   failSafeHandler,
 } = require("./Middleware/errorHandler");
-const rateLimiter = require("./Middleware/rateLimiter");
 
 // Routers
 const usersRouter = require("./Routes/users.routes");
@@ -31,9 +30,6 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(redisMiddleware);
 
-// Limits the amount of requests within a specified amount of time
-// TODO: Fix errors with rateLimiter, it randomly breaks.
-// app.use(rateLimiter);
 // Uses routes defined in usersRouter alongside /users
 // Example: /users/sign-up, /users/sign-in
 app.use("/users", usersRouter);
