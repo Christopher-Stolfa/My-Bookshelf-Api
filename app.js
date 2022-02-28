@@ -19,6 +19,7 @@ import sequelize from "./Config/databaseConfig.js";
 
 const app = express();
 const PORT = 5000;
+console.log("app running")
 
 app.use(express.json());
 app.use(
