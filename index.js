@@ -34,15 +34,15 @@ app.use(redisMiddleware);
 
 // Uses routes defined in usersRouter alongside /users
 // Example: /users/sign-up, /users/sign-in
-app.use("/users", usersRouter);
+app.use("/api/users", usersRouter);
 
 // Uses routes defined in booksRouter alongside /books
 // Example: /books/, /books/book-search
-app.use("/books", booksRouter);
+app.use("/api/books", booksRouter);
 
 // Uses routes defined in quotesRouter alongside /quotes
 // Example: /quotes/, /quotes/get-random-qoute
-app.use("/quotes", quotesRouter);
+app.use("/api/quotes", quotesRouter);
 
 // Uses Error handlers
 app.use(errorLogger);
