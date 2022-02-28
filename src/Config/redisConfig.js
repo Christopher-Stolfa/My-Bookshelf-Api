@@ -18,6 +18,9 @@ const sessionMiddleware = session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   cookie: {
+    path: "/",
+    httpOnly: true,
+    domain: "localhost:3000",
     expires: SessionExpiration,
   },
 });
