@@ -10,7 +10,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "pm2 start app.js"
+    "start": "pm2 start app.js",
+    "nodemon": "nodemon app.js"
   },
   "dependencies": {
     "@babel/core": "^7.17.5",

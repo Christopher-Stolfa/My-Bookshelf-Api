@@ -2,24 +2,23 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { redisMiddleware } from "./Config/redisConfig.js";
+import { redisMiddleware } from "./src/Config/redisConfig.js";
 
 // Error handlers
 import {
   errorLogger,
   errorResponder,
   failSafeHandler,
-} from "./Middleware/errorHandler.js";
+} from "./src/Middleware/errorHandler.js";
 
 // Routers
-import usersRouter from "./Routes/users.routes.js";
-import booksRouter from "./Routes/books.routes.js";
-import quotesRouter from "./Routes/quotes.routes.js";
-import sequelize from "./Config/databaseConfig.js";
+import usersRouter from "./src/Routes/users.routes.js";
+import booksRouter from "./src/Routes/books.routes.js";
+import quotesRouter from "./src/Routes/quotes.routes.js";
+import sequelize from "./src/Config/databaseConfig.js";
 
 const app = express();
 const PORT = 5000;
-console.log("app running")
 
 app.use(express.json());
 app.use(
