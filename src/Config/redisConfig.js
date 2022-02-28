@@ -14,6 +14,7 @@ const redisClient = redis.createClient({
 const sessionMiddleware = session({
   key: "user-session",
   store: new RedisStoreSession({ client: redisClient }),
+  proxy: true,
   saveUninitialized: false,
   secret: process.env.SESSION_SECRET,
   resave: false,
