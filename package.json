@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "./app.js",
+  "main": "./index.js",
   "license": "MIT",
   "type": "module",
   ".": {
@@ -10,8 +10,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "pm2 start app.js",
-    "nodemon": "nodemon app.js"
+    "start": "pm2 start ./index.js",
+    "nodemon": "nodemon ./index.js"
   },
   "dependencies": {
     "@babel/core": "^7.17.5",
