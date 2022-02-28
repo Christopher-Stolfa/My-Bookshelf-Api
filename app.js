@@ -18,7 +18,7 @@ import quotesRouter from "./Routes/quotes.routes.js";
 import sequelize from "./Config/databaseConfig.js";
 
 const app = express();
-const PORT = 80;
+const PORT = 5000;
 
 app.use(express.json());
 app.use(
