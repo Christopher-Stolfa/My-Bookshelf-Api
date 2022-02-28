@@ -1,7 +1,15 @@
-const express = require("express");
-const router = express.Router();
-const userControllers = require("../Controllers/users.controllers");
-const {
+import express from "express";
+import {
+  userSignUp,
+  userSignIn,
+  userSignOut,
+  userCheckSession,
+  userForgotPassword,
+  userCheckResetToken,
+  updatePasswordWithToken,
+  updatePassword,
+} from "../Controllers/users.controllers.js";
+import {
   SIGN_OUT,
   SIGN_UP,
   SIGN_IN,
@@ -10,15 +18,16 @@ const {
   FORGOT_PASSWORD,
   UPDATE_PASSWORD_WITH_TOKEN,
   UPDATE_PASSWORD,
-} = require("../Constants/usersRoutes");
+} from "../Constants/usersRoutes.js";
+const router = express.Router();
 
-router.post(SIGN_OUT, userControllers.userSignOut);
-router.post(SIGN_UP, userControllers.userSignUp);
-router.post(SIGN_IN, userControllers.userSignIn);
-router.post(FORGOT_PASSWORD, userControllers.userForgotPassword);
-router.put(UPDATE_PASSWORD_WITH_TOKEN, userControllers.updatePasswordWithToken);
-router.put(UPDATE_PASSWORD, userControllers.updatePassword);
-router.get(CHECK_SESSION, userControllers.userCheckSession);
-router.get(CHECK_RESET_TOKEN, userControllers.userCheckResetToken);
+router.post(SIGN_OUT, userSignOut);
+router.post(SIGN_UP, userSignUp);
+router.post(SIGN_IN, userSignIn);
+router.post(FORGOT_PASSWORD, userForgotPassword);
+router.put(UPDATE_PASSWORD_WITH_TOKEN, updatePasswordWithToken);
+router.put(UPDATE_PASSWORD, updatePassword);
+router.get(CHECK_SESSION, userCheckSession);
+router.get(CHECK_RESET_TOKEN, userCheckResetToken);
 
-module.exports = router;
+export default router;

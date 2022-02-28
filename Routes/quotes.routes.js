@@ -1,8 +1,8 @@
-const express = require("express");
+import express from "express";
+import { randomQuote } from "../Controllers/quotes.controllers.js";
+import { GET_RANDOM_QUOTE } from "../Constants/quotesRoutes.js";
 const router = express.Router();
-const quotesControllers = require("../Controllers/quotes.controllers");
-const { GET_RANDOM_QUOTE } = require("../Constants/quotesRoutes");
 
-router.get(GET_RANDOM_QUOTE, quotesControllers.randomQoute);
+router.get(GET_RANDOM_QUOTE, randomQuote);
 
-module.exports = router;
+export default router;

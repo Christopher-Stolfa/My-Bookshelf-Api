@@ -1,9 +1,8 @@
-const axios = require("axios");
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 const quotesData = require("../Data/quotesData.json");
 
-const getRandomQoute = () =>
+const getRandomQuote = () =>
   quotesData[Math.floor(Math.random() * quotesData.length)];
 
-module.exports = {
-  getRandomQoute,
-};
+export { getRandomQuote };

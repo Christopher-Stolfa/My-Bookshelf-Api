@@ -1,6 +1,6 @@
-const { getRandomQoute } = require("../Services/quotes.services");
+import { getRandomQuote } from "../Services/quotes.services.js";
 
-const randomQoute = (req, res, next) => {
+const randomQuote = (req, res, next) => {
   try {
     const quote = getRandomQoute();
     res.status(200).json({
@@ -12,4 +12,4 @@ const randomQoute = (req, res, next) => {
   }
 };
 
-module.exports = { randomQoute };
+export { randomQuote };

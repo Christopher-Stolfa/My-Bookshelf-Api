@@ -1,8 +1,7 @@
-// TODO: Move congested business logic from users controllers into here.
-const nodemailer = require("nodemailer");
-const Sequelize = require("sequelize");
-const crypto = require("crypto");
-const User = require("../Models/user");
+import nodemailer from "nodemailer";
+import Sequelize from "sequelize";
+import crypto from "crypto";
+import User from "../Models/user.js";
 
 const validatePassword = (password) =>
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/.test(
@@ -129,7 +128,7 @@ const sendPasswordReset = (user) => {
   });
 };
 
-module.exports = {
+export {
   createUser,
   findUserByEmail,
   userPasswordValid,

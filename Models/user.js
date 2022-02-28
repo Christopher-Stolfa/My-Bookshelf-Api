@@ -1,8 +1,8 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../Config/databaseConfig");
-const FavoritedBook = require("./favoritedBook");
-const Note = require("./note");
-const bcrypt = require("bcrypt");
+import Sequelize from "sequelize";
+import sequelize from "../Config/databaseConfig.js";
+import FavoritedBook from "./favoritedBook.js";
+import Note from "./note.js";
+import bcrypt from "bcrypt";
 
 // Creates a User Schema and exports it as a User Model.
 const User = sequelize.define(
@@ -127,4 +127,4 @@ User.hasMany(Note, {
   allowNull: false,
 });
 
-module.exports = User;
+export default User;

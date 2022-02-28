@@ -1,20 +1,5 @@
-const express = require("express");
-const router = express.Router();
-const {
-  bookSearch,
-  bookSearchById,
-  getUserFavorites,
-  getFavoritedBook,
-  saveFavoritedBook,
-  removeFavoritedBook,
-  saveNote,
-  editNote,
-  deleteNote,
-  getNotes,
-  toggleReadingBook,
-  setBookProgress,
-} = require("../Controllers/books.controllers");
-const {
+import express from "express";
+import {
   SEARCH_BOOK,
   SEARCH_BOOK_BY_ID,
   SAVE_FAVORITED_BOOK,
@@ -27,7 +12,22 @@ const {
   EDIT_NOTE,
   DELETE_NOTE,
   GET_NOTES,
-} = require("../Constants/booksRoutes");
+} from "../Constants/booksRoutes.js";
+import {
+  bookSearch,
+  bookSearchById,
+  getUserFavorites,
+  getFavoritedBook,
+  saveFavoritedBook,
+  removeFavoritedBook,
+  saveNote,
+  editNote,
+  deleteNote,
+  getNotes,
+  toggleReadingBook,
+  setBookProgress,
+} from "../Controllers/books.controllers.js";
+const router = express.Router();
 
 router.get(SEARCH_BOOK, bookSearch);
 router.get(SEARCH_BOOK_BY_ID, bookSearchById);
@@ -44,4 +44,4 @@ router.put(EDIT_NOTE, editNote);
 router.delete(DELETE_NOTE, deleteNote);
 router.get(GET_NOTES, getNotes);
 
-module.exports = router;
+export default router;

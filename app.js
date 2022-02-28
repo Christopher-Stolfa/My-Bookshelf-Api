@@ -1,20 +1,21 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const { redisMiddleware } = require("./Config/redisConfig");
-// Error Handlers
-const {
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import { redisMiddleware } from "./Config/redisConfig.js";
+
+// Error handlers
+import {
   errorLogger,
   errorResponder,
   failSafeHandler,
-} = require("./Middleware/errorHandler");
+} from "./Middleware/errorHandler.js";
 
 // Routers
-const usersRouter = require("./Routes/users.routes");
-const booksRouter = require("./Routes/books.routes");
-const quotesRouter = require("./Routes/quotes.routes");
-const sequelize = require("./Config/databaseConfig");
+import usersRouter from "./Routes/users.routes.js";
+import booksRouter from "./Routes/books.routes.js";
+import quotesRouter from "./Routes/quotes.routes.js";
+import sequelize from "./Config/databaseConfig.js";
 
 const app = express();
 const PORT = 3001;

@@ -1,5 +1,4 @@
-require("dotenv").config();
-const axios = require("axios");
+import axios from "axios";
 
 const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
 const googleVolumesUri = "https://www.googleapis.com/books/v1/volumes";
@@ -91,7 +90,4 @@ const searchBookById = (googleBooksId) => {
   });
 };
 
-module.exports = {
-  searchBooks,
-  searchBookById,
-};
+export { searchBooks, searchBookById };

@@ -1,5 +1,5 @@
-const moment = require("moment");
-const { redisClient } = require("../Config/redisConfig");
+import moment from "moment";
+import { redisClient } from "../Config/redisConfig.js";
 
 const MAX_WINDOW_REQUEST_COUNT = 1;
 
@@ -73,4 +73,4 @@ const rateLimiter = (req, res, next) => {
   }
 };
 
-module.exports = rateLimiter;
+export default rateLimiter;
