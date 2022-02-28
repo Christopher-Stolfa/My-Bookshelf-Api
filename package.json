@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./app.js"
+    "start": "pm2 start app.js"
   },
   "dependencies": {
     "@babel/core": "^7.17.5",
@@ -30,6 +30,7 @@
     "mysql2": "^2.3.3",
     "nodemailer": "^6.7.2",
     "nodemon": "^2.0.15",
+    "pm2": "^5.2.0",
     "redis": "v3",
     "sequelize": "^7.0.0-alpha.4"
   }
