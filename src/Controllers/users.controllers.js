@@ -24,6 +24,7 @@ const userSignUp = async (req, res, next) => {
 };
 
 const userCheckSession = async (req, res) => {
+  console.log(req.session.cookie);
   if (req.session.user) {
     res.status(200).json({
       message: "Login session exists",
