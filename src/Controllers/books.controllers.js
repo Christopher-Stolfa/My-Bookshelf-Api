@@ -1,7 +1,7 @@
 import {
   searchBooks,
   searchBookById,
-} from "../Services/googleBooks.services.js";
+} from "../Services/googlebooks.services.js";
 import {
   dbGetFavoritedBook,
   dbSaveFavoritedBook,
