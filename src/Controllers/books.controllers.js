@@ -15,6 +15,7 @@ import {
   dbSetBookProgress,
 } from "../Services/books.services.js";
 
+// Searches for books via google books api
 const bookSearch = async (req, res, next) => {
   const { searchQuery, filters } = JSON.parse(req.query.data);
   try {
