@@ -2,7 +2,7 @@ import { getRandomQuote } from "../Services/quotes.services.js";
 
 const randomQuote = (req, res, next) => {
   try {
-    const quote = getRandomQoute();
+    const quote = getRandomQuote();
     res.status(200).json({
       message: "Quote found success",
       selectedQuote: quote,
