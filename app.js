@@ -22,7 +22,7 @@ const PORT = 3001;
 app.use(express.json());
 app.use(
   cors({
-    origin: [process.env.LOCALHOST_CLIENT_ORIGIN],
+    origin: [process.env.CLIENT_ORIGIN],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
