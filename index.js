@@ -23,7 +23,7 @@ const PORT = 5000;
 app.use(express.json());
 app.use(
   cors({
-    origin: [process.env.PROD_CLIENT, `www.${process.env.PROD_CLIENT}`],
+    origin: [process.env.PROD_CLIENT, process.env.PROD_CLIENT_WWW],
     allowedHeaders: ["Content-Type", "x-requested-with"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
