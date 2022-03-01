@@ -25,6 +25,8 @@ const PORT = 5000;
 app.set("trust proxy", 1);
 app.use(helmet());
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(redisMiddleware);
 app.use(
   cors({
     origin: [process.env.PROD_CLIENT, process.env.PROD_CLIENT_WWW],
@@ -32,8 +34,6 @@ app.use(
     credentials: true,
   })
 );
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(redisMiddleware);
 // Uses routes defined in usersRouter alongside /users
 // Example: /users/sign-up, /users/sign-in
 app.use("/api/users", usersRouter);
