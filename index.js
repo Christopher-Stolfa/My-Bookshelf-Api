@@ -23,15 +23,15 @@ const PORT = 5000;
 app.use(express.json());
 app.use(
   cors({
-    origin: [process.env.PROD_CLIENT],
+    origin: [process.env.PROD_CLIENT, `www.${process.env.PROD_CLIENT}`],
     allowedHeaders: ["Content-Type", "x-requested-with"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(redisMiddleware);
 app.set("trust proxy", 1);
+app.use(redisMiddleware);
 // Uses routes defined in usersRouter alongside /users
 // Example: /users/sign-up, /users/sign-in
 app.use("/api/users", usersRouter);
