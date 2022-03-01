@@ -21,7 +21,7 @@ const sessionMiddleware = session({
   cookie: {
     expires: SessionExpiration,
     secure: true,
-    httpOnly: false,
+    httpOnly: true,
   },
 });
 
