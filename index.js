@@ -55,12 +55,12 @@ app.use("/api/books", booksRouter);
 // Example: /quotes/, /quotes/get-random-qoute
 app.use("/api/quotes", quotesRouter);
 
-app.use(express.static(root));
+// app.use(express.static(root));
 
-app.use("/*", (req, res) => {
-  console.log(path.join(__dirname, "build", "index.html"));
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
+// app.use("/*", (req, res) => {
+//   console.log(path.join(__dirname, "build", "index.html"));
+//   res.sendFile(path.join(__dirname, "build", "index.html"));
+// });
 
 // Uses Error handlers
 app.use(errorLogger);
