@@ -42,8 +42,7 @@ const userCheckSession = async (req, res) => {
 };
 
 const userSignIn = async (req, res, next) => {
-  const bodyData = JSON.parse(req.body.data);
-  const { email, password } = bodyData;
+  const { email, password } = req.body;
   try {
     const user = await findUserByEmail(email);
     if (!user) {
