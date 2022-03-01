@@ -23,6 +23,7 @@ const app = express();
 const PORT = 5000;
 
 // app.use(helmet());
+app.set("trust proxy", 1);
 app.use(express.json());
 app.use(
   cors({
@@ -33,7 +34,6 @@ app.use(
   })
 );
 app.use(bodyParser.urlencoded({ extended: true }));
-app.set("trust proxy", 1);
 app.use(redisMiddleware);
 // Uses routes defined in usersRouter alongside /users
 // Example: /users/sign-up, /users/sign-in
