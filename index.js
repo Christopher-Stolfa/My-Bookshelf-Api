@@ -4,6 +4,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
+import path from "path";
 
 import { sessionMiddleware } from "./src/Config/redisConfig.js";
 
@@ -22,6 +23,8 @@ import sequelize from "./src/Config/databaseConfig.js";
 
 const app = express();
 const PORT = 5000;
+
+const root = path.join(__dirname, "build");
 
 app.set("trust proxy", 1);
 app.use(helmet());
@@ -47,6 +50,12 @@ app.use("/api/books", booksRouter);
 // Uses routes defined in quotesRouter alongside /quotes
 // Example: /quotes/, /quotes/get-random-qoute
 app.use("/api/quotes", quotesRouter);
+
+app.use(express.static(root));
+
+app.use("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 // Uses Error handlers
 app.use(errorLogger);
