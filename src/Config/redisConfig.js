@@ -22,7 +22,7 @@ const sessionMiddleware = session({
     domain: process.env.PROD_PROD_CLIENT,
     expires: SessionExpiration,
     secure: true,
-    httpOnly: false,
+    httpOnly: true,
   },
 });
 
