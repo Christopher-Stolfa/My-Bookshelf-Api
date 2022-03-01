@@ -19,10 +19,8 @@ const sessionMiddleware = session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   cookie: {
-    httpOnly: true,
     expires: SessionExpiration,
-    sameSite: true,
-    secure: false,
+    secure: true,
   },
 });
 
