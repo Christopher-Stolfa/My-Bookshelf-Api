@@ -38,7 +38,7 @@ app.use(upload.array());
 app.use(sessionMiddleware);
 app.use(
   cors({
-    origin: [process.env.DEV_CLIENT], //[process.env.PROD_CLIENT, process.env.PROD_CLIENT_WWW],
+    origin: [process.env.PROD_CLIENT, process.env.PROD_CLIENT_WWW],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })

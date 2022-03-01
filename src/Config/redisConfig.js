@@ -14,14 +14,11 @@ const redisClient = redis.createClient({
 const sessionMiddleware = session({
   key: "user-session",
   store: new RedisStoreSession({ client: redisClient }),
-  proxy: true,
-  saveUninitialized: false,
+  saveUninitialized: true,
   secret: process.env.SESSION_SECRET,
   resave: false,
   cookie: {
     expires: SessionExpiration,
-    secure: true,
-    httpOnly: true,
   },
 });
 
