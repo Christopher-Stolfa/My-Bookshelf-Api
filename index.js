@@ -3,9 +3,9 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import helmet from "helmet";
-import path from "path";
-import multer from "multer";
-import { fileURLToPath } from "url";
+// import path from "path";
+// import multer from "multer";
+// import { fileURLToPath } from "url";
 
 import { sessionMiddleware } from "./src/Config/redisConfig.js";
 
@@ -25,10 +25,10 @@ import sequelize from "./src/Config/databaseConfig.js";
 const app = express();
 const PORT = 5000;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const root = path.join(__dirname, "build");
-const upload = multer();
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+// const root = path.join(__dirname, "build");
+// const upload = multer();
 
 app.set("trust proxy", 1);
 app.use(helmet());
