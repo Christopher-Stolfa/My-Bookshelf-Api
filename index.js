@@ -4,7 +4,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import helmet from "helmet";
 // import path from "path";
-// import multer from "multer";
+import multer from "multer";
 // import { fileURLToPath } from "url";
 
 import { sessionMiddleware } from "./src/Config/redisConfig.js";
@@ -28,7 +28,7 @@ const PORT = 5000;
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);
 // const root = path.join(__dirname, "build");
-// const upload = multer();
+const upload = multer();
 
 app.set("trust proxy", 1);
 app.use(helmet());
@@ -38,7 +38,11 @@ app.use(upload.array());
 app.use(sessionMiddleware);
 app.use(
   cors({
-    origin: [process.env.PROD_CLIENT, process.env.PROD_CLIENT_WWW],
+    origin: [
+      process.env.PROD_CLIENT,
+      process.env.PROD_CLIENT_WWW,
+      process.env.DEV_CLIENT,
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
