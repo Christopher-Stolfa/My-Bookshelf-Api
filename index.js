@@ -57,6 +57,7 @@ app.use("/api/quotes", quotesRouter);
 app.use(express.static(root));
 
 app.use("/*", (req, res) => {
+  console.log("//var/www/html")
   res.sendFile("/var/www/html/index.html");
 });
 
