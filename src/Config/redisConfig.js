@@ -25,36 +25,4 @@ const sessionMiddleware = session({
   },
 });
 
-const redisMiddleware = (req, res, next) => {
-  let tries = 3;
-
-  const lookupSession = (error) => {
-    if (error) {
-      return next(error);
-    }
-
-    tries -= 1;
-
-    if (req.session !== undefined) {
-      return next();
-    }
-
-    if (tries < 0) {
-      return next(new Error("oh no"));
-    }
-
-    sessionMiddleware(req, res, lookupSession);
-  };
-
-  lookupSession();
-};
-
-redisClient.on("error", (err) => {
-  console.error("Redis error:", err);
-});
-
-redisClient.on("reconnecting", () => {
-  console.log("Reconnecting");
-});
-
-export { redisClient, redisMiddleware };
+export { redisClient, sessionMiddleware };

@@ -4,7 +4,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import helmet from "helmet";
 
-import { redisMiddleware } from "./src/Config/redisConfig.js";
+import { sessionMiddleware } from "./src/Config/redisConfig.js";
 
 // Error handlers
 import {
@@ -26,7 +26,7 @@ app.set("trust proxy", 1);
 app.use(helmet());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(redisMiddleware);
+app.use(sessionMiddleware);
 app.use(
   cors({
     origin: [process.env.PROD_CLIENT, process.env.PROD_CLIENT_WWW],
