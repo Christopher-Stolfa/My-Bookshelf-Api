@@ -63,7 +63,6 @@ const userSignIn = async (req, res, next) => {
           lastName: LastName,
         };
         req.session.user = userData;
-        req.session.save();
         res.status(200).json({
           message: "Sign in successful",
           loggedIn: true,

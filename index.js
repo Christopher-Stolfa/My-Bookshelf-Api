@@ -3,7 +3,6 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import helmet from "helmet";
-import cookieParser from "cookie-parser";
 // import path from "path";
 // import { fileURLToPath } from "url";
 
@@ -31,7 +30,6 @@ const PORT = 5000;
 
 app.set("trust proxy", 1);
 app.use(helmet());
-app.use(cookieParser());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(sessionMiddleware);
