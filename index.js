@@ -22,8 +22,8 @@ import sequelize from "./src/Config/databaseConfig.js";
 const app = express();
 const PORT = 5000;
 
-// app.use(helmet());
 app.set("trust proxy", 1);
+app.use(helmet());
 app.use(express.json());
 app.use(
   cors({
