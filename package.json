@@ -28,6 +28,7 @@
     "express": "^4.17.2",
     "express-session": "^1.17.2",
     "fs": "^0.0.1-security",
+    "helmet": "^5.0.2",
     "moment": "^2.29.1",
     "mysql2": "^2.3.3",
     "nodemailer": "^6.7.2",

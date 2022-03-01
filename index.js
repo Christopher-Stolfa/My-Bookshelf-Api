@@ -2,6 +2,8 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
+import helmet from "helmet";
+
 import { redisMiddleware } from "./src/Config/redisConfig.js";
 
 // Error handlers
@@ -20,6 +22,7 @@ import sequelize from "./src/Config/databaseConfig.js";
 const app = express();
 const PORT = 5000;
 
+app.use(helmet());
 app.use(express.json());
 app.use(
   cors({
