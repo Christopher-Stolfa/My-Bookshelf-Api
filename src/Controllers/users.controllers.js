@@ -24,7 +24,9 @@ const userSignUp = async (req, res, next) => {
 };
 
 const userCheckSession = async (req, res) => {
-  console.log(req);
+  console.log(req.get("host"));
+  console.log(req.get("origin"));
+
   if (req.session.user) {
     res.status(200).json({
       message: "Login session exists",
