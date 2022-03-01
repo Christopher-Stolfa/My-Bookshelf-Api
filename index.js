@@ -57,8 +57,8 @@ app.use("/api/quotes", quotesRouter);
 app.use(express.static(root));
 
 app.use("/*", (req, res) => {
-  console.log("//var/www/html")
-  res.sendFile("/var/www/html/index.html");
+  console.log(path.join(__dirname, "build", "index.html"));
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 // Uses Error handlers
