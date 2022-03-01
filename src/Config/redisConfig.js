@@ -19,6 +19,7 @@ const sessionMiddleware = session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   cookie: {
+    domain: process.env.PROD_PROD_CLIENT,
     expires: SessionExpiration,
     secure: true,
     httpOnly: false,
