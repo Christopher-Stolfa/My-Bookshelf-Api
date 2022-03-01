@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import path from "path";
+import { fileURLToPath } from "url";
 
 import { sessionMiddleware } from "./src/Config/redisConfig.js";
 
@@ -24,6 +25,8 @@ import sequelize from "./src/Config/databaseConfig.js";
 const app = express();
 const PORT = 5000;
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const root = path.join(__dirname, "build");
 
 app.set("trust proxy", 1);
