@@ -68,6 +68,7 @@ const searchBookById = (googleBooksId) => {
             },
           },
         }) => {
+          const imageLink = imageLinks?.thumbnail ?? "";
           resolve({
             item: {
               googleBooksId: id,
@@ -79,7 +80,7 @@ const searchBookById = (googleBooksId) => {
               pageCount,
               averageRating,
               ratingsCount,
-              imageLink: imageLinks?.thumbnail ?? "",
+              imageLink: imageLink.replace(/^http:\/\//i, "https://"),
               language,
               categories,
             },
