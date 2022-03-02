@@ -3,9 +3,9 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import helmet from "helmet";
-// import path from "path";
+import path from "path";
 import multer from "multer";
-// import { fileURLToPath } from "url";
+import { fileURLToPath } from "url";
 
 import { sessionMiddleware } from "./src/Config/redisConfig.js";
 
@@ -25,9 +25,9 @@ import sequelize from "./src/Config/databaseConfig.js";
 const app = express();
 const PORT = 5000;
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-// const root = path.join(__dirname, "build");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const root = path.join(__dirname, "build");
 const upload = multer();
 
 // app.set("trust proxy", 1);
@@ -56,12 +56,11 @@ app.use("/api/books", booksRouter);
 // Example: /quotes/, /quotes/get-random-qoute
 app.use("/api/quotes", quotesRouter);
 
-// app.use(express.static(root));
+app.use(express.static(root));
 
-// app.use("/*", (req, res) => {
-//   console.log(path.join(__dirname, "build", "index.html"));
-//   res.sendFile(path.join(__dirname, "build", "index.html"));
-// });
+app.use("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 // Uses Error handlers
 app.use(errorLogger);
