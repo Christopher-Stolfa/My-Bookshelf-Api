@@ -45,7 +45,7 @@ app.use(
     //   process.env.PROD_API,
     // ],
     methods: ["GET", "POST", "PUT", "DELETE", "HEAD"],
-    // credentials: true,
+    credentials: true,
     // preflightContinue: true,
   })
 );
