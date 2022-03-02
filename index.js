@@ -59,6 +59,7 @@ app.use("/api/quotes", quotesRouter);
 app.use(express.static(root));
 
 app.use("/*", (req, res) => {
+  console.log(path.join(__dirname, "build", "index.html"));
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
