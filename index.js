@@ -42,7 +42,6 @@ app.use(
     origin: process.env.PROD_ORIGIN,
     methods: ["GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"],
     credentials: true,
-    preflightContinue: false,
   })
 );
 // Uses routes defined in usersRouter alongside /users
