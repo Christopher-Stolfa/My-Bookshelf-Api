@@ -30,7 +30,7 @@ const PORT = 5000;
 // const root = path.join(__dirname, "build");
 const upload = multer();
 
-app.set("trust proxy", 1);
+// app.set("trust proxy", 1);
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
