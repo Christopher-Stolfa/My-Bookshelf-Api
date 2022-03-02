@@ -38,6 +38,7 @@ app.use(upload.array());
 app.use(sessionMiddleware);
 app.use(
   cors({
+    optionsSuccessStatus: 200,
     origin: [
       process.env.PROD_CLIENT,
       process.env.PROD_CLIENT_WWW,
@@ -45,6 +46,7 @@ app.use(
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "HEAD"],
     credentials: true,
+    preflightContinue: true,
   })
 );
 // Uses routes defined in usersRouter alongside /users
