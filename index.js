@@ -35,6 +35,8 @@ app.use(
   helmet.contentSecurityPolicy({
     useDefaults: true,
     directives: {
+      ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+      "script-src": ["'self'", "'unsafe-inline'"],
       "img-src": ["'self'", "https: data:", "books.google.com"],
     },
   })
