@@ -31,7 +31,10 @@ const searchBooks = (query, { searchBy }) => {
             pageCount: item.volumeInfo.pageCount || -1,
             averageRating: item.volumeInfo.averageRating || -1,
             ratingsCount: item.volumeInfo.ratingsCount || -1,
-            imageLink: item.volumeInfo.imageLinks.thumbnail,
+            imageLink: item.volumeInfo.imageLinks.thumbnail.replace(
+              /^http:\/\//i,
+              "https://"
+            ),
             language: item.volumeInfo.language,
             categories: item.volumeInfo.categories,
           }))
