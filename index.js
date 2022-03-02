@@ -31,7 +31,14 @@ const root = path.join(__dirname, "build");
 const upload = multer();
 
 // app.set("trust proxy", 1);
-app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    useDefaults: true,
+    directives: {
+      "img-src": ["'self'", "https: data:"],
+    },
+  })
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(upload.array());
@@ -59,7 +66,6 @@ app.use("/api/quotes", quotesRouter);
 app.use(express.static(root));
 
 app.use("/*", (req, res) => {
-  console.log(path.join(__dirname, "build", "index.html"));
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
