@@ -46,6 +46,7 @@ app.use(
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"],
     credentials: true,
+    preflightContinue: false,
   })
 );
 // Uses routes defined in usersRouter alongside /users
