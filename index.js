@@ -39,11 +39,11 @@ app.use(sessionMiddleware);
 app.use(
   cors({
     optionsSuccessStatus: 200,
-    // origin: [
-    //   process.env.PROD_CLIENT,
-    //   process.env.PROD_CLIENT_WWW,
-    //   process.env.PROD_API,
-    // ],
+    origin: [
+      process.env.PROD_CLIENT,
+      process.env.PROD_CLIENT_WWW,
+      process.env.PROD_API,
+    ],
     methods: ["GET", "POST", "PUT", "DELETE", "HEAD"],
     credentials: true,
     // preflightContinue: true,
