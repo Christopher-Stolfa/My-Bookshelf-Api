@@ -45,8 +45,6 @@ app.use(
       process.env.PROD_API,
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "HEAD"],
-    credentials: true,
-    preflightContinue: true,
   })
 );
 // Uses routes defined in usersRouter alongside /users
