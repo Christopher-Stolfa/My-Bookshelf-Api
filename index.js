@@ -43,7 +43,7 @@ app.use(
       process.env.PROD_CLIENT_WWW,
       process.env.PROD_API,
     ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "HEAD"],
     credentials: true,
   })
 );
