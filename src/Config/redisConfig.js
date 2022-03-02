@@ -19,7 +19,6 @@ const sessionMiddleware = session({
   resave: false,
   cookie: {
     expires: SessionExpiration,
-    secure: true,
   },
 });
 
