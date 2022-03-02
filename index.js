@@ -41,7 +41,7 @@ app.use(
     origin: [
       process.env.PROD_CLIENT,
       process.env.PROD_CLIENT_WWW,
-      process.env.DEV_CLIENT,
+      process.env.PROD_API,
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
