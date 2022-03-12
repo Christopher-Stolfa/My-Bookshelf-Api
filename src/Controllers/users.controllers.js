@@ -6,7 +6,7 @@ import {
   findUserByResetToken,
   updatePasswordViaToken,
   dbUpdatePassword,
-} from "../Services/user.services.js";
+} from '../Services/user.services.js';
 
 const userSignUp = async (req, res, next) => {
   const bodyData = JSON.parse(req.body.data);
@@ -14,7 +14,7 @@ const userSignUp = async (req, res, next) => {
     const userData = await createUser(bodyData);
     req.session.user = userData;
     res.status(201).json({
-      message: "Account successfully created",
+      message: 'Account successfully created',
       loggedIn: true,
       userData: userData,
     });
@@ -26,13 +26,13 @@ const userSignUp = async (req, res, next) => {
 const userCheckSession = async (req, res) => {
   if (req.session.user) {
     res.status(200).json({
-      message: "Login session exists",
+      message: 'Login session exists',
       loggedIn: true,
       userData: req.session.user,
     });
   } else {
     res.status(200).json({
-      message: "No session exists",
+      message: 'No session exists',
       loggedIn: false,
     });
   }
@@ -43,13 +43,13 @@ const userSignIn = async (req, res, next) => {
   try {
     const user = await findUserByEmail(email);
     if (!user) {
-      throw { message: "Invalid email or password", code: 401 };
+      throw { message: 'Invalid email or password', code: 401 };
     } else {
       const { UserId, Email, DisplayName, FirstName, LastName, Password } =
         user.toJSON();
       const passwordValid = userPasswordValid(password, Password);
       if (!passwordValid) {
-        throw { message: "Invalid email or password", code: 401 };
+        throw { message: 'Invalid email or password', code: 401 };
       } else {
         const userData = {
           userId: UserId,
@@ -60,7 +60,7 @@ const userSignIn = async (req, res, next) => {
         };
         req.session.user = userData;
         res.status(200).json({
-          message: "Sign in successful",
+          message: 'Sign in successful',
           loggedIn: true,
           userData: userData,
         });
@@ -73,21 +73,21 @@ const userSignIn = async (req, res, next) => {
 
 const updatePassword = async (req, res, next) => {
   try {
-    if (!req.session.user) throw { message: "Invalid credentials", code: 401 };
+    if (!req.session.user) throw { message: 'Invalid credentials', code: 401 };
     const bodyData = JSON.parse(req.body.data);
     const email = req.session.user.email;
     const { currentPassword, newPassword } = bodyData;
     const user = await findUserByEmail(email);
     if (!user) {
-      throw { message: "User does not exist", code: 404 };
+      throw { message: 'User does not exist', code: 404 };
     } else {
       const passwordValid = userPasswordValid(currentPassword, user.Password);
       if (!passwordValid) {
-        throw { message: "Invalid email or password", code: 401 };
+        throw { message: 'Invalid email or password', code: 401 };
       } else {
         await dbUpdatePassword(user, newPassword);
         res.status(200).json({
-          message: "Password updated successfully",
+          message: 'Password updated successfully',
         });
       }
     }
@@ -98,13 +98,13 @@ const updatePassword = async (req, res, next) => {
 
 const userSignOut = (req, res, next) => {
   try {
-    if (!req.session.user) throw { message: "Invalid credentials", code: 401 };
+    if (!req.session.user) throw { message: 'Invalid credentials', code: 401 };
     req.session.destroy((error) => {
       if (error) {
-        throw { message: "Failed to sign out", code: 400 };
+        throw { message: 'Failed to sign out', code: 400 };
       } else {
-        res.clearCookie("user-session").status(200).json({
-          message: "Sign out successful",
+        res.clearCookie('user-session').status(200).json({
+          message: 'Sign out successful',
           loggedIn: false,
         });
       }
@@ -120,12 +120,12 @@ const userForgotPassword = async (req, res, next) => {
   try {
     const user = await findUserByEmail(email);
     if (!user) {
-      throw { message: "Invalid email", code: 401 };
+      throw { message: 'Invalid email', code: 401 };
     } else {
       await sendPasswordReset(user);
       res.status(200).json({
         message:
-          "Successfully requested a password reset, please check your email for a reset link",
+          'Successfully requested a password reset, please check your email for a reset link',
       });
     }
   } catch (error) {
@@ -138,7 +138,7 @@ const userCheckResetToken = async (req, res, next) => {
   try {
     const userEmail = await findUserByResetToken(token);
     res.status(200).json({
-      message: "Reset token is valid",
+      message: 'Reset token is valid',
       email: userEmail,
     });
   } catch (error) {
@@ -152,7 +152,7 @@ const updatePasswordWithToken = async (req, res, next) => {
   try {
     await updatePasswordViaToken(token, email, password);
     res.status(200).json({
-      message: "Password updated successfully",
+      message: 'Password updated successfully',
     });
   } catch (error) {
     next(error);
