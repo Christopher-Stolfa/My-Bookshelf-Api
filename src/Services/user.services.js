@@ -52,6 +52,8 @@ const findUserByResetToken = (token) =>
     }
   });
 
+const deleteUserByEmail = (email) => User.destroy({ where: { Email: email } }).then((user) => user);
+
 const findUserByEmail = (email) => User.findOne({ where: { Email: email } }).then((user) => user);
 
 const userPasswordValid = (passwordToCheck, correctPassword) =>
@@ -132,4 +134,5 @@ export {
   findUserByResetToken,
   updatePasswordViaToken,
   dbUpdatePassword,
+  deleteUserByEmail,
 };
