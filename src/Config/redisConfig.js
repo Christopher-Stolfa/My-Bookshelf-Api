@@ -1,6 +1,6 @@
-import redis from "redis";
-import session from "express-session";
-import RedisStore from "connect-redis";
+import redis from 'redis';
+import session from 'express-session';
+import RedisStore from 'connect-redis';
 const RedisStoreSession = RedisStore(session);
 
 const SessionExpiration = 24 * 60 * 60 * 1000;
@@ -12,7 +12,7 @@ const redisClient = redis.createClient({
 });
 
 const sessionMiddleware = session({
-  key: "user-session",
+  key: 'user-session',
   store: new RedisStoreSession({ client: redisClient }),
   saveUninitialized: true,
   secret: process.env.SESSION_SECRET,

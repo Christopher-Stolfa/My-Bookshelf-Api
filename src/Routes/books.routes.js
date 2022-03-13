@@ -1,4 +1,4 @@
-import express from "express";
+import express from 'express';
 import {
   SEARCH_BOOK,
   SEARCH_BOOK_BY_ID,
@@ -12,7 +12,7 @@ import {
   EDIT_NOTE,
   DELETE_NOTE,
   GET_NOTES,
-} from "../Constants/booksRoutes.js";
+} from '../Constants/booksRoutes.js';
 import {
   bookSearch,
   bookSearchById,
@@ -26,7 +26,7 @@ import {
   getNotes,
   toggleReadingBook,
   setBookProgress,
-} from "../Controllers/books.controllers.js";
+} from '../Controllers/books.controllers.js';
 const router = express.Router();
 
 router.get(SEARCH_BOOK, bookSearch);

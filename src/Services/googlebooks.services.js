@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from 'axios';
 
 const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
-const googleVolumesUri = "https://www.googleapis.com/books/v1/volumes";
+const googleVolumesUri = 'https://www.googleapis.com/books/v1/volumes';
 
 const searchBooks = (query, { searchBy }) => {
   const url = `${googleVolumesUri}?q=${searchBy}${query}&maxResults=40&orderBy=Relevance&key=${apiKey}`;
@@ -31,10 +31,7 @@ const searchBooks = (query, { searchBy }) => {
             pageCount: item.volumeInfo.pageCount || -1,
             averageRating: item.volumeInfo.averageRating || -1,
             ratingsCount: item.volumeInfo.ratingsCount || -1,
-            imageLink: item.volumeInfo.imageLinks.thumbnail.replace(
-              /^http:\/\//i,
-              "https://"
-            ),
+            imageLink: item.volumeInfo.imageLinks.thumbnail.replace(/^http:\/\//i, 'https://'),
             language: item.volumeInfo.language,
             categories: item.volumeInfo.categories,
           }))
@@ -57,33 +54,33 @@ const searchBookById = (googleBooksId) => {
           data: {
             id,
             volumeInfo: {
-              title = "",
-              description = "",
+              title = '',
+              description = '',
               authors = [],
-              publisher = "",
-              publishedDate = "",
+              publisher = '',
+              publishedDate = '',
               pageCount = -1,
               averageRating = -1,
               ratingsCount = -1,
               imageLinks,
-              language = "",
+              language = '',
               categories = [],
             },
           },
         }) => {
-          const imageLink = imageLinks?.thumbnail ?? "";
+          const imageLink = imageLinks?.thumbnail ?? '';
           resolve({
             item: {
               googleBooksId: id,
               title,
-              description: description.replace(/(<([^>]+)>)/gi, " "),
+              description: description.replace(/(<([^>]+)>)/gi, ' '),
               authors,
               publisher,
               publishedDate,
               pageCount,
               averageRating,
               ratingsCount,
-              imageLink: imageLink.replace(/^http:\/\//i, "https://"),
+              imageLink: imageLink.replace(/^http:\/\//i, 'https://'),
               language,
               categories,
             },

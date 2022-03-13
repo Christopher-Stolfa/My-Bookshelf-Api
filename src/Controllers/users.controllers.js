@@ -45,8 +45,7 @@ const userSignIn = async (req, res, next) => {
     if (!user) {
       throw { message: 'Invalid email or password', code: 401 };
     } else {
-      const { UserId, Email, DisplayName, FirstName, LastName, Password } =
-        user.toJSON();
+      const { UserId, Email, DisplayName, FirstName, LastName, Password } = user.toJSON();
       const passwordValid = userPasswordValid(password, Password);
       if (!passwordValid) {
         throw { message: 'Invalid email or password', code: 401 };
@@ -124,8 +123,7 @@ const userForgotPassword = async (req, res, next) => {
     } else {
       await sendPasswordReset(user);
       res.status(200).json({
-        message:
-          'Successfully requested a password reset, please check your email for a reset link',
+        message: 'Successfully requested a password reset, please check your email for a reset link',
       });
     }
   } catch (error) {

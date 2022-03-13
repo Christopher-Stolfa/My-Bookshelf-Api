@@ -1,6 +1,6 @@
-import User from "../Models/user.js";
-import Note from "../Models/note.js";
-import FavoritedBook from "../Models/favoritedBook.js";
+import User from '../Models/user.js';
+import Note from '../Models/note.js';
+import FavoritedBook from '../Models/favoritedBook.js';
 
 const dbSaveFavoritedBook = (userId, book) =>
   User.findOne({ where: { UserId: userId } }).then(
@@ -106,14 +106,12 @@ const dbToggleReadingBook = (userId, googleBooksId, isReading, progress) =>
   })
     .then((favoritedBook) => {
       if (favoritedBook) {
-        return favoritedBook
-          .update({ IsReading: isReading, Progress: progress })
-          .then((book) => ({
-            isReading: book.IsReading,
-            progress: parseInt(book.Progress),
-          }));
+        return favoritedBook.update({ IsReading: isReading, Progress: progress }).then((book) => ({
+          isReading: book.IsReading,
+          progress: parseInt(book.Progress),
+        }));
       } else {
-        throw { message: "Book must be saved as a favorite", code: 400 };
+        throw { message: 'Book must be saved as a favorite', code: 400 };
       }
     })
     .catch((error) => {
@@ -130,7 +128,7 @@ const dbSetBookProgress = (userId, googleBooksId, progress) =>
           progress: parseInt(book.Progress),
         }));
       } else {
-        throw { message: "Book must be saved as a favorite", code: 400 };
+        throw { message: 'Book must be saved as a favorite', code: 400 };
       }
     })
     .catch((error) => {
@@ -155,7 +153,7 @@ const dbSaveNote = (userId, googleBooksId, noteText) =>
             updatedAt: note.updatedAt,
           }));
       } else {
-        throw new Error("Server error");
+        throw new Error('Server error');
       }
     })
     .catch((error) => {
@@ -173,18 +171,18 @@ const dbEditNote = (userId, noteId, noteText) =>
           updatedAt: updatedNote.updatedAt,
         }));
       } else {
-        throw new Error("Server error");
+        throw new Error('Server error');
       }
     })
-    .catch((error) => {
-      throw new Error("Server error");
+    .catch(() => {
+      throw new Error('Server error');
     });
 
 const dbDeleteNote = (userId, noteId) =>
   Note.findOne({ where: { UserId: userId, NoteId: noteId } })
     .then((note) => note.destroy())
-    .catch((error) => {
-      throw new Error("Server error");
+    .catch(() => {
+      throw new Error('Server error');
     });
 
 const dbGetNotes = async (userId, googleBooksId) =>
@@ -202,7 +200,7 @@ const dbGetNotes = async (userId, googleBooksId) =>
           }))
         );
       } else {
-        throw new Error("Server error");
+        throw new Error('Server error');
       }
     })
     .catch((error) => {

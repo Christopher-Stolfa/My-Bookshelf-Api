@@ -13,7 +13,7 @@ const errorResponder = (error, req, res, next) => {
   }
 };
 
-const failSafeHandler = (error, req, res, next) => {
+const failSafeHandler = (error, req, res) => {
   // generic handler
   res.status(500).json({ message: error.message.toString() });
 };

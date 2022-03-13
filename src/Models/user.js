@@ -1,12 +1,12 @@
-import Sequelize from "sequelize";
-import sequelize from "../Config/databaseConfig.js";
-import FavoritedBook from "./favoritedBook.js";
-import Note from "./note.js";
-import bcrypt from "bcrypt";
+import Sequelize from 'sequelize';
+import sequelize from '../Config/databaseConfig.js';
+import FavoritedBook from './favoritedBook.js';
+import Note from './note.js';
+import bcrypt from 'bcrypt';
 
 // Creates a User Schema and exports it as a User Model.
 const User = sequelize.define(
-  "User",
+  'User',
   {
     UserId: {
       type: Sequelize.INTEGER,
@@ -28,17 +28,17 @@ const User = sequelize.define(
       validate: {
         notEmpty: {
           args: true,
-          msg: "Display name field cannot be empty",
+          msg: 'Display name field cannot be empty',
         },
         len: {
           args: [3, 50],
-          msg: "Display name must be between 3 to 50 characters",
+          msg: 'Display name must be between 3 to 50 characters',
         },
         async exists(displayName) {
           const userExists = await User.findOne({
             where: { DisplayName: displayName },
           });
-          if (userExists) throw new Error("Display name already in use");
+          if (userExists) throw new Error('Display name already in use');
         },
       },
     },
@@ -48,21 +48,21 @@ const User = sequelize.define(
       validate: {
         notEmpty: {
           args: true,
-          msg: "Email field cannot be empty",
+          msg: 'Email field cannot be empty',
         },
         isEmail: {
           args: true,
-          msg: "Please enter a valid email address",
+          msg: 'Please enter a valid email address',
         },
         len: {
           args: [3, 50],
-          msg: "Email must be between 3 to 50 characters",
+          msg: 'Email must be between 3 to 50 characters',
         },
         async exists(email) {
           const userExists = await User.findOne({
             where: { Email: email },
           });
-          if (userExists) throw new Error("Email already in use");
+          if (userExists) throw new Error('Email already in use');
         },
       },
     },
@@ -72,7 +72,7 @@ const User = sequelize.define(
       validate: {
         notEmpty: {
           args: true,
-          msg: "Password field cannot be empty",
+          msg: 'Password field cannot be empty',
         },
       },
     },
@@ -94,7 +94,7 @@ const User = sequelize.define(
           user.Password = bcrypt.hashSync(user.Password, salt);
         }
       },
-      beforeUpdate: (user, options, errors) => {
+      beforeUpdate: (user) => {
         if (user.Password) {
           const salt = bcrypt.genSaltSync(10);
           user.Password = bcrypt.hashSync(user.Password, salt);
@@ -114,16 +114,16 @@ User.prototype.validPassword = (password, hash) => {
 };
 
 User.hasMany(FavoritedBook, {
-  as: "FavoritedBooks",
-  foreignKey: "UserId",
-  onDelete: "cascade",
+  as: 'FavoritedBooks',
+  foreignKey: 'UserId',
+  onDelete: 'cascade',
   allowNull: false,
 });
 
 User.hasMany(Note, {
-  as: "Notes",
-  foreignKey: "UserId",
-  onDelete: "cascade",
+  as: 'Notes',
+  foreignKey: 'UserId',
+  onDelete: 'cascade',
   allowNull: false,
 });
 

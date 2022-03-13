@@ -1,15 +1,15 @@
-const SEARCH_BOOK = "/search-book";
-const SEARCH_BOOK_BY_ID = "/search-book-by-id";
-const SAVE_FAVORITED_BOOK = "/save-favorited-book";
-const REMOVED_FAVORITED_BOOK = "/remove-favorited-book";
-const GET_FAVORITED_BOOKS = "/get-favorited-books";
-const GET_FAVORITED_BOOK = "/get-favorited-book";
-const TOGGLE_READING_BOOK = "/toggle-reading-book";
-const SET_BOOK_PROGRESS = "/set-book-progress";
-const SAVE_NOTE = "/save-note";
-const EDIT_NOTE = "/edit-note";
-const DELETE_NOTE = "/delete-note";
-const GET_NOTES = "/get-notes";
+const SEARCH_BOOK = '/search-book';
+const SEARCH_BOOK_BY_ID = '/search-book-by-id';
+const SAVE_FAVORITED_BOOK = '/save-favorited-book';
+const REMOVED_FAVORITED_BOOK = '/remove-favorited-book';
+const GET_FAVORITED_BOOKS = '/get-favorited-books';
+const GET_FAVORITED_BOOK = '/get-favorited-book';
+const TOGGLE_READING_BOOK = '/toggle-reading-book';
+const SET_BOOK_PROGRESS = '/set-book-progress';
+const SAVE_NOTE = '/save-note';
+const EDIT_NOTE = '/edit-note';
+const DELETE_NOTE = '/delete-note';
+const GET_NOTES = '/get-notes';
 
 export {
   SEARCH_BOOK,

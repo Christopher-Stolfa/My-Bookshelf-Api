@@ -1,7 +1,7 @@
-import Sequelize from "sequelize";
-import sequelize from "../Config/databaseConfig.js";
+import Sequelize from 'sequelize';
+import sequelize from '../Config/databaseConfig.js';
 const Note = sequelize.define(
-  "Note",
+  'Note',
   {
     NoteId: {
       type: Sequelize.INTEGER,
@@ -16,7 +16,7 @@ const Note = sequelize.define(
       validate: {
         notEmpty: {
           args: true,
-          msg: "Text field cannot be empty.",
+          msg: 'Text field cannot be empty.',
         },
       },
     },
@@ -25,7 +25,7 @@ const Note = sequelize.define(
     hooks: {
       validationFailed: (instance, options, { errors }) => {
         console.log(errors);
-        throw { message: "Server error", code: 500 };
+        throw { message: 'Server error', code: 500 };
       },
     },
   }

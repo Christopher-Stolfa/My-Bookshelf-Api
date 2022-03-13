@@ -1,9 +1,9 @@
-import Sequelize from "sequelize";
-import sequelize from "../Config/databaseConfig.js";
-import Note from "./note.js";
+import Sequelize from 'sequelize';
+import sequelize from '../Config/databaseConfig.js';
+import Note from './note.js';
 
 const FavoritedBook = sequelize.define(
-  "FavoritedBook",
+  'FavoritedBook',
   {
     FavoritedBookId: {
       type: Sequelize.INTEGER,
@@ -20,11 +20,11 @@ const FavoritedBook = sequelize.define(
           const book = await FavoritedBook.findOne({
             where: { GoogleBooksId: googleBooksId, UserId: this.UserId },
           });
-          if (book) throw new Error("Item already in favorites");
+          if (book) throw new Error('Item already in favorites');
         },
         notEmpty: {
           args: true,
-          msg: "Id field cannot be empty.",
+          msg: 'Id field cannot be empty.',
         },
       },
     },
@@ -34,7 +34,7 @@ const FavoritedBook = sequelize.define(
       validate: {
         notEmpty: {
           args: true,
-          msg: "Title field cannot be empty.",
+          msg: 'Title field cannot be empty.',
         },
       },
     },
@@ -46,10 +46,10 @@ const FavoritedBook = sequelize.define(
       type: Sequelize.STRING,
       allowNull: false,
       get() {
-        return this.getDataValue("Authors").split(";");
+        return this.getDataValue('Authors').split(';');
       },
       set(authors) {
-        this.setDataValue("Authors", authors.join(";"));
+        this.setDataValue('Authors', authors.join(';'));
       },
     },
     Publisher: {
@@ -84,10 +84,10 @@ const FavoritedBook = sequelize.define(
       type: Sequelize.TEXT,
       allowNull: false,
       get() {
-        return this.getDataValue("Categories").split(";");
+        return this.getDataValue('Categories').split(';');
       },
       set(categories) {
-        this.setDataValue("Categories", categories.join(";"));
+        this.setDataValue('Categories', categories.join(';'));
       },
     },
     IsReading: {
@@ -102,7 +102,7 @@ const FavoritedBook = sequelize.define(
         max: 100,
         isNumeric: {
           args: true,
-          msg: "Progress must be a number",
+          msg: 'Progress must be a number',
         },
         notEmpty: {
           args: true,
@@ -112,15 +112,15 @@ const FavoritedBook = sequelize.define(
   },
   {
     hooks: {
-      beforeValidate: (book, options) => {
+      beforeValidate: (book) => {
         if (isNaN(book.Progress) || book.Progress < 0 || book.Progress > 100) {
           throw {
-            message: "Progress must be a number from 0 to 100",
+            message: 'Progress must be a number from 0 to 100',
             code: 400,
           };
         }
       },
-      validationFailed: (instance, options, { errors }) => {
+      validationFailed: () => {
         // console.log(errors);
         // throw { message: "Server error", code: 500 };
       },
@@ -129,9 +129,9 @@ const FavoritedBook = sequelize.define(
 );
 
 FavoritedBook.hasMany(Note, {
-  as: "Notes",
-  foreignKey: "FavoritedBookId",
-  onDelete: "cascade",
+  as: 'Notes',
+  foreignKey: 'FavoritedBookId',
+  onDelete: 'cascade',
   allowNull: false,
 });
 

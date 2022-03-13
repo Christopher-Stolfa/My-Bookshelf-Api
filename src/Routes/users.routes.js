@@ -1,4 +1,4 @@
-import express from "express";
+import express from 'express';
 import {
   userSignUp,
   userSignIn,
@@ -8,7 +8,7 @@ import {
   userCheckResetToken,
   updatePasswordWithToken,
   updatePassword,
-} from "../Controllers/users.controllers.js";
+} from '../Controllers/users.controllers.js';
 import {
   SIGN_OUT,
   SIGN_UP,
@@ -18,7 +18,7 @@ import {
   FORGOT_PASSWORD,
   UPDATE_PASSWORD_WITH_TOKEN,
   UPDATE_PASSWORD,
-} from "../Constants/usersRoutes.js";
+} from '../Constants/usersRoutes.js';
 const router = express.Router();
 
 router.post(SIGN_OUT, userSignOut);
