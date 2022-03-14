@@ -1,5 +1,5 @@
-import Sequelize from 'sequelize';
-import sequelize from '../Config/databaseConfig.js';
+const Sequelize = require('sequelize');
+const sequelize = require('../Config/databaseConfig.js');
 const Note = sequelize.define(
   'Note',
   {
@@ -31,4 +31,4 @@ const Note = sequelize.define(
   }
 );
 
-export default Note;
+module.exports = Note;

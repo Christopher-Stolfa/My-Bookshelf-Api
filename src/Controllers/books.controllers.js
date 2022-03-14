@@ -1,5 +1,5 @@
-import { searchBooks, searchBookById } from '../Services/googlebooks.services.js';
-import {
+const { searchBooks, searchBookById } = require('../Services/googlebooks.services.js');
+const {
   dbGetFavoritedBook,
   dbSaveFavoritedBook,
   dbRemoveFavoritedBook,
@@ -10,7 +10,7 @@ import {
   dbGetNotes,
   dbToggleReadingBook,
   dbSetBookProgress,
-} from '../Services/books.services.js';
+} = require('../Services/books.services.js');
 
 // Searches for books via google books api
 const bookSearch = async (req, res, next) => {
@@ -186,7 +186,7 @@ const setBookProgress = async (req, res, next) => {
   }
 };
 
-export {
+module.exports = {
   bookSearch,
   bookSearchById,
   getUserFavorites,

@@ -1,6 +1,6 @@
-import Sequelize from 'sequelize';
-import sequelize from '../Config/databaseConfig.js';
-import Note from './note.js';
+const Sequelize = require('sequelize');
+const sequelize = require('../Config/databaseConfig.js');
+const Note = require('./note.js');
 
 const FavoritedBook = sequelize.define(
   'FavoritedBook',
@@ -135,4 +135,4 @@ FavoritedBook.hasMany(Note, {
   allowNull: false,
 });
 
-export default FavoritedBook;
+module.exports = FavoritedBook;

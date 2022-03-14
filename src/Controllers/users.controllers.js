@@ -1,4 +1,4 @@
-import {
+const {
   createUser,
   findUserByEmail,
   userPasswordValid,
@@ -6,10 +6,10 @@ import {
   findUserByResetToken,
   updatePasswordViaToken,
   dbUpdatePassword,
-} from '../Services/user.services.js';
+} = require('../Services/user.services.js');
 
 const userSignUp = async (req, res, next) => {
-  const bodyData = JSON.parse(req.body.data);
+  const bodyData = req.body;
   try {
     const userData = await createUser(bodyData);
     req.session.user = userData;
@@ -157,7 +157,7 @@ const updatePasswordWithToken = async (req, res, next) => {
   }
 };
 
-export {
+module.exports = {
   userSignUp,
   userSignIn,
   userSignOut,

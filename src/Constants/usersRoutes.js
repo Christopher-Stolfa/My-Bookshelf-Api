@@ -8,7 +8,7 @@ const CHECK_RESET_TOKEN = '/check-reset-token';
 const UPDATE_PASSWORD_WITH_TOKEN = '/update-password-with-token';
 const UPDATE_PASSWORD = '/update-password';
 
-export {
+module.exports = {
   SIGN_OUT,
   SIGN_UP,
   SIGN_IN,

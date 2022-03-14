@@ -1,5 +1,5 @@
-import express from 'express';
-import {
+const express = require('express');
+const {
   userSignUp,
   userSignIn,
   userSignOut,
@@ -8,8 +8,8 @@ import {
   userCheckResetToken,
   updatePasswordWithToken,
   updatePassword,
-} from '../Controllers/users.controllers.js';
-import {
+} = require('../Controllers/users.controllers.js');
+const {
   SIGN_OUT,
   SIGN_UP,
   SIGN_IN,
@@ -18,7 +18,7 @@ import {
   FORGOT_PASSWORD,
   UPDATE_PASSWORD_WITH_TOKEN,
   UPDATE_PASSWORD,
-} from '../Constants/usersRoutes.js';
+} = require('../Constants/usersRoutes.js');
 const router = express.Router();
 
 router.post(SIGN_OUT, userSignOut);
@@ -30,4 +30,4 @@ router.put(UPDATE_PASSWORD, updatePassword);
 router.get(CHECK_SESSION, userCheckSession);
 router.get(CHECK_RESET_TOKEN, userCheckResetToken);
 
-export default router;
+module.exports = router;

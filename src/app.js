@@ -1,26 +1,20 @@
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import helmet from 'helmet';
-import path from 'path';
-import multer from 'multer';
-import { fileURLToPath } from 'url';
-
-import { sessionMiddleware } from './Config/redisConfig.js';
-
-// Error handlers
-import { errorLogger, errorResponder, failSafeHandler } from './Middleware/errorHandler.js';
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const helmet = require('helmet');
+const path = require('path');
+const multer = require('multer');
+const { sessionMiddleware } = require('./config/redisConfig');
+const { errorLogger, errorResponder, failSafeHandler } = require('./middleware/errorHandler');
 
 // Routers
-import usersRouter from './Routes/users.routes.js';
-import booksRouter from './Routes/books.routes.js';
-import quotesRouter from './Routes/quotes.routes.js';
+const usersRouter = require('./routes/users.routes');
+const booksRouter = require('./routes/books.routes');
+const quotesRouter = require('./routes/quotes.routes');
 
 const app = express();
 const PRODUCTION = 'production';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const root = path.join(__dirname, 'build');
 const upload = multer();
 
@@ -74,4 +68,4 @@ app.use(errorLogger);
 app.use(errorResponder);
 app.use(failSafeHandler);
 
-export default app;
+module.exports = app;

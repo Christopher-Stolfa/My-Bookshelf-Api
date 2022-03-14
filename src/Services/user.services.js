@@ -1,7 +1,7 @@
-import nodemailer from 'nodemailer';
-import Sequelize from 'sequelize';
-import crypto from 'crypto';
-import User from '../Models/user.js';
+const nodemailer = require('nodemailer');
+const Sequelize = require('sequelize');
+const crypto = require('crypto');
+const User = require('../Models/user.js');
 
 const validatePassword = (password) =>
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/.test(password);
@@ -126,7 +126,7 @@ const sendPasswordReset = (user) => {
   });
 };
 
-export {
+module.exports = {
   createUser,
   findUserByEmail,
   userPasswordValid,

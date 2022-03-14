@@ -11,7 +11,7 @@ const EDIT_NOTE = '/edit-note';
 const DELETE_NOTE = '/delete-note';
 const GET_NOTES = '/get-notes';
 
-export {
+module.exports = {
   SEARCH_BOOK,
   SEARCH_BOOK_BY_ID,
   SAVE_FAVORITED_BOOK,

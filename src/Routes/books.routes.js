@@ -1,5 +1,5 @@
-import express from 'express';
-import {
+const express = require('express');
+const {
   SEARCH_BOOK,
   SEARCH_BOOK_BY_ID,
   SAVE_FAVORITED_BOOK,
@@ -12,8 +12,8 @@ import {
   EDIT_NOTE,
   DELETE_NOTE,
   GET_NOTES,
-} from '../Constants/booksRoutes.js';
-import {
+} = require('../Constants/booksRoutes.js');
+const {
   bookSearch,
   bookSearchById,
   getUserFavorites,
@@ -26,7 +26,7 @@ import {
   getNotes,
   toggleReadingBook,
   setBookProgress,
-} from '../Controllers/books.controllers.js';
+} = require('../Controllers/books.controllers.js');
 const router = express.Router();
 
 router.get(SEARCH_BOOK, bookSearch);
@@ -44,4 +44,4 @@ router.put(EDIT_NOTE, editNote);
 router.delete(DELETE_NOTE, deleteNote);
 router.get(GET_NOTES, getNotes);
 
-export default router;
+module.exports = router;

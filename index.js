@@ -1,6 +1,6 @@
-import 'dotenv/config';
-import sequelize from './src/Config/databaseConfig.js';
-import app from './src/app.js';
+require('dotenv/config');
+const sequelize = require('./src/Config/databaseConfig');
+const app = require('./src/app');
 
 // Checks the database for the Model Schemas and creates tables for them if they don't exist.
 sequelize

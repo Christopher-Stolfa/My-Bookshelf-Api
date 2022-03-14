@@ -18,4 +18,4 @@ const failSafeHandler = (error, req, res) => {
   res.status(500).json({ message: error.message.toString() });
 };
 
-export { errorLogger, errorResponder, failSafeHandler };
+module.exports = { errorLogger, errorResponder, failSafeHandler };

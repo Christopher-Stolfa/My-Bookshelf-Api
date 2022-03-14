@@ -1,4 +1,4 @@
-import { getRandomQuote } from '../Services/quotes.services.js';
+const { getRandomQuote } = require('../Services/quotes.services.js');
 
 const randomQuote = (req, res, next) => {
   try {
@@ -12,4 +12,4 @@ const randomQuote = (req, res, next) => {
   }
 };
 
-export { randomQuote };
+module.exports = { randomQuote };

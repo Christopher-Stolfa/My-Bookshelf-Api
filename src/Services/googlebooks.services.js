@@ -1,4 +1,4 @@
-import axios from 'axios';
+const axios = require('axios');
 
 const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
 const googleVolumesUri = 'https://www.googleapis.com/books/v1/volumes';
@@ -91,4 +91,4 @@ const searchBookById = (googleBooksId) => {
   });
 };
 
-export { searchBooks, searchBookById };
+module.exports = { searchBooks, searchBookById };

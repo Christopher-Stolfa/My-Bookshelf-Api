@@ -1,6 +1,6 @@
-import User from '../Models/user.js';
-import Note from '../Models/note.js';
-import FavoritedBook from '../Models/favoritedBook.js';
+const User = require('../Models/user.js');
+const Note = require('../Models/note.js');
+const FavoritedBook = require('../Models/favoritedBook.js');
 
 const dbSaveFavoritedBook = (userId, book) =>
   User.findOne({ where: { UserId: userId } }).then(
@@ -207,7 +207,7 @@ const dbGetNotes = async (userId, googleBooksId) =>
       throw error;
     });
 
-export {
+module.exports = {
   dbGetFavoritedBook,
   dbSaveFavoritedBook,
   dbRemoveFavoritedBook,
