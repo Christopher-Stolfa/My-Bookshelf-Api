@@ -13,7 +13,11 @@
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles --forceExit",
     "restart": "pm2 restart index.js --update-env",
     "start": "pm2 start ./index.js",
-    "nodemon": "nodemon ./index.js"
+    "dev": "nodemon ./index.js",
+    "down": "npx sequelize-cli db:migrate:undo",
+    "migrate": "npx sequelize-cli db:migrate",
+    "make-seed": "npx sequelize-cli seed:generate --name init",
+    "seed": "npx sequelize-cli db:seed:all"
   },
   "dependencies": {
     "axios": "^0.24.0",
@@ -42,6 +46,7 @@
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-jest": "^27.5.1",
+    "cross-env": "^7.0.3",
     "eslint": "^8.11.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
