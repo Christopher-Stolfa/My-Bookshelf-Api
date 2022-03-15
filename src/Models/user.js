@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = require('../Config/databaseConfig.js');
+const sequelize = require('../Config/dbConfig.js');
 const FavoritedBook = require('./favoritedBook.js');
 const Note = require('./note.js');
 const bcrypt = require('bcrypt');
