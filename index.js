@@ -1,5 +1,5 @@
 require('dotenv/config');
-const sequelize = require('./src/Config/databaseConfig');
+const sequelize = require('./src/Config/dbConfig');
 const app = require('./src/app');
 
 // Checks the database for the Model Schemas and creates tables for them if they don't exist.
