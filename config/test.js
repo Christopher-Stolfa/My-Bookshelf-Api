@@ -1,9 +1,10 @@
 module.exports = {
-  test: {
-    username: process.env.POSTGRES_USERNAME,
-    password: process.env.POSTGRES_PASSWORD,
-    database: process.env.POSTGRES_DEV_DB,
-    host: process.env.POSTGRES_HOST,
-    dialect: 'postgres',
+  database: {
+    username: process.env.TEST_MYSQL_USERNAME,
+    password: process.env.TEST_MYSQL_PASSWORD,
+    database: process.env.TEST_MYSQL_DB_NAME,
+    host: process.env.TEST_MYSQL_HOST,
+    dialect: 'mysql',
+    logging: false,
   },
 };

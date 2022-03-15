@@ -1,9 +1,10 @@
 module.exports = {
-  production: {
-    username: process.env.MYSQL_USERNAME,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DB_NAME,
-    host: process.env.SERVER_IP,
+  database: {
+    username: process.env.PROD_MYSQL_USERNAME,
+    password: process.env.PROD_MYSQL_PASSWORD,
+    database: process.env.PROD_MYSQL_DB_NAME,
+    host: process.env.PROD_MYSQL_HOST,
     dialect: 'mysql',
+    logging: false,
   },
 };
