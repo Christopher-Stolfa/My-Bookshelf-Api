@@ -1,24 +1,27 @@
-const redis = require('redis');
 const session = require('express-session');
-const RedisStore = require('connect-redis')(session);
 
 const SessionExpiration = 24 * 60 * 60 * 1000;
 
-const redisClient = redis.createClient({
-  host: process.env.SERVER_IP,
-  port: process.env.REDIS_PORT,
-  password: process.env.REDIS_PASSWORD,
-});
-
-const sessionMiddleware = session({
+const sessionConfig = {
   key: 'user-session',
-  store: new RedisStore({ client: redisClient }),
   saveUninitialized: true,
   secret: process.env.SESSION_SECRET,
   resave: false,
   cookie: {
     expires: SessionExpiration,
   },
-});
+};
 
-module.exports = { redisClient, sessionMiddleware };
+if (process.env.NODE_ENV === 'production') {
+  const redis = require('redis');
+  const RedisStore = require('connect-redis')(session);
+  const config = require('config');
+  const storeConfig = config.get('dataStore');
+  const redisClient = redis.createClient(storeConfig);
+
+  sessionConfig.store = new RedisStore({ client: redisClient });
+}
+
+const sessionMiddleware = session(sessionConfig);
+
+module.exports = sessionMiddleware;
