@@ -7,4 +7,9 @@ module.exports = {
     dialect: 'mysql',
     logging: false,
   },
+  dataStore: {
+    host: process.env.PROD_STORAGE_HOST,
+    password: process.env.PROD_STORAGE_PASSWORD,
+    port: process.env.PROD_STORAGE_PORT,
+  },
 };
