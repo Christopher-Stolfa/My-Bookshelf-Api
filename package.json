@@ -4,10 +4,6 @@
   "main": "./index.js",
   "license": "MIT",
   "type": "commonjs",
-  ".": {
-    "require": "./app.js",
-    "import": "./app.mjs"
-  },
   "scripts": {
     "lint": "eslint .",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles --forceExit",
