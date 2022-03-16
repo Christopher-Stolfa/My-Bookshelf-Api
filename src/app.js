@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const path = require('path');
 const multer = require('multer');
-const { sessionMiddleware } = require('./config/redisConfig');
+const sessionMiddleware = require('./config/redisConfig');
 const { errorLogger, errorResponder, failSafeHandler } = require('./middleware/errorHandler');
 
 // Routers
@@ -13,7 +13,6 @@ const booksRouter = require('./routes/books.routes');
 const quotesRouter = require('./routes/quotes.routes');
 
 const app = express();
-const PRODUCTION = 'production';
 
 const root = path.join(__dirname, 'build');
 const upload = multer();
@@ -36,7 +35,7 @@ app.use(sessionMiddleware);
 app.use(
   cors({
     optionsSuccessStatus: 200,
-    origin: process.env.NODE_ENV === PRODUCTION ? process.env.PROD_ORIGIN : process.env.DEV_ORIGIN,
+    origin: process.env.NODE_ENV === 'production' ? process.env.PROD_ORIGIN : process.env.DEV_ORIGIN,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'OPTIONS'],
     credentials: true,
   })
@@ -55,7 +54,7 @@ app.use('/api/books', booksRouter);
 app.use('/api/quotes', quotesRouter);
 
 // Middlewares that are only used in production.
-if (process.env.NODE_ENV === PRODUCTION) {
+if (process.env.NODE_ENV === 'production') {
   // use the route to client index to handle non API routes.
   app.use(express.static(root));
   app.use('/*', (req, res) => {
