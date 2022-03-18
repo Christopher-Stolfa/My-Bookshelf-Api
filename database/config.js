@@ -1,3 +1,4 @@
+require('dotenv').config();
 const profiles = require('../config');
 
 const dbConfigs = {};
