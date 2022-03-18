@@ -1,6 +1,6 @@
 const {
   createUser,
-  findUserByEmail,
+  signIn,
   userPasswordValid,
   sendPasswordReset,
   findUserByResetToken,
@@ -41,7 +41,7 @@ const userCheckSession = async (req, res) => {
 const userSignIn = async (req, res, next) => {
   const bodyData = req.body;
   try {
-    const userData = await findUserByEmail(bodyData);
+    const userData = await signIn(bodyData);
     req.session.user = userData;
     res.status(200).json({
       message: 'Sign in successful',

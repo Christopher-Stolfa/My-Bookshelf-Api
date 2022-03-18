@@ -33,10 +33,28 @@ const findUserByResetToken = (token) =>
 
 const deleteUserByEmail = (email) => User.destroy({ where: { Email: email } }).then((user) => user);
 
-const findUserByEmail = (email) => User.findOne({ where: { Email: email } }).then((user) => user);
+const signIn = async ({ email, password }) => {
+  const user = await User.findOne({ where: { Email: email } }).then((user) => user);
+  if (!user) {
+    throw { message: 'Invalid email or password', code: 401 };
+  } else {
+    const passwordValid = userPasswordValid(password, user.password);
+    if (!passwordValid) {
+      throw { message: 'Invalid email or password', code: 401 };
+    } else {
+      const userData = {
+        userId: user.userId,
+        email: user.email,
+        displayName: user.displayName,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      };
+      return userData;
+    }
+  }
+};
 
-const userPasswordValid = (passwordToCheck, correctPassword) =>
-  User.prototype.validPassword(passwordToCheck, correctPassword);
+const userPasswordValid = (passwordToCheck, correctPassword) => User.validPassword(passwordToCheck, correctPassword);
 
 const updatePasswordViaToken = (token, email, password) =>
   User.findOne({
@@ -107,7 +125,7 @@ const sendPasswordReset = (user) => {
 
 module.exports = {
   createUser,
-  findUserByEmail,
+  signIn,
   userPasswordValid,
   sendPasswordReset,
   findUserByResetToken,
