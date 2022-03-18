@@ -1,6 +1,6 @@
-const User = require('../Models/user.js');
-const Note = require('../Models/note.js');
-const FavoritedBook = require('../Models/favoritedBook.js');
+const User = require('../../database/models/user');
+const Note = require('../../database/models/note');
+const FavoritedBook = require('../../database/models/favoritedBook');
 
 const dbSaveFavoritedBook = (userId, book) =>
   User.findOne({ where: { UserId: userId } }).then(

@@ -1,37 +1,16 @@
 const nodemailer = require('nodemailer');
 const Sequelize = require('sequelize');
 const crypto = require('crypto');
-const User = require('../Models/user.js');
+const { User } = require('../../database/models');
 
-const validatePassword = (password) =>
-  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/.test(password);
-
-const createUser = ({ displayName, firstName, lastName, email, password }) => {
-  if (!validatePassword(password)) {
-    throw {
-      message:
-        'Password must have between 8 and 16 characters with at least one uppercase letter, one lowercase letter, one number and one special character',
-      code: 400,
-    };
-  }
+const createUser = ({ displayName, firstName, lastName, email, password }) =>
   User.create({
-    DisplayName: displayName,
-    FirstName: firstName,
-    LastName: lastName,
-    Email: email,
-    Password: password,
-  }).then((resultData) => {
-    const { UserId, DisplayName, FirstName, LastName, Email } = resultData;
-    const userData = {
-      userId: UserId,
-      email: Email,
-      displayName: DisplayName,
-      firstName: FirstName,
-      lastName: LastName,
-    };
-    return userData;
+    displayName,
+    firstName,
+    lastName,
+    email,
+    password,
   });
-};
 
 const findUserByResetToken = (token) =>
   User.findOne({
