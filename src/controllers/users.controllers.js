@@ -39,32 +39,15 @@ const userCheckSession = async (req, res) => {
 };
 
 const userSignIn = async (req, res, next) => {
-  const { email, password } = req.body;
+  const bodyData = req.body;
   try {
-    const user = await findUserByEmail(email);
-    if (!user) {
-      throw { message: 'Invalid email or password', code: 401 };
-    } else {
-      const { UserId, Email, DisplayName, FirstName, LastName, Password } = user.toJSON();
-      const passwordValid = userPasswordValid(password, Password);
-      if (!passwordValid) {
-        throw { message: 'Invalid email or password', code: 401 };
-      } else {
-        const userData = {
-          userId: UserId,
-          email: Email,
-          displayName: DisplayName,
-          firstName: FirstName,
-          lastName: LastName,
-        };
-        req.session.user = userData;
-        res.status(200).json({
-          message: 'Sign in successful',
-          loggedIn: true,
-          userData: userData,
-        });
-      }
-    }
+    const userData = await findUserByEmail(bodyData);
+    req.session.user = userData;
+    res.status(200).json({
+      message: 'Sign in successful',
+      loggedIn: true,
+      userData,
+    });
   } catch (error) {
     next(error);
   }
