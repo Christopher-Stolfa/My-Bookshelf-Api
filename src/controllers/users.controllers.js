@@ -6,6 +6,7 @@ const {
   findUserByResetToken,
   updatePasswordViaToken,
   dbUpdatePassword,
+  findUserByEmail,
 } = require('../Services/user.services.js');
 
 const userSignUp = async (req, res, next) => {

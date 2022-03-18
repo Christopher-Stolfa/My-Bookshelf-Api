@@ -54,6 +54,8 @@ const signIn = async ({ email, password }) => {
   }
 };
 
+const findUserByEmail = (email) => User.findOne({ where: { email } });
+
 const userPasswordValid = (passwordToCheck, correctPassword) => User.validPassword(passwordToCheck, correctPassword);
 
 const updatePasswordViaToken = (token, email, password) =>
@@ -132,4 +134,5 @@ module.exports = {
   updatePasswordViaToken,
   dbUpdatePassword,
   deleteUserByEmail,
+  findUserByEmail,
 };
