@@ -38,7 +38,8 @@
     "pg-hstore": "^2.3.4",
     "pm2": "^5.2.0",
     "redis": "v3",
-    "sequelize": "^7.0.0-alpha.4"
+    "sequelize": "^7.0.0-alpha.4",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
