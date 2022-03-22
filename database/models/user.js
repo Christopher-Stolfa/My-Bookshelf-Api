@@ -3,13 +3,32 @@ const bcrypt = require('bcrypt');
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
+    /**
+     * Instance Methods
+     *
+     * @param {string} password
+     * @returns {boolean}
+     */
+    validPassword(password) {
+      return bcrypt.compareSync(password, this.dataValues.password);
+    }
+    /**
+     * Static Methods
+     *
+     * @param {Object} param
+     * @param {Object} param.FavoritedBook
+     */
     static associate({ FavoritedBook }) {
       this.hasMany(FavoritedBook, {
         as: 'favoritedBooks',
         foreignKey: 'userId',
       });
     }
-    static validPassword = (password, hash) => bcrypt.compareSync(password, hash);
+    /**
+     *
+     * @param {string} password
+     * @returns {string}
+     */
     static hashPassword = (password) => {
       const salt = bcrypt.genSaltSync(10);
       return bcrypt.hashSync(password, salt);
