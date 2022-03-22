@@ -35,28 +35,17 @@ const deleteUserByEmail = (email) => User.destroy({ where: { Email: email } }).t
 
 const signIn = async ({ email, password }) => {
   const user = await User.findOne({ where: { Email: email } }).then((user) => user);
-  if (!user) {
-    throw { message: 'Invalid email or password', code: 401 };
-  } else {
-    const passwordValid = userPasswordValid(password, user.password);
-    if (!passwordValid) {
-      throw { message: 'Invalid email or password', code: 401 };
-    } else {
-      const userData = {
-        userId: user.userId,
-        email: user.email,
-        displayName: user.displayName,
-        firstName: user.firstName,
-        lastName: user.lastName,
-      };
-      return userData;
-    }
-  }
+  if (!user) throw { message: 'Invalid email or password', code: 401 };
+  if (!user.validPassword(password)) throw { message: 'Invalid email or password', code: 401 };
+  const userData = {
+    userId: user.userId,
+    email: user.email,
+    displayName: user.displayName,
+    firstName: user.firstName,
+    lastName: user.lastName,
+  };
+  return userData;
 };
-
-const findUserByEmail = (email) => User.findOne({ where: { email } });
-
-const userPasswordValid = (passwordToCheck, correctPassword) => User.validPassword(passwordToCheck, correctPassword);
 
 const updatePasswordViaToken = (token, email, password) =>
   User.findOne({
@@ -85,7 +74,18 @@ const updatePasswordViaToken = (token, email, password) =>
     }
   });
 
-const dbUpdatePassword = (user, newPassword) => user.update({ Password: newPassword });
+/**
+ * @param {Object} param
+ * @param {String} param.email
+ * @param {String} param.currentPassword
+ * @param {String} param.newPassword
+ */
+const updatePasswordService = async ({ email, currentPassword, newPassword }) => {
+  const user = await _findUserByEmail(email);
+  if (!user) throw { message: 'User does not exist', code: 404 };
+  if (!user.validPassword(currentPassword)) throw { message: 'Invalid email or password', code: 401 };
+  await user.update({ password: newPassword });
+};
 
 const sendPasswordReset = (user) => {
   const token = crypto.randomBytes(20).toString('hex');
@@ -125,14 +125,14 @@ const sendPasswordReset = (user) => {
   });
 };
 
+const _findUserByEmail = (email) => User.findOne({ where: { email } });
+
 module.exports = {
   createUser,
   signIn,
-  userPasswordValid,
   sendPasswordReset,
   findUserByResetToken,
   updatePasswordViaToken,
-  dbUpdatePassword,
+  updatePasswordService,
   deleteUserByEmail,
-  findUserByEmail,
 };
