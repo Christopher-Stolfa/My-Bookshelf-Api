@@ -5,8 +5,7 @@ const {
   sendPasswordReset,
   findUserByResetToken,
   updatePasswordViaToken,
-  dbUpdatePassword,
-  findUserByEmail,
+  updatePasswordService,
 } = require('../Services/user.services.js');
 
 const userSignUp = async (req, res, next) => {
@@ -60,20 +59,10 @@ const updatePassword = async (req, res, next) => {
     const bodyData = JSON.parse(req.body.data);
     const email = req.session.user.email;
     const { currentPassword, newPassword } = bodyData;
-    const user = await findUserByEmail(email);
-    if (!user) {
-      throw { message: 'User does not exist', code: 404 };
-    } else {
-      const passwordValid = userPasswordValid(currentPassword, user.Password);
-      if (!passwordValid) {
-        throw { message: 'Invalid email or password', code: 401 };
-      } else {
-        await dbUpdatePassword(user, newPassword);
-        res.status(200).json({
-          message: 'Password updated successfully',
-        });
-      }
-    }
+    await updatePasswordService({ email, currentPassword, newPassword });
+    res.status(200).json({
+      message: 'Password updated successfully',
+    });
   } catch (error) {
     next(error);
   }
