@@ -7,4 +7,12 @@ module.exports = {
     dialect: 'mysql',
     logging: false,
   },
+  mail: {
+    service: 'gmail',
+    auth: {
+      user: process.env.TRANSPORTER_EMAIL,
+      pass: process.env.TRANSPORTER_PASSWORD,
+    },
+  },
+  origin: process.env.DEV_ORIGIN,
 };

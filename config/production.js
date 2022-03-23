@@ -12,4 +12,12 @@ module.exports = {
     password: process.env.PROD_STORAGE_PASSWORD,
     port: process.env.PROD_STORAGE_PORT,
   },
+  mail: {
+    service: 'gmail',
+    auth: {
+      user: process.env.TRANSPORTER_EMAIL,
+      pass: process.env.TRANSPORTER_PASSWORD,
+    },
+  },
+  origin: process.env.PROD_ORIGIN,
 };
