@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: constants/quotesRoutes</title>
+    <title>JSDoc: Module: controllers/quoteController</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: constants/quotesRoutes</h1>
+    <h1 class="page-title">Module: controllers/quoteController</h1>
 
     
 
@@ -39,7 +39,7 @@
     
         
             <div class="description"><ul>
-<li>All routes used by quoteRouter</li>
+<li>Controller functions for handling api requests regarding quotes</li>
 </ul></div>
         
 
@@ -89,7 +89,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="constants_quotesRoutes.js.html">constants/quotesRoutes.js</a>, <a href="constants_quotesRoutes.js.html#line1">line 1</a>
+        <a href="controllers_quoteController.js.html">controllers/quoteController.js</a>, <a href="controllers_quoteController.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -136,26 +136,131 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
+
+    
+        <h3 class="subsection-title">Methods</h3>
 
         
             
-<h4 class="name" id="~GET_RANDOM_QUOTE"><span class="type-signature">(inner, constant) </span>GET_RANDOM_QUOTE<span class="type-signature"> :string</span></h4>
+
+    
+
+    
+    <h4 class="name" id="~randomQuote"><span class="type-signature">(inner) </span>randomQuote<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+    
+
+    
 
 
 
-
-
-
-    <h5>Type:</h5>
+<div class="description">
     <ul>
-        <li>
+<li>Gets a random inspirational quote</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
             
-<span class="param-type">string</span>
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
 
 
-        </li>
-    </ul>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Express request object</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Express response object</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>next</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Express next middleware function</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
 
 
 
@@ -190,7 +295,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="constants_quotesRoutes.js.html">constants/quotesRoutes.js</a>, <a href="constants_quotesRoutes.js.html#line9">line 9</a>
+        <a href="controllers_quoteController.js.html">controllers/quoteController.js</a>, <a href="controllers_quoteController.js.html#line7">line 7</a>
     </li></ul></dd>
     
 
@@ -206,9 +311,21 @@
 
 
 
-        
-    
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
     
 
     

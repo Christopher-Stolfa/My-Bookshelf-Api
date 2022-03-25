@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: config/dbConfig</title>
+    <title>JSDoc: Source: controllers/quoteController.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,132 +17,44 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: config/dbConfig</h1>
+    <h1 class="page-title">Source: controllers/quoteController.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        
-            
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>Configuration file for dynamically initializing sequelize depending on the environment</p></div>
-        
-
-        
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="config_dbConfig.js.html">config/dbConfig.js</a>, <a href="config_dbConfig.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @description - Controller functions for handling api requests regarding quotes
+ * @module controllers/quoteController
+ */
+const { getRandomQuote } = require('../services/quoteService');
+
+/**
+ * @description - Gets a random inspirational quote
+ * @function randomQuote
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
+const randomQuote = (req, res, next) => {
+  try {
+    const quote = getRandomQuote();
+    res.status(200).json({
+      message: 'Quote found success',
+      selectedQuote: quote,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { randomQuote };
+</code></pre>
+        </article>
+    </section>
 
 
 

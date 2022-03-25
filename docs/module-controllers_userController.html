@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: controllers/bookController</title>
+    <title>JSDoc: Module: controllers/userController</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: controllers/bookController</h1>
+    <h1 class="page-title">Module: controllers/userController</h1>
 
     
 
@@ -39,7 +39,7 @@
     
         
             <div class="description"><ul>
-<li>Controller functions for handling api requests regarding books</li>
+<li>Controller functions for handling api requests regarding users</li>
 </ul></div>
         
 
@@ -89,7 +89,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_bookController.js.html">controllers/bookController.js</a>, <a href="controllers_bookController.js.html#line1">line 1</a>
+        <a href="controllers_userController.js.html">controllers/userController.js</a>, <a href="controllers_userController.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -146,7 +146,7 @@
     
 
     
-    <h4 class="name" id="~bookSearch"><span class="type-signature">(inner) </span>bookSearch<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~updatePassword"><span class="type-signature">(inner) </span>updatePassword<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
     
 
     
@@ -155,7 +155,7 @@
 
 <div class="description">
     <ul>
-<li>Searches for book results with a search query and filter options</li>
+<li>Updates a user's password if provided the correct credentials</li>
 </ul>
 </div>
 
@@ -295,7 +295,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_bookController.js.html">controllers/bookController.js</a>, <a href="controllers_bookController.js.html#line19">line 19</a>
+        <a href="controllers_userController.js.html">controllers/userController.js</a>, <a href="controllers_userController.js.html#line80">line 80</a>
     </li></ul></dd>
     
 
@@ -331,7 +331,7 @@
     
 
     
-    <h4 class="name" id="~bookSearchById"><span class="type-signature">(inner) </span>bookSearchById<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~updatePasswordWithToken"><span class="type-signature">(inner) </span>updatePasswordWithToken<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
     
 
     
@@ -340,7 +340,7 @@
 
 <div class="description">
     <ul>
-<li>Searches google books api for a single book by id</li>
+<li>Updates the password for the user associated with the reset token</li>
 </ul>
 </div>
 
@@ -480,7 +480,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_bookController.js.html">controllers/bookController.js</a>, <a href="controllers_bookController.js.html#line40">line 40</a>
+        <a href="controllers_userController.js.html">controllers/userController.js</a>, <a href="controllers_userController.js.html#line164">line 164</a>
     </li></ul></dd>
     
 
@@ -516,7 +516,7 @@
     
 
     
-    <h4 class="name" id="~deleteNote"><span class="type-signature">(inner) </span>deleteNote<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~userCheckResetToken"><span class="type-signature">(inner) </span>userCheckResetToken<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
     
 
     
@@ -525,7 +525,7 @@
 
 <div class="description">
     <ul>
-<li>Deletes an existing note created by the user, associated with a favorite book</li>
+<li>Checks if a password reset token is valid</li>
 </ul>
 </div>
 
@@ -665,7 +665,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_bookController.js.html">controllers/bookController.js</a>, <a href="controllers_bookController.js.html#line195">line 195</a>
+        <a href="controllers_userController.js.html">controllers/userController.js</a>, <a href="controllers_userController.js.html#line144">line 144</a>
     </li></ul></dd>
     
 
@@ -701,7 +701,7 @@
     
 
     
-    <h4 class="name" id="~editNote"><span class="type-signature">(inner) </span>editNote<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~userCheckSession"><span class="type-signature">(inner) </span>userCheckSession<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
     
 
     
@@ -710,7 +710,7 @@
 
 <div class="description">
     <ul>
-<li>Edits an existing note created by the user, associated with a favorite book</li>
+<li>Checks if a user session exists provided a valid cookie</li>
 </ul>
 </div>
 
@@ -850,7 +850,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_bookController.js.html">controllers/bookController.js</a>, <a href="controllers_bookController.js.html#line175">line 175</a>
+        <a href="controllers_userController.js.html">controllers/userController.js</a>, <a href="controllers_userController.js.html#line36">line 36</a>
     </li></ul></dd>
     
 
@@ -886,7 +886,7 @@
     
 
     
-    <h4 class="name" id="~getFavoritedBook"><span class="type-signature">(inner) </span>getFavoritedBook<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~userForgotPassword"><span class="type-signature">(inner) </span>userForgotPassword<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
     
 
     
@@ -895,7 +895,7 @@
 
 <div class="description">
     <ul>
-<li>Gets a users favorite book by id</li>
+<li>Sends an email with a password reset link if user email exists in the database</li>
 </ul>
 </div>
 
@@ -1035,7 +1035,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_bookController.js.html">controllers/bookController.js</a>, <a href="controllers_bookController.js.html#line134">line 134</a>
+        <a href="controllers_userController.js.html">controllers/userController.js</a>, <a href="controllers_userController.js.html#line124">line 124</a>
     </li></ul></dd>
     
 
@@ -1071,7 +1071,7 @@
     
 
     
-    <h4 class="name" id="~getNotes"><span class="type-signature">(inner) </span>getNotes<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~userSignIn"><span class="type-signature">(inner) </span>userSignIn<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
     
 
     
@@ -1080,7 +1080,7 @@
 
 <div class="description">
     <ul>
-<li>Gets all existing notes created by the user, associated with a favorite book</li>
+<li>Signs in a user if provided the correct credentials and initializes a user session</li>
 </ul>
 </div>
 
@@ -1220,7 +1220,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_bookController.js.html">controllers/bookController.js</a>, <a href="controllers_bookController.js.html#line214">line 214</a>
+        <a href="controllers_userController.js.html">controllers/userController.js</a>, <a href="controllers_userController.js.html#line58">line 58</a>
     </li></ul></dd>
     
 
@@ -1256,7 +1256,7 @@
     
 
     
-    <h4 class="name" id="~getUserFavorites"><span class="type-signature">(inner) </span>getUserFavorites<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~userSignOut"><span class="type-signature">(inner) </span>userSignOut<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
     
 
     
@@ -1265,7 +1265,7 @@
 
 <div class="description">
     <ul>
-<li>Gets all of a user's favorite books</li>
+<li>Signs out a user by closing their session and destroying the cookie</li>
 </ul>
 </div>
 
@@ -1405,7 +1405,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_bookController.js.html">controllers/bookController.js</a>, <a href="controllers_bookController.js.html#line63">line 63</a>
+        <a href="controllers_userController.js.html">controllers/userController.js</a>, <a href="controllers_userController.js.html#line102">line 102</a>
     </li></ul></dd>
     
 
@@ -1441,7 +1441,7 @@
     
 
     
-    <h4 class="name" id="~removeFavoritedBook"><span class="type-signature">(inner) </span>removeFavoritedBook<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~userSignUp"><span class="type-signature">(inner) </span>userSignUp<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
     
 
     
@@ -1450,7 +1450,7 @@
 
 <div class="description">
     <ul>
-<li>Removes a book from a user's favorites</li>
+<li>Creates a new user with provided the correct params</li>
 </ul>
 </div>
 
@@ -1590,747 +1590,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_bookController.js.html">controllers/bookController.js</a>, <a href="controllers_bookController.js.html#line112">line 112</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="~saveFavoritedBook"><span class="type-signature">(inner) </span>saveFavoritedBook<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <ul>
-<li>Saves a book to a user's favorites</li>
-</ul>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express request object</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>res</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express response object</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>next</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express next middleware function</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_bookController.js.html">controllers/bookController.js</a>, <a href="controllers_bookController.js.html#line90">line 90</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="~saveNote"><span class="type-signature">(inner) </span>saveNote<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <ul>
-<li>Saves a note created by the user, associated with a favorite book</li>
-</ul>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express request object</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>res</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express response object</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>next</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express next middleware function</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_bookController.js.html">controllers/bookController.js</a>, <a href="controllers_bookController.js.html#line156">line 156</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="~setBookProgress"><span class="type-signature">(inner) </span>setBookProgress<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <ul>
-<li>Sets a book's progress to a number representing a percentage between 0-100</li>
-</ul>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express request object</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>res</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express response object</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>next</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express next middleware function</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_bookController.js.html">controllers/bookController.js</a>, <a href="controllers_bookController.js.html#line256">line 256</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="~toggleReadingBook"><span class="type-signature">(inner) </span>toggleReadingBook<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <ul>
-<li>Toggles a book's isReading property to true or false</li>
-</ul>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express request object</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>res</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express response object</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>next</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express next middleware function</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_bookController.js.html">controllers/bookController.js</a>, <a href="controllers_bookController.js.html#line233">line 233</a>
+        <a href="controllers_userController.js.html">controllers/userController.js</a>, <a href="controllers_userController.js.html#line14">line 14</a>
     </li></ul></dd>
     
 
