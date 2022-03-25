@@ -1,6 +1,6 @@
 /**
  * @description Configuration file for dynamically initializing sequelize depending on the environment
- * @module dbConfig
+ * @module config/dbConfig
  */
 const Sequelize = require('sequelize');
 const config = require('config');

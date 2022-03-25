@@ -1,4 +1,7 @@
-// User auth routes
+/**
+ * @description - all routes used by userRouter
+ * @module constants/usersRoutes
+ */
 const SIGN_OUT = '/sign-out';
 const SIGN_UP = '/sign-up';
 const SIGN_IN = '/sign-in';

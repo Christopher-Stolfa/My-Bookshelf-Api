@@ -1,3 +1,7 @@
+/**
+ * @description - all routes used by bookRouter
+ * @module constants/booksRoutes
+ */
 const SEARCH_BOOK = '/search-book';
 const SEARCH_BOOK_BY_ID = '/search-book-by-id';
 const SAVE_FAVORITED_BOOK = '/save-favorited-book';

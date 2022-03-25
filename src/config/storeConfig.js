@@ -1,6 +1,6 @@
 /**
  * @description Configuration file for dynamically initializing a session data store depending on the environment
- * @module storeConfig
+ * @module config/storeConfig
  */
 const session = require('express-session');
 
