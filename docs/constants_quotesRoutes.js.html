@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: config/dbConfig.js</title>
+    <title>JSDoc: Source: constants/quotesRoutes.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: config/dbConfig.js</h1>
+    <h1 class="page-title">Source: constants/quotesRoutes.js</h1>
 
     
 
@@ -27,20 +27,16 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @description Configuration file for dynamically initializing sequelize depending on the environment
- * @module config/dbConfig
+ * @description - all routes used by quoteRouter
+ * @module constants/quotesRoutes
  */
-const Sequelize = require('sequelize');
-const config = require('config');
 
-const dbConfig = config.get('database');
+/**
+ * @type {string}
+ */
+const GET_RANDOM_QUOTE = '/get-random-quote';
 
-const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
-  host: dbConfig.host,
-  dialect: dbConfig.dialect,
-});
-
-module.exports = sequelize;
+module.exports = { GET_RANDOM_QUOTE };
 </code></pre>
         </article>
     </section>
