@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const path = require('path');
 const multer = require('multer');
-const sessionMiddleware = require('./config/redisConfig');
+const sessionMiddleware = require('./config/storeConfig');
 const { errorLogger, errorResponder, failSafeHandler } = require('./middleware/errorHandler');
 
 // Routers
