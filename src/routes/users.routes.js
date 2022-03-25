@@ -8,7 +8,7 @@ const {
   userCheckResetToken,
   updatePasswordWithToken,
   updatePassword,
-} = require('../Controllers/users.controllers.js');
+} = require('../controllers/userController');
 const {
   SIGN_OUT,
   SIGN_UP,
