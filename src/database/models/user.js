@@ -9,6 +9,16 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * Class representing a user object
    * @class
+   * @property {number} userId The user id column
+   * @property {string} firstName The user first name column
+   * @property {string} lastName The user last name column
+   * @property {string} email The user email column
+   * @property {string} displayName The user display name column
+   * @property {string} password The user password hash column
+   * @property {string} resetPasswordToken This column is used when a user requests a password reset
+   * @property {date} resetPasswordExpires This column is used to hold a time and date that determines when the reset token expires
+   * @property {date} createdAt The time this row was created
+   * @property {date} updatedAt The last time this row has been updated
    */
   class User extends Model {
     /**
@@ -119,7 +129,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       resetPasswordToken: { type: DataTypes.STRING, field: 'reset_password_token' },
-      resetPasswordExpires: { type: DataTypes.STRING, field: 'reset_password_expires' },
+      resetPasswordExpires: { type: DataTypes.DATE, field: 'reset_password_expires' },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE,
