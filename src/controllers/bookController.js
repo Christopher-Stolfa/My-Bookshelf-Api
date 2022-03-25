@@ -1,4 +1,4 @@
-const { searchBooks, searchBookById } = require('../Services/googlebooks.services.js');
+const { searchBooks, searchBookById } = require('../services/googlebooksService');
 const {
   dbGetFavoritedBook,
   dbSaveFavoritedBook,
@@ -10,7 +10,7 @@ const {
   dbGetNotes,
   dbToggleReadingBook,
   dbSetBookProgress,
-} = require('../Services/books.services.js');
+} = require('../services/bookService');
 
 // Searches for books via google books api
 const bookSearch = async (req, res, next) => {

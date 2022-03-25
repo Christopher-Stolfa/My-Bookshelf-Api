@@ -18,7 +18,7 @@ const {
   FORGOT_PASSWORD,
   UPDATE_PASSWORD_WITH_TOKEN,
   UPDATE_PASSWORD,
-} = require('../Constants/usersRoutes.js');
+} = require('../constants/usersRoutes');
 const router = express.Router();
 
 router.post(SIGN_OUT, userSignOut);

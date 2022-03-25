@@ -1,4 +1,4 @@
-const { getRandomQuote } = require('../Services/quotes.services.js');
+const { getRandomQuote } = require('../services/quoteService');
 
 const randomQuote = (req, res, next) => {
   try {

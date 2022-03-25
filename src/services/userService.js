@@ -1,6 +1,6 @@
 /**
  * @description User services used by the controller for business logic involving database models
- * @module userServices
+ * @module userService
  */
 const nodemailer = require('nodemailer');
 const Sequelize = require('sequelize');

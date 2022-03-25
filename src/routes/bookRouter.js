@@ -12,7 +12,7 @@ const {
   EDIT_NOTE,
   DELETE_NOTE,
   GET_NOTES,
-} = require('../Constants/booksRoutes.js');
+} = require('../constants/booksRoutes');
 const {
   bookSearch,
   bookSearchById,
@@ -26,7 +26,7 @@ const {
   getNotes,
   toggleReadingBook,
   setBookProgress,
-} = require('../Controllers/books.controllers.js');
+} = require('../controllers/bookController');
 const router = express.Router();
 
 router.get(SEARCH_BOOK, bookSearch);

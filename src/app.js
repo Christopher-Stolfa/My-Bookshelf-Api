@@ -8,9 +8,9 @@ const sessionMiddleware = require('./config/redisConfig');
 const { errorLogger, errorResponder, failSafeHandler } = require('./middleware/errorHandler');
 
 // Routers
-const usersRouter = require('./routes/users.routes');
-const booksRouter = require('./routes/books.routes');
-const quotesRouter = require('./routes/quotes.routes');
+const userRouter = require('./routes/userRouter');
+const bookRouter = require('./routes/bookRouter');
+const quoteRouter = require('./routes/quoteRouter');
 
 const app = express();
 
@@ -43,15 +43,15 @@ app.use(
 
 // Uses routes defined in usersRouter alongside /users
 // Example: /users/sign-up, /users/sign-in
-app.use('/api/users', usersRouter);
+app.use('/api/users', userRouter);
 
 // Uses routes defined in booksRouter alongside /books
 // Example: /books/, /books/book-search
-app.use('/api/books', booksRouter);
+app.use('/api/books', bookRouter);
 
 // Uses routes defined in quotesRouter alongside /quotes
 // Example: /quotes/, /quotes/get-random-qoute
-app.use('/api/quotes', quotesRouter);
+app.use('/api/quotes', quoteRouter);
 
 // Middlewares that are only used in production.
 if (process.env.NODE_ENV === 'production') {

@@ -5,7 +5,7 @@ const {
   sendPasswordReset,
   findUserByResetToken,
   updatePasswordViaToken,
-} = require('../services/userServices');
+} = require('../services/userService');
 
 /**
  *
