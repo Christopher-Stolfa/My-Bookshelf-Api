@@ -1,4 +1,8 @@
-const { searchBooks, searchBookById } = require('../services/googlebooksService');
+/**
+ * @description - controller functions for handling api requests regarding books
+ * @module controllers/bookController
+ */
+const { googleSearchBooks, googleSearchBookById } = require('../services/googlebooksService');
 const {
   dbGetFavoritedBook,
   dbSaveFavoritedBook,
@@ -12,11 +16,17 @@ const {
   dbSetBookProgress,
 } = require('../services/bookService');
 
-// Searches for books via google books api
+/**
+ * @description - Searches for book results with a search query and filter options
+ * @function bookSearch
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 const bookSearch = async (req, res, next) => {
   const { searchQuery, filters } = JSON.parse(req.query.data);
   try {
-    const { items } = await searchBooks(searchQuery, filters);
+    const { items } = await googleSearchBooks(searchQuery, filters);
     res.status(200).json({
       message: 'Search successful',
       searchResultBooks: items,
@@ -27,10 +37,17 @@ const bookSearch = async (req, res, next) => {
   }
 };
 
+/**
+ * @description - Searches google books api for a single book by id
+ * @function bookSearchById
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 const bookSearchById = async (req, res) => {
   const { googleBooksId } = JSON.parse(req.query.data);
   try {
-    const { item } = await searchBookById(googleBooksId);
+    const { item } = await googleSearchBookById(googleBooksId);
     res.status(200).json({
       message: 'Search successful',
       selectedBook: item,
@@ -43,6 +60,13 @@ const bookSearchById = async (req, res) => {
   }
 };
 
+/**
+ * @description - Gets all of a user's favorite books
+ * @function getUserFavorites
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 const getUserFavorites = async (req, res, next) => {
   if (req.session.user) {
     try {
@@ -63,6 +87,13 @@ const getUserFavorites = async (req, res, next) => {
   }
 };
 
+/**
+ * @description - Saves a book to a user's favorites
+ * @function saveFavoritedBook
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 const saveFavoritedBook = async (req, res, next) => {
   try {
     if (!req.session.user) throw { message: 'Invalid credentials', code: 401 };
@@ -78,6 +109,13 @@ const saveFavoritedBook = async (req, res, next) => {
   }
 };
 
+/**
+ * @description - Removes a book from a user's favorites
+ * @function removeFavoritedBook
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 const removeFavoritedBook = async (req, res, next) => {
   try {
     if (!req.session.user) throw { message: 'Invalid credentials', code: 401 };
@@ -93,6 +131,13 @@ const removeFavoritedBook = async (req, res, next) => {
   }
 };
 
+/**
+ * @description - Gets a users favorite book by id
+ * @function getFavoritedBook
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 const getFavoritedBook = async (req, res, next) => {
   try {
     if (!req.session.user) throw { message: 'Invalid credentials', code: 401 };
@@ -108,6 +153,13 @@ const getFavoritedBook = async (req, res, next) => {
   }
 };
 
+/**
+ * @description - Saves a note created by the user, associated with a favorite book
+ * @function saveNote
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 const saveNote = async (req, res, next) => {
   try {
     if (!req.session.user) throw { message: 'Invalid credentials', code: 401 };
@@ -120,6 +172,13 @@ const saveNote = async (req, res, next) => {
   }
 };
 
+/**
+ * @description - Edits an existing note created by the user, associated with a favorite book
+ * @function editNote
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 const editNote = async (req, res, next) => {
   try {
     if (!req.session.user) throw { message: 'Invalid credentials', code: 401 };
@@ -133,6 +192,13 @@ const editNote = async (req, res, next) => {
   }
 };
 
+/**
+ * @description - Deletes an existing note created by the user, associated with a favorite book
+ * @function deleteNote
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 const deleteNote = async (req, res, next) => {
   try {
     if (!req.session.user) throw { message: 'Invalid credentials', code: 401 };
@@ -145,6 +211,13 @@ const deleteNote = async (req, res, next) => {
   }
 };
 
+/**
+ * @description - Gets all existing notes created by the user, associated with a favorite book
+ * @function getNotes
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 const getNotes = async (req, res, next) => {
   try {
     if (!req.session.user) throw { message: 'Invalid credentials', code: 401 };
@@ -157,6 +230,13 @@ const getNotes = async (req, res, next) => {
   }
 };
 
+/**
+ * @description - Toggles a book's isReading property to true or false
+ * @function toggleReadingBook
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 const toggleReadingBook = async (req, res, next) => {
   try {
     if (!req.session.user) throw { message: 'Invalid credentials', code: 401 };
@@ -173,6 +253,13 @@ const toggleReadingBook = async (req, res, next) => {
   }
 };
 
+/**
+ * @description - Sets a book's progress to a number representing a percentage between 0-100
+ * @function setBookProgress
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 const setBookProgress = async (req, res, next) => {
   try {
     if (!req.session.user) throw { message: 'Invalid credentials', code: 401 };

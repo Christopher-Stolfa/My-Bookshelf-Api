@@ -3,7 +3,7 @@ const axios = require('axios');
 const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
 const googleVolumesUri = 'https://www.googleapis.com/books/v1/volumes';
 
-const searchBooks = (query, { searchBy }) => {
+const googleSearchBooks = (query, { searchBy }) => {
   const url = `${googleVolumesUri}?q=${searchBy}${query}&maxResults=40&orderBy=Relevance&key=${apiKey}`;
   return new Promise((resolve, reject) => {
     axios
@@ -44,7 +44,7 @@ const searchBooks = (query, { searchBy }) => {
   });
 };
 
-const searchBookById = (googleBooksId) => {
+const googleSearchBookById = (googleBooksId) => {
   const url = `${googleVolumesUri}/${googleBooksId}?key=${apiKey}`;
   return new Promise((resolve, reject) => {
     axios
@@ -91,4 +91,4 @@ const searchBookById = (googleBooksId) => {
   });
 };
 
-module.exports = { searchBooks, searchBookById };
+module.exports = { googleSearchBooks, googleSearchBookById };
