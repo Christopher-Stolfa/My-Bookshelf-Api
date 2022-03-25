@@ -1,3 +1,7 @@
+/**
+ * @description User services used by the controller for business logic involving database models
+ * @module user.services
+ */
 const nodemailer = require('nodemailer');
 const Sequelize = require('sequelize');
 const crypto = require('crypto');
@@ -6,7 +10,6 @@ const config = require('config');
 
 /**
  * Creates a user in the database
- * @param {{}}
  * @param {Object} param
  * @param {string} param.displayName
  * @param {string} param.firstName
