@@ -7,6 +7,12 @@ const {
   updatePasswordViaToken,
 } = require('../Services/user.services.js');
 
+/**
+ *
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
 const userSignUp = async (req, res, next) => {
   const bodyData = req.body;
   try {
