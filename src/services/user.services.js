@@ -1,11 +1,12 @@
 const nodemailer = require('nodemailer');
 const Sequelize = require('sequelize');
 const crypto = require('crypto');
-const { User } = require('../../database/models');
+const { User } = require('../database/models');
 const config = require('config');
 
 /**
  * Creates a user in the database
+ * @param {{}}
  * @param {Object} param
  * @param {string} param.displayName
  * @param {string} param.firstName
