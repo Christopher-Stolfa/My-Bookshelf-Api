@@ -13,7 +13,8 @@
     "down": "npx sequelize-cli db:migrate:undo",
     "migrate": "npx sequelize-cli db:migrate",
     "make-seed": "npx sequelize-cli seed:generate --name init",
-    "seed": "npx sequelize-cli db:seed:all"
+    "seed": "npx sequelize-cli db:seed:all",
+    "doc": "jsdoc -c jsdoc.json"
   },
   "dependencies": {
     "axios": "^0.24.0",
@@ -49,6 +50,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.5.1",
+    "jsdoc": "^3.6.10",
     "prettier": "^2.5.1",
     "sequelize-cli": "^6.4.1",
     "supertest": "^6.2.2",
