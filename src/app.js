@@ -60,6 +60,10 @@ if (process.env.NODE_ENV === 'production') {
   app.use('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
   });
+} else {
+  app.use('/*', () => {
+    throw { message: 'Error 404, path does not exist', code: 404 };
+  });
 }
 
 // Uses Error handlers
