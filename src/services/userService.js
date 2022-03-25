@@ -1,6 +1,6 @@
 /**
  * @description User services used by the controller for business logic involving database models
- * @module userService
+ * @module services/userService
  */
 const nodemailer = require('nodemailer');
 const Sequelize = require('sequelize');
@@ -9,7 +9,8 @@ const { User } = require('../database/models');
 const config = require('config');
 
 /**
- * Creates a user in the database
+ * @description - Creates a user in the database
+ * @function dbCreateUser
  * @param {Object} param
  * @param {string} param.displayName
  * @param {string} param.firstName
@@ -19,7 +20,7 @@ const config = require('config');
  * @throws {error} - Error creating user if user is null
  * @returns {Object} - Returns an object with user data
  */
-const createUser = async ({ displayName, firstName, lastName, email, password }) => {
+const dbCreateUser = async ({ displayName, firstName, lastName, email, password }) => {
   const user = await User.create({
     displayName,
     firstName,
@@ -39,7 +40,8 @@ const createUser = async ({ displayName, firstName, lastName, email, password })
 };
 
 /**
- * Searches the database for a user with the reset token
+ * @description - Searches the database for a user with the reset token
+ * @function findUserByResetToken
  * @param {string} token
  * @returns {string} - Returns a user email
  * @throws {error} - Error finding user by reset token
@@ -62,7 +64,8 @@ const findUserByResetToken = async (token) => {
 };
 
 /**
- * Deletes a user by email - TODO: Refactor this to be called safely by the client
+ * @description - Deletes a user by email - TODO: Refactor this to be called safely by the client
+ * @function deleteUserByEmail
  * @param {string} email
  * @returns {Object} - Returns a user object
  * @throws {error}
@@ -70,12 +73,13 @@ const findUserByResetToken = async (token) => {
 const deleteUserByEmail = (email) => User.destroy({ where: { email } }).then((user) => user);
 
 /**
- * Attempts to sign in a user by first checking if they exist via email, and then checking if the password is valid
+ * @description - Finds a user by first checking if they exist via email, and then checking if the password is valid
+ * @function findUserCheckPass
  * @param {Object} param
  * @returns {Object} - Returns an object of user data
  * @throws {error} - Error if can't find user by email, password is invalid, or user doesn't exist
  */
-const signIn = async ({ email, password }) => {
+const findUserCheckPass = async ({ email, password }) => {
   const user = await User.findOne({ where: { email } });
   if (!user) throw { message: 'Invalid email or password', code: 401 };
   if (!user.validPassword(password)) throw { message: 'Invalid email or password', code: 401 };
@@ -90,7 +94,8 @@ const signIn = async ({ email, password }) => {
 };
 
 /**
- * Checks if a user exists with the email and token, then updates the password with the new one
+ * @description - Checks if a user exists with the email and token, then updates the password with the new one
+ * @function updatePasswordViaToken
  * @param {Object} param
  * @param {string} param.token
  * @param {string} param.email
@@ -120,7 +125,8 @@ const updatePasswordViaToken = async ({ token, email, password }) => {
 };
 
 /**
- * Updates a user's password
+ * @description - Updates a user's password
+ * @function updateUserPassword
  * @param {Object} param
  * @param {String} param.email
  * @param {String} param.currentPassword
@@ -135,7 +141,8 @@ const updateUserPassword = async ({ email, currentPassword, newPassword }) => {
 };
 
 /**
- * Sends an password reset link via email
+ * @description Sends an password reset link via email
+ * @function sendPasswordReset
  * @param {string} email
  * @throws {error} - Throws an error if the user doesn't exist or if the transporter fails to send an email
  */
@@ -181,7 +188,8 @@ const sendPasswordReset = async (email) => {
 };
 
 /**
- * Finds a user by email and returns the user instance
+ * @description - Finds a user by email and returns the user instance
+ * @function findUserByEmail
  * @param {string} email
  * @returns {Object} - Returns a user object instance
  * @throws - Throws an error if the user doesn't exist
@@ -193,8 +201,8 @@ const findUserByEmail = async (email) => {
 };
 
 module.exports = {
-  createUser,
-  signIn,
+  dbCreateUser,
+  findUserCheckPass,
   sendPasswordReset,
   findUserByResetToken,
   updatePasswordViaToken,

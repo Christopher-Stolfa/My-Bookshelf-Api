@@ -1,5 +1,5 @@
 /**
- * @description - all routes used by userRouter
+ * @description - All routes used by userRouter
  * @module constants/usersRoutes
  */
 /**

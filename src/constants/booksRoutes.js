@@ -1,5 +1,5 @@
 /**
- * @description - all routes used by bookRouter
+ * @description - All routes used by bookRouter
  * @module constants/booksRoutes
  */
 /**

@@ -1,5 +1,5 @@
 /**
- * @description - all routes used by quoteRouter
+ * @description - All routes used by quoteRouter
  * @module constants/quotesRoutes
  */
 

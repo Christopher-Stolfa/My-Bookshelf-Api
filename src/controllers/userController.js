@@ -1,6 +1,10 @@
+/**
+ * @description - Controller functions for handling api requests regarding users
+ * @module controllers/userController
+ */
 const {
-  createUser,
-  signIn,
+  dbCreateUser,
+  findUserCheckPass,
   updateUserPassword,
   sendPasswordReset,
   findUserByResetToken,
@@ -8,15 +12,16 @@ const {
 } = require('../services/userService');
 
 /**
- *
- * @param {*} req
- * @param {*} res
- * @param {*} next
+ * @description - Creates a new user with provided the correct params
+ * @function userSignUp
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
  */
 const userSignUp = async (req, res, next) => {
   const bodyData = req.body;
   try {
-    const userData = await createUser(bodyData);
+    const userData = await dbCreateUser(bodyData);
     req.session.user = userData;
     res.status(201).json({
       message: 'Account successfully created',
@@ -28,6 +33,13 @@ const userSignUp = async (req, res, next) => {
   }
 };
 
+/**
+ * @description - Checks if a user session exists provided a valid cookie
+ * @function userCheckSession
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 const userCheckSession = async (req, res) => {
   if (req.session.user) {
     res.status(200).json({
@@ -43,10 +55,17 @@ const userCheckSession = async (req, res) => {
   }
 };
 
+/**
+ * @description - Signs in a user if provided the correct credentials and initializes a user session
+ * @function userSignIn
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 const userSignIn = async (req, res, next) => {
   const bodyData = req.body;
   try {
-    const userData = await signIn(bodyData);
+    const userData = await findUserCheckPass(bodyData);
     req.session.user = userData;
     res.status(200).json({
       message: 'Sign in successful',
@@ -58,6 +77,13 @@ const userSignIn = async (req, res, next) => {
   }
 };
 
+/**
+ * @description - Updates a user's password if provided the correct credentials
+ * @function updatePassword
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 const updatePassword = async (req, res, next) => {
   try {
     if (!req.session.user) throw { message: 'Invalid credentials', code: 401 };
@@ -73,6 +99,13 @@ const updatePassword = async (req, res, next) => {
   }
 };
 
+/**
+ * @description - Signs out a user by closing their session and destroying the cookie
+ * @function userSignOut
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 const userSignOut = (req, res, next) => {
   try {
     if (!req.session.user) throw { message: 'Invalid credentials', code: 401 };
@@ -88,6 +121,13 @@ const userSignOut = (req, res, next) => {
   }
 };
 
+/**
+ * @description - Sends an email with a password reset link if user email exists in the database
+ * @function userForgotPassword
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 const userForgotPassword = async (req, res, next) => {
   try {
     const bodyData = JSON.parse(req.body.data);
@@ -101,6 +141,13 @@ const userForgotPassword = async (req, res, next) => {
   }
 };
 
+/**
+ * @description - Checks if a password reset token is valid
+ * @function userCheckResetToken
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 const userCheckResetToken = async (req, res, next) => {
   try {
     const token = req.query.resetPasswordToken;
@@ -114,6 +161,13 @@ const userCheckResetToken = async (req, res, next) => {
   }
 };
 
+/**
+ * @description - Updates the password for the user associated with the reset token
+ * @function updatePasswordWithToken
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 const updatePasswordWithToken = async (req, res, next) => {
   const bodyData = JSON.parse(req.body.data);
   const { token, email, password } = bodyData;
