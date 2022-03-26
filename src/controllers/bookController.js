@@ -19,6 +19,7 @@ const {
 } = require('../services/bookService');
 
 /**
+ * @todo - Refactor this function & frontend action to not send/use JSON string
  * @description - Searches for book results with a search query and filter options
  * @function bookSearch
  * @param {Object} req - Express request object
@@ -40,6 +41,7 @@ const bookSearch = async (req, res, next) => {
 };
 
 /**
+ * @todo - Refactor this function & frontend action to not send/use JSON string
  * @description - Searches google books api for a single book by id
  * @function bookSearchById
  * @param {Object} req - Express request object
@@ -90,6 +92,7 @@ const getUserFavorites = async (req, res, next) => {
 };
 
 /**
+ * @todo - Refactor this function & frontend action to not send/use JSON string
  * @description - Saves a book to a user's favorites
  * @function saveFavoritedBook
  * @param {Object} req - Express request object
@@ -112,6 +115,8 @@ const saveFavoritedBook = async (req, res, next) => {
 };
 
 /**
+ * @todo - Refactor this function & frontend action to not send/use JSON string
+ * @todo - We only wants a bookId from the client, not the whole book object
  * @description - Removes a book from a user's favorites
  * @function removeFavoritedBook
  * @param {Object} req - Express request object
@@ -156,6 +161,8 @@ const getFavoritedBook = async (req, res, next) => {
 };
 
 /**
+ * @todo - Refactor this function & frontend action to not send/use JSON string
+ * @todo - It's better if we use a favoritedBookId instead of googleBooksId
  * @description - Saves a note created by the user, associated with a favorite book
  * @function saveNote
  * @param {Object} req - Express request object
@@ -175,6 +182,7 @@ const saveNote = async (req, res, next) => {
 };
 
 /**
+ * @todo - Refactor this function & frontend action to not send/use JSON string
  * @description - Edits an existing note created by the user, associated with a favorite book
  * @function editNote
  * @param {Object} req - Express request object
@@ -214,6 +222,8 @@ const deleteNote = async (req, res, next) => {
 };
 
 /**
+ * @todo - Refactor this function & frontend action to not send/use JSON string
+ * @todo - It's better if we use a favoritedBookId instead of googleBooksId
  * @description - Gets all existing notes created by the user, associated with a favorite book
  * @function getNotes
  * @param {Object} req - Express request object
@@ -233,6 +243,8 @@ const getNotes = async (req, res, next) => {
 };
 
 /**
+ * @todo - Refactor this function & frontend action to not send/use JSON string
+ * @todo - It's better if we use a favoritedBookId instead of googleBooksId
  * @description - Toggles a book's isReading property to true or false
  * @function toggleReadingBook
  * @param {Object} req - Express request object
@@ -256,6 +268,8 @@ const toggleReadingBook = async (req, res, next) => {
 };
 
 /**
+ * @todo - Refactor this function & frontend action to not send/use JSON string
+ * @todo - It's better if we use a favoritedBookId instead of googleBooksId
  * @description - Sets a book's progress to a number representing a percentage between 0-100
  * @function setBookProgress
  * @param {Object} req - Express request object
