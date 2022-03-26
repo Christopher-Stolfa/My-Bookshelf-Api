@@ -1,6 +1,6 @@
 /**
  * @description User class module
- * @module user
+ * @module models/user
  */
 'use strict';
 const bcrypt = require('bcrypt');
