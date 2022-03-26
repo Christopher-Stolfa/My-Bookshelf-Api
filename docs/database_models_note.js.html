@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: config/dbConfig.js</title>
+    <title>JSDoc: Source: database/models/note.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: config/dbConfig.js</h1>
+    <h1 class="page-title">Source: database/models/note.js</h1>
 
     
 
@@ -27,20 +27,69 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @description Configuration file for dynamically initializing sequelize depending on the environment
- * @module config/dbConfig
+ * @description - Note class module
+ * @module database/models/note
  */
-const Sequelize = require('sequelize');
-const config = require('config');
-
-const dbConfig = config.get('database');
-
-const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
-  host: dbConfig.host,
-  dialect: dbConfig.dialect,
-});
-
-module.exports = sequelize;
+'use strict';
+const { Model } = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  /**
+   * @description - Class and schema for Note
+   * @class
+   * @property {number} noteId - primary note id
+   * @property {string} text - note text
+   * @property {date} createdAt - time and date created
+   * @property {date} updatedAt - time and date updated
+   */
+  class Note extends Model {
+    /**
+     * @description - Sequelize pre-defined static method that inputs sequelize Models and options
+     * @param {Object} param
+     * @param {Object} param.Note
+     * @returns {void}
+     */
+    static associate({ Note }) {
+      this.belongsTo(Note, { foreignKey: 'favoritedBookId', as: 'note' });
+    }
+  }
+  Note.init(
+    {
+      noteId: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true,
+        field: 'note_id',
+      },
+      text: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            args: true,
+            msg: 'Text field cannot be empty.',
+          },
+        },
+      },
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        field: 'created_at',
+      },
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        field: 'updated_at',
+      },
+    },
+    {
+      sequelize,
+      tableName: 'notes',
+      modelName: 'Note',
+    }
+  );
+  return Note;
+};
 </code></pre>
         </article>
     </section>

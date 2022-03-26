@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: config/dbConfig.js</title>
+    <title>JSDoc: Source: middleware/errorHandler.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: config/dbConfig.js</h1>
+    <h1 class="page-title">Source: middleware/errorHandler.js</h1>
 
     
 
@@ -27,20 +27,50 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @description Configuration file for dynamically initializing sequelize depending on the environment
- * @module config/dbConfig
+ * @description - Error handlers
+ * @module middleware/errorHandler
  */
-const Sequelize = require('sequelize');
-const config = require('config');
 
-const dbConfig = config.get('database');
+/**
+ * @description - Logs errors
+ * @function errorLogger
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
+const errorLogger = (error, req, res, next) => {
+  console.error(error);
+  next(error);
+};
 
-const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
-  host: dbConfig.host,
-  dialect: dbConfig.dialect,
-});
+/**
+ * @description - All errors from the controller are passed here
+ * @function errorResponder
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
+const errorResponder = (error, req, res, next) => {
+  if (error.code) {
+    res.status(error.code).json({ message: error.message.toString() });
+  } else {
+    next(error);
+  }
+};
 
-module.exports = sequelize;
+/**
+ * @description - All errors without a status code are passed here
+ * @function failSafeHandler
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
+const failSafeHandler = (error, req, res) => {
+  // generic error handler response
+  res.status(500).json({ message: 'Server error' });
+};
+
+module.exports = { errorLogger, errorResponder, failSafeHandler };
 </code></pre>
         </article>
     </section>

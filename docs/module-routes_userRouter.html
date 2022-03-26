@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: config/dbConfig.js</title>
+    <title>JSDoc: Module: routes/userRouter</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,33 +17,212 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: config/dbConfig.js</h1>
+    <h1 class="page-title">Module: routes/userRouter</h1>
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @description Configuration file for dynamically initializing sequelize depending on the environment
- * @module config/dbConfig
- */
-const Sequelize = require('sequelize');
-const config = require('config');
+        
+            
+        
+    
+</header>
 
-const dbConfig = config.get('database');
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><ul>
+<li>Router that handles api methods for users</li>
+</ul></div>
+        
 
-const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
-  host: dbConfig.host,
-  dialect: dbConfig.dialect,
-});
+        
+            
 
-module.exports = sequelize;
-</code></pre>
-        </article>
-    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="routes_userRouter.js.html">routes/userRouter.js</a>, <a href="routes_userRouter.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="~router"><span class="type-signature">(inner, constant) </span>router<span class="type-signature"> :object</span></h4>
+
+
+
+
+<div class="description">
+    <ul>
+<li>Express router for mounting book related functions</li>
+</ul>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="routes_userRouter.js.html">routes/userRouter.js</a>, <a href="routes_userRouter.js.html#line31">line 31</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

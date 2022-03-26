@@ -1,5 +1,5 @@
 /**
- * @description User services used by the controller for business logic involving database models
+ * @description - User services used by the controller for business logic involving database models
  * @module services/userService
  */
 const nodemailer = require('nodemailer');

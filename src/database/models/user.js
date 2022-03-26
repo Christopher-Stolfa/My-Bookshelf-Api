@@ -1,40 +1,39 @@
 /**
  * @description User class module
- * @module models/user
+ * @module database/models/user
  */
 'use strict';
 const bcrypt = require('bcrypt');
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   /**
-   * Class representing a user object
+   * @description - Class and schema for User
    * @class
-   * @property {number} userId The user id column
-   * @property {string} firstName The user first name column
-   * @property {string} lastName The user last name column
-   * @property {string} email The user email column
-   * @property {string} displayName The user display name column
-   * @property {string} password The user password hash column
-   * @property {string} resetPasswordToken This column is used when a user requests a password reset
-   * @property {date} resetPasswordExpires This column is used to hold a time and date that determines when the reset token expires
-   * @property {date} createdAt The time this row was created
-   * @property {date} updatedAt The last time this row has been updated
+   * @property {number} userId - primary user id
+   * @property {string} firstName - first name
+   * @property {string} lastName - last name
+   * @property {string} email - email
+   * @property {string} displayName - display name
+   * @property {string} password - password hash
+   * @property {string} resetPasswordToken - token for when a password reset is requested
+   * @property {date} resetPasswordExpires - date for when the reset password token expires
+   * @property {date} createdAt - time and date created
+   * @property {date} updatedAt - time and date updated
    */
   class User extends Model {
     /**
-     * @description An instance method that compares the password to the user password hash to check if it's valid
+     * @description - An instance method that compares the password to the user password hash to check if it's valid
      * @property {Function} validPassword
      * @param {string} password
-     * @returns {boolean} Returns true if password is valid and false if not valid
+     * @returns {boolean} - Returns true if password is valid and false if not valid
      */
     validPassword(password) {
       return bcrypt.compareSync(password, this.dataValues.password);
     }
     /**
-     * @description Sequelize pre-defined static method that inputs sequelize Models and options
+     * @description - Sequelize pre-defined static method that inputs sequelize Models and options
      * @param {Object} param
      * @param {Object} param.FavoritedBook
-     * @returns {void}
      */
     static associate({ FavoritedBook }) {
       this.hasMany(FavoritedBook, {
@@ -43,18 +42,18 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
     /**
-     * @description Static method using bcrypt to generate a salt and then hash the password
+     * @description - Static method using bcrypt to generate a salt and then hash the password
      * @param {string} password
-     * @returns {string} Returns the hashed password
+     * @returns {string} - Returns the hashed password
      */
     static hashPassword = (password) => {
       const salt = bcrypt.genSaltSync(10);
       return bcrypt.hashSync(password, salt);
     };
     /**
-     * @description Static method that checks if a password passes the validation regex
+     * @description - Static method that checks if a password passes the validation regex
      * @param {string} password
-     * @returns {boolean} Returns true if the password is between 8 and 16 characters with at least one uppercase letter, one lowercase letter, one number and one special character, otherwise it returns false
+     * @returns {boolean} - Returns true if the password is between 8 and 16 characters with at least one uppercase letter, one lowercase letter, one number and one special character, otherwise it returns false
      */
     static validatePassword = (password) =>
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/.test(password);

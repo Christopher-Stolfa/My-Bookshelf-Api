@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: config/dbConfig.js</title>
+    <title>JSDoc: Source: routes/quoteRouter.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: config/dbConfig.js</h1>
+    <h1 class="page-title">Source: routes/quoteRouter.js</h1>
 
     
 
@@ -27,20 +27,28 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @description Configuration file for dynamically initializing sequelize depending on the environment
- * @module config/dbConfig
+ * @description - Router that handles api methods for quotes
+ * @module routes/quoteRouter
  */
-const Sequelize = require('sequelize');
-const config = require('config');
+const express = require('express');
+const { randomQuote } = require('../controllers/quoteController');
+const { GET_RANDOM_QUOTE } = require('../constants/quotesRoutes.js');
 
-const dbConfig = config.get('database');
+/**
+ * @description - Express router for mounting book related functions
+ * @type {object}
+ */
+const router = express.Router();
 
-const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
-  host: dbConfig.host,
-  dialect: dbConfig.dialect,
-});
+/**
+ * @description - Route for getting a random inspirational quote
+ * @function
+ * @param {string} path - Express path
+ * @param {callback} randomQuote - Controller/express middleware
+ */
+router.get(GET_RANDOM_QUOTE, randomQuote);
 
-module.exports = sequelize;
+module.exports = router;
 </code></pre>
         </article>
     </section>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: config/dbConfig.js</title>
+    <title>JSDoc: Source: database/config.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: config/dbConfig.js</h1>
+    <h1 class="page-title">Source: database/config.js</h1>
 
     
 
@@ -27,20 +27,19 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @description Configuration file for dynamically initializing sequelize depending on the environment
- * @module config/dbConfig
+ * @description - This config file populates an object with all of the config profiles in the root directory. When exported, these configs can be accessed from the config node_module.
+ * @module database/models/config
  */
-const Sequelize = require('sequelize');
-const config = require('config');
+require('dotenv').config();
+const profiles = require('../../config');
 
-const dbConfig = config.get('database');
+const dbConfigs = {};
 
-const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
-  host: dbConfig.host,
-  dialect: dbConfig.dialect,
+Object.keys(profiles).forEach((profile) => {
+  dbConfigs[profile] = { ...profiles[profile].database };
 });
 
-module.exports = sequelize;
+module.exports = dbConfigs;
 </code></pre>
         </article>
     </section>

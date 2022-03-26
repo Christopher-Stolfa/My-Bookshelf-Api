@@ -28,41 +28,40 @@
         <article>
             <pre class="prettyprint source linenums"><code>/**
  * @description User class module
- * @module user
+ * @module database/models/user
  */
 'use strict';
 const bcrypt = require('bcrypt');
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   /**
-   * Class representing a user object
+   * @description - Class and schema for User
    * @class
-   * @property {number} userId The user id column
-   * @property {string} firstName The user first name column
-   * @property {string} lastName The user last name column
-   * @property {string} email The user email column
-   * @property {string} displayName The user display name column
-   * @property {string} password The user password hash column
-   * @property {string} resetPasswordToken This column is used when a user requests a password reset
-   * @property {date} resetPasswordExpires This column is used to hold a time and date that determines when the reset token expires
-   * @property {date} createdAt The time this row was created
-   * @property {date} updatedAt The last time this row has been updated
+   * @property {number} userId - primary user id
+   * @property {string} firstName - first name
+   * @property {string} lastName - last name
+   * @property {string} email - email
+   * @property {string} displayName - display name
+   * @property {string} password - password hash
+   * @property {string} resetPasswordToken - token for when a password reset is requested
+   * @property {date} resetPasswordExpires - date for when the reset password token expires
+   * @property {date} createdAt - time and date created
+   * @property {date} updatedAt - time and date updated
    */
   class User extends Model {
     /**
-     * @description An instance method that compares the password to the user password hash to check if it's valid
+     * @description - An instance method that compares the password to the user password hash to check if it's valid
      * @property {Function} validPassword
      * @param {string} password
-     * @returns {boolean} Returns true if password is valid and false if not valid
+     * @returns {boolean} - Returns true if password is valid and false if not valid
      */
     validPassword(password) {
       return bcrypt.compareSync(password, this.dataValues.password);
     }
     /**
-     * @description Sequelize pre-defined static method that inputs sequelize Models and options
+     * @description - Sequelize pre-defined static method that inputs sequelize Models and options
      * @param {Object} param
      * @param {Object} param.FavoritedBook
-     * @returns {void}
      */
     static associate({ FavoritedBook }) {
       this.hasMany(FavoritedBook, {
@@ -71,18 +70,18 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
     /**
-     * @description Static method using bcrypt to generate a salt and then hash the password
+     * @description - Static method using bcrypt to generate a salt and then hash the password
      * @param {string} password
-     * @returns {string} Returns the hashed password
+     * @returns {string} - Returns the hashed password
      */
     static hashPassword = (password) => {
       const salt = bcrypt.genSaltSync(10);
       return bcrypt.hashSync(password, salt);
     };
     /**
-     * @description Static method that checks if a password passes the validation regex
+     * @description - Static method that checks if a password passes the validation regex
      * @param {string} password
-     * @returns {boolean} Returns true if the password is between 8 and 16 characters with at least one uppercase letter, one lowercase letter, one number and one special character, otherwise it returns false
+     * @returns {boolean} - Returns true if the password is between 8 and 16 characters with at least one uppercase letter, one lowercase letter, one number and one special character, otherwise it returns false
      */
     static validatePassword = (password) =>
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&amp;*-]).{8,16}$/.test(password);
@@ -197,13 +196,13 @@ module.exports = (sequelize, DataTypes) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-config_dbConfig.html">config/dbConfig</a></li><li><a href="module-config_storeConfig.html">config/storeConfig</a></li><li><a href="module-constants_booksRoutes.html">constants/booksRoutes</a></li><li><a href="module-constants_quotesRoutes.html">constants/quotesRoutes</a></li><li><a href="module-constants_usersRoutes.html">constants/usersRoutes</a></li><li><a href="module-controllers_bookController.html">controllers/bookController</a></li><li><a href="module-controllers_quoteController.html">controllers/quoteController</a></li><li><a href="module-controllers_userController.html">controllers/userController</a></li><li><a href="module-services_userService.html">services/userService</a></li><li><a href="module-user.html">user</a></li></ul><h3>Classes</h3><ul><li><a href="module-user-User.html">User</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-config_dbConfig.html">config/dbConfig</a></li><li><a href="module-config_storeConfig.html">config/storeConfig</a></li><li><a href="module-constants_booksRoutes.html">constants/booksRoutes</a></li><li><a href="module-constants_quotesRoutes.html">constants/quotesRoutes</a></li><li><a href="module-constants_usersRoutes.html">constants/usersRoutes</a></li><li><a href="module-controllers_bookController.html">controllers/bookController</a></li><li><a href="module-controllers_quoteController.html">controllers/quoteController</a></li><li><a href="module-controllers_userController.html">controllers/userController</a></li><li><a href="module-database_models_config.html">database/models/config</a></li><li><a href="module-database_models_favoritedBook.html">database/models/favoritedBook</a></li><li><a href="module-database_models_index.html">database/models/index</a></li><li><a href="module-database_models_note.html">database/models/note</a></li><li><a href="module-database_models_user.html">database/models/user</a></li><li><a href="module-middleware_errorHandler.html">middleware/errorHandler</a></li><li><a href="module-routes_bookRouter.html">routes/bookRouter</a></li><li><a href="module-routes_quoteRouter.html">routes/quoteRouter</a></li><li><a href="module-routes_userRouter.html">routes/userRouter</a></li><li><a href="module-services_bookService.html">services/bookService</a></li><li><a href="module-services_userService.html">services/userService</a></li></ul><h3>Classes</h3><ul><li><a href="module-database_models_favoritedBook-FavoritedBook.html">FavoritedBook</a></li><li><a href="module-database_models_note-Note.html">Note</a></li><li><a href="module-database_models_user-User.html">User</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Fri Mar 25 2022 16:59:22 GMT-0700 (Mountain Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Fri Mar 25 2022 21:19:00 GMT-0700 (Mountain Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

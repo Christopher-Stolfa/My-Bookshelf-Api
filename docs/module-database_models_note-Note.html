@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: controllers/quoteController</title>
+    <title>JSDoc: Class: Note</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: controllers/quoteController</h1>
+    <h1 class="page-title">Class: Note</h1>
 
     
 
@@ -28,8 +28,8 @@
 
 <header>
     
-        
-            
+        <h2><span class="attribs"><span class="type-signature"></span></span>
+            <span class="ancestors"><a href="module-database_models_note.html">database/models/note</a>~</span>Note<span class="signature">()</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -38,24 +38,152 @@
     <div class="container-overview">
     
         
-            <div class="description"><ul>
-<li>Controller functions for handling api requests regarding quotes</li>
-</ul></div>
+
+    
+
+    
+    <h4 class="name" id="Note"><span class="type-signature"></span>new Note<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <ul>
+<li>Class and schema for Note</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
         
 
         
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>noteId</code></td>
             
 
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
 
 
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>primary note id</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>text</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
 
 
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>note text</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>createdAt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">date</span>
 
 
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>time and date created</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>updatedAt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">date</span>
 
 
+            
+            </td>
 
+            
 
+            
+
+            <td class="description last"><p>time and date updated</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -89,7 +217,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_quoteController.js.html">controllers/quoteController.js</a>, <a href="controllers_quoteController.js.html#line1">line 1</a>
+        <a href="database_models_note.js.html">database/models/note.js</a>, <a href="database_models_note.js.html#line16">line 16</a>
     </li></ul></dd>
     
 
@@ -119,7 +247,6 @@
 
 
 
-        
     
     </div>
 
@@ -146,7 +273,7 @@
     
 
     
-    <h4 class="name" id="~randomQuote"><span class="type-signature">(inner) </span>randomQuote<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".associate"><span class="type-signature">(static) </span>associate<span class="signature">(param)</span><span class="type-signature"> &rarr; {void}</span></h4>
     
 
     
@@ -155,7 +282,7 @@
 
 <div class="description">
     <ul>
-<li>Gets a random inspirational quote</li>
+<li>Sequelize pre-defined static method that inputs sequelize Models and options</li>
 </ul>
 </div>
 
@@ -192,7 +319,7 @@
 
         <tr>
             
-                <td class="name"><code>req</code></td>
+                <td class="name"><code>param</code></td>
             
 
             <td class="type">
@@ -208,14 +335,33 @@
 
             
 
-            <td class="description last"><p>Express request object</p></td>
-        </tr>
+            <td class="description last">
+                <h6>Properties</h6>
+                
 
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
 
         <tr>
             
-                <td class="name"><code>res</code></td>
+                <td class="name"><code>Note</code></td>
             
 
             <td class="type">
@@ -231,30 +377,14 @@
 
             
 
-            <td class="description last"><p>Express response object</p></td>
+            <td class="description last"></td>
         </tr>
 
     
+    </tbody>
+</table>
 
-        <tr>
-            
-                <td class="name"><code>next</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
             </td>
-
-            
-
-            
-
-            <td class="description last"><p>Express next middleware function</p></td>
         </tr>
 
     
@@ -295,7 +425,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_quoteController.js.html">controllers/quoteController.js</a>, <a href="controllers_quoteController.js.html#line7">line 7</a>
+        <a href="database_models_note.js.html">database/models/note.js</a>, <a href="database_models_note.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -320,6 +450,24 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 

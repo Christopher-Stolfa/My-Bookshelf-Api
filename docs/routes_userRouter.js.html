@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: constants/usersRoutes.js</title>
+    <title>JSDoc: Source: routes/userRouter.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: constants/usersRoutes.js</h1>
+    <h1 class="page-title">Source: routes/userRouter.js</h1>
 
     
 
@@ -27,52 +27,102 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @description - All routes used by userRouter
- * @module constants/usersRoutes
+ * @description - Router that handles api methods for users
+ * @module routes/userRouter
  */
-/**
- * @type {string}
- */
-const SIGN_OUT = '/sign-out';
-/**
- * @type {string}
- */
-const SIGN_UP = '/sign-up';
-/**
- * @type {string}
- */
-const SIGN_IN = '/sign-in';
-/**
- * @type {string}
- */
-const CHECK_SESSION = '/check-session';
-/**
- * @type {string}
- */
-const FORGOT_PASSWORD = '/forgot-password';
-/**
- * @type {string}
- */
-const CHECK_RESET_TOKEN = '/check-reset-token';
-/**
- * @type {string}
- */
-const UPDATE_PASSWORD_WITH_TOKEN = '/update-password-with-token';
-/**
- * @type {string}
- */
-const UPDATE_PASSWORD = '/update-password';
-
-module.exports = {
+const express = require('express');
+const {
+  userSignUp,
+  userSignIn,
+  userSignOut,
+  userCheckSession,
+  userForgotPassword,
+  userCheckResetToken,
+  updatePasswordWithToken,
+  updatePassword,
+} = require('../controllers/userController');
+const {
   SIGN_OUT,
   SIGN_UP,
   SIGN_IN,
-  FORGOT_PASSWORD,
   CHECK_SESSION,
   CHECK_RESET_TOKEN,
+  FORGOT_PASSWORD,
   UPDATE_PASSWORD_WITH_TOKEN,
   UPDATE_PASSWORD,
-};
+} = require('../constants/usersRoutes');
+
+/**
+ * @description - Express router for mounting book related functions
+ * @type {object}
+ */
+const router = express.Router();
+
+/**
+ * @description - Route for handling a user signout, it destroys the session and cookie
+ * @function
+ * @param {string} path - Express path
+ * @param {callback} userSignOut - Controller/express middleware
+ */
+router.post(SIGN_OUT, userSignOut);
+
+/**
+ * @description - Route for handling a user sign up
+ * @function
+ * @param {string} path - Express path
+ * @param {callback} userSignUp - Controller/express middleware
+ */
+router.post(SIGN_UP, userSignUp);
+
+/**
+ * @description - Route for handling a user sign in, creating a user session
+ * @function
+ * @param {string} path - Express path
+ * @param {callback} userSignIn - Controller/express middleware
+ */
+router.post(SIGN_IN, userSignIn);
+
+/**
+ * @description - Route for requesting a password reset email
+ * @function
+ * @param {string} path - Express path
+ * @param {callback} userForgotPassword - Controller/express middleware
+ */
+router.post(FORGOT_PASSWORD, userForgotPassword);
+
+/**
+ * @description - Route for resetting a user's password with a reset token accessed from their email
+ * @function
+ * @param {string} path - Express path
+ * @param {callback} updatePasswordWithToken - Controller/express middleware
+ */
+router.put(UPDATE_PASSWORD_WITH_TOKEN, updatePasswordWithToken);
+
+/**
+ * @description - Route for updating a user's password using their current password
+ * @function
+ * @param {string} path - Express path
+ * @param {callback} updatePassword - Controller/express middleware
+ */
+router.put(UPDATE_PASSWORD, updatePassword);
+
+/**
+ * @description - Route for checking if there is an active user session associated with a cookie
+ * @function
+ * @param {string} path - Express path
+ * @param {callback} userCheckSession - Controller/express middleware
+ */
+router.get(CHECK_SESSION, userCheckSession);
+
+/**
+ * @description - Route for checking if a password reset token is valid
+ * @function
+ * @param {string} path - Express path
+ * @param {callback} userCheckResetToken - Controller/express middleware
+ */
+router.get(CHECK_RESET_TOKEN, userCheckResetToken);
+
+module.exports = router;
 </code></pre>
         </article>
     </section>
