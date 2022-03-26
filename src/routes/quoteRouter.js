@@ -1,14 +1,19 @@
 /**
  * @description - Router that handles api methods for quotes
  * @module routes/quoteRouter
+ * @see module:constants/quotesRoutes
+ * @see module:controllers/quoteController
  */
 const express = require('express');
 const { randomQuote } = require('../controllers/quoteController');
 const { GET_RANDOM_QUOTE } = require('../constants/quotesRoutes.js');
 
 /**
- * @description - Express router for mounting book related functions
- * @type {object}
+ * @description - Express router for mounting book controller methods
+ * @property {Function} get
+ * @property {Function} post
+ * @property {Function} put
+ * @property {Function} delete
  */
 const router = express.Router();
 

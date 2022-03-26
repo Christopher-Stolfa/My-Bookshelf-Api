@@ -1,6 +1,7 @@
 /**
  * @description - Controller functions for handling api requests regarding quotes
  * @module controllers/quoteController
+ * @see module:services/quoteService
  */
 const { getRandomQuote } = require('../services/quoteService');
 

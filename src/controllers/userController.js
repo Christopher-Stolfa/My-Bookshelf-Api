@@ -1,6 +1,7 @@
 /**
  * @description - Controller functions for handling api requests regarding users
  * @module controllers/userController
+ * @see module:services/userService
  */
 const {
   dbCreateUser,

@@ -1,3 +1,7 @@
+/**
+ * @description - Google books api services used by the controllers for business logic
+ * @module services/googleBooksService
+ */
 const axios = require('axios');
 
 const apiKey = process.env.GOOGLE_BOOKS_API_KEY;

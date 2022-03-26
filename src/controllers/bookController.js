@@ -1,8 +1,10 @@
 /**
  * @description - Controller functions for handling api requests regarding books
  * @module controllers/bookController
+ * @see module:services/googleBooksService
+ * @see module:services/bookService
  */
-const { googleSearchBooks, googleSearchBookById } = require('../services/googlebooksService');
+const { googleSearchBooks, googleSearchBookById } = require('../services/googleBooksService');
 const {
   dbGetFavoritedBook,
   dbSaveFavoritedBook,

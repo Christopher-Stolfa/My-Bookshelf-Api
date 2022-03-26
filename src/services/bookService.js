@@ -7,18 +7,18 @@ const { User, Note, FavoritedBook } = require('../database/models');
 /**
  * @description - A book object
  * @typedef {Object} Book
- * @property {number} book.googleBooksId - The id used by the google books api
- * @property {string} book.title - The book title
- * @property {string} book.description - The book description
- * @property {Array} book.authors - Authors associated with the book
- * @property {string} book.publisher - Publisher associated with the book
- * @property {string} book.publishedDate - Date the book was published
- * @property {number} book.pageCount - Amount of pages in the book
- * @property {number} book.averageRating - Google books api average rating
- * @property {number} book.ratingsCount - Google books api ratings count
- * @property {string} book.imageLink - Thumbnail for the book provided by google books api
- * @property {string} book.language - Language of the book
- * @property {Array} book.categories - Categories the book belongs to
+ * @property {number} Book.googleBooksId - The id used by the google books api
+ * @property {string} Book.title - The book title
+ * @property {string} Book.description - The book description
+ * @property {Array} Book.authors - Authors associated with the book
+ * @property {string} Book.publisher - Publisher associated with the book
+ * @property {string} Book.publishedDate - Date the book was published
+ * @property {number} Book.pageCount - Amount of pages in the book
+ * @property {number} Book.averageRating - Google books api average rating
+ * @property {number} Book.ratingsCount - Google books api ratings count
+ * @property {string} Book.imageLink - Thumbnail for the book provided by google books api
+ * @property {string} Book.language - Language of the book
+ * @property {Array} Book.categories - Categories the book belongs to
  */
 
 /**

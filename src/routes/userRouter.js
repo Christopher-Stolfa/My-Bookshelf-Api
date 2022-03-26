@@ -1,6 +1,8 @@
 /**
  * @description - Router that handles api methods for users
  * @module routes/userRouter
+ * @see module:constants/usersRoutes
+ * @see module:controllers/userController
  */
 const express = require('express');
 const {
@@ -25,8 +27,11 @@ const {
 } = require('../constants/usersRoutes');
 
 /**
- * @description - Express router for mounting book related functions
- * @type {object}
+ * @description - Express router for mounting book controller methods
+ * @property {Function} get
+ * @property {Function} post
+ * @property {Function} put
+ * @property {Function} delete
  */
 const router = express.Router();
 

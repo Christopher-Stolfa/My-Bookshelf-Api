@@ -1,6 +1,8 @@
 /**
  * @description - Router that handles api methods for books
  * @module routes/bookRouter
+ * @see module:constants/booksRoutes
+ * @see module:controllers/bookController
  */
 const express = require('express');
 const {
@@ -33,8 +35,11 @@ const {
 } = require('../controllers/bookController');
 
 /**
- * @description - Express router for mounting book related functions
- * @type {object}
+ * @description - Express router for mounting book controller methods
+ * @property {Function} get
+ * @property {Function} post
+ * @property {Function} put
+ * @property {Function} delete
  */
 const router = express.Router();
 
