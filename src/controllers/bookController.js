@@ -185,6 +185,7 @@ const saveNote = async (req, res, next) => {
 
 /**
  * @todo - Refactor this function & frontend action to not send/use JSON string
+ * @todo - Remove userId from frontend payload as well as this method and dbEditNote
  * @description - Edits an existing note created by the user, associated with a favorite book
  * @function editNote
  * @param {Object} req - Express request object
@@ -205,6 +206,7 @@ const editNote = async (req, res, next) => {
 };
 
 /**
+ * @todo - Remove userId from frontend payload as well as this method and dbEditNote
  * @description - Deletes an existing note created by the user, associated with a favorite book
  * @function deleteNote
  * @param {Object} req - Express request object
