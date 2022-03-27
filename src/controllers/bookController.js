@@ -139,6 +139,8 @@ const removeFavoritedBook = async (req, res, next) => {
 };
 
 /**
+ * @todo - Refactor frontend to not send JSON string, refactor this function to not JSON parse
+ * @todo - The bookId is the googleBooksId, we want the frontend to send favoritedBookId
  * @description - Gets a users favorite book by id
  * @function getFavoritedBook
  * @param {Object} req - Express request object
